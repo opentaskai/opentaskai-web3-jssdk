@@ -1,0 +1,137 @@
+{
+  "name": "opentaskai-web3-jssdk",
+  "version": "0.0.1",
+  "description": "",
+  "keywords": [],
+  "main": "dist/cjs/src/index.js",
+  "module": "dist/esm/index.js",
+  "amd": "dist/amd/index.js",
+  "browser": "dist/umd/index.js",
+  "typings": "dist/types/index.d.ts",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "author": "tercel.yi <tercel.yi@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/opentaskai/opentaskai-web3-jssdk"
+  },
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint '{src,test}/**/*.ts'",
+    "lint:fix": "eslint '{src,test}/**/*.ts' --fix",
+    "prettier": "prettier --check src/**/*.ts",
+    "prettier:fix": "prettier --write src/**/*.ts",
+    "prebuild": "rimraf dist",
+    "build": "NODE_ENV=local yarn build:rollup",
+    "build:frontend": "NODE_ENV=frontend yarn build:rollup",
+    "build:backend": "NODE_ENV=backend yarn build:rollup",
+    "build:tsc": "npx tsc -p tsconfig.build.json --module commonjs",
+    "build:rollup": "node build.hook.js before && npx rollup -c rollup.config.js && node build.hook.js after",
+    "build:hook": "NODE_ENV=backend node build.hook.js",
+    "runtest": "ts-node ./tests/test.ts",
+    "test": "tsdx test"
+  },
+  "lint-staged": {
+    "{src,test}/**/*.ts": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.10",
+    "@babel/plugin-transform-runtime": "^7.17.10",
+    "@babel/preset-env": "^7.17.10",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
+    "@babel/runtime": "^7.17.9",
+    "@commitlint/cli": "^16.2.4",
+    "@commitlint/config-conventional": "^16.2.4",
+    "@open-wc/building-rollup": "^2.0.1",
+    "@rollup/plugin-babel": "^5.3.1",
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@types/jest": "^27.5.1",
+    "@types/lodash.camelcase": "^4.3.7",
+    "@types/node": "^17.0.32",
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/parser": "^5.23.0",
+    "colors": "^1.4.0",
+    "commitizen": "^4.2.4",
+    "coveralls": "^3.1.1",
+    "crypto": "^1.0.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "deepmerge": "^4.2.2",
+    "dotenv": "^16.0.1",
+    "eslint": "^8.15.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^8.0.1",
+    "jest": "^29.5.0",
+    "lint-staged": "^12.4.1",
+    "lodash.camelcase": "^4.3.0",
+    "prettier": "^2.6.2",
+    "prompt": "^1.3.0",
+    "replace-in-file": "^6.3.2",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.72.1",
+    "rollup-plugin-json": "^3.1.0",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-sourcemaps": "^0.6.3",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.31.2",
+    "semantic-release": "^19.0.2",
+    "shelljs": "^0.8.5",
+    "ts-jest": "^28.0.2",
+    "ts-node": "^10.7.0",
+    "typedoc": "^0.22.15",
+    "typescript": "^4.6.4"
+  },
+  "dependencies": {
+    "@0xsequence/multicall": "^0.41.3",
+    "@ethersproject/abi": "^5.7.0",
+    "@ethersproject/abstract-provider": "^5.7.0",
+    "@ethersproject/abstract-signer": "^5.7.0",
+    "@ethersproject/address": "^5.7.0",
+    "@ethersproject/bignumber": "^5.7.0",
+    "@ethersproject/bytes": "^5.7.0",
+    "@ethersproject/hash": "^5.7.0",
+    "@ethersproject/networks": "^5.7.1",
+    "@ethersproject/properties": "^5.7.0",
+    "@ethersproject/transactions": "^5.7.0",
+    "@gnosis.pm/safe-apps-provider": "^0.14.0",
+    "@gnosis.pm/safe-apps-sdk": "^7.8.0",
+    "@types/big.js": "^6.1.6",
+    "@types/rollup-plugin-node-builtins": "^2.1.2",
+    "@types/rollup-plugin-node-globals": "^1.4.1",
+    "@walletconnect/client": "^1.8.0",
+    "@walletconnect/qrcode-modal": "^1.8.0",
+    "big.js": "^6.2.1",
+    "bignumber.js": "^9.1.0",
+    "decimal.js-light": "^2.5.1",
+    "js-base64": "^3.7.5",
+    "jsbi": "^3.1.4",
+    "merkletreejs": "^0.3.9",
+    "sleep-ts": "^0.1.1",
+    "tiny-invariant": "^1.3.1",
+    "tiny-warning": "^1.0.3",
+    "toformat": "^2.0.0",
+    "ts-custom-error": "^3.2.2"
+  },
+  "peerDependencies": {
+    "ethers": "^5.7.1"
+  }
+}
