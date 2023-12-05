@@ -6,11 +6,12 @@ export { ERC721, getERC721 } from './erc721';
 export { ERC1155, getERC1155 } from './erc1155';
 export { ERC165, getERC165 } from './erc165';
 export { WETH9 } from './weth9';
+export { Payment } from './libs/opentaskai';
 
 import * as common from './common';
 import * as constants from './constants';
 import * as multicall from './multicall';
 import * as gnosis from './libs/gnosis';
-export { Payment } from './libs/opentaskai';
+import * as opentaskai from './libs/opentaskai';
 
-export { common, constants, multicall, gnosis };
+export { common, constants, multicall, gnosis, opentaskai };

@@ -1,11 +1,10 @@
-import { providers as multicallProviders } from "@0xsequence/multicall";
-import { BigNumber } from "ethers";
-import { ItemType, MAX_INT } from "../constants";
-import { approvedItemAmount } from "./approval";
-import { balanceOf } from "./balance";
-import type { Item } from "./types";
-import { getItemToCriteriaMap } from "./criteria";
-import { isErc1155Item, isErc20Item, isErc721Item } from "./item";
+import { providers as multicallProviders } from '@0xsequence/multicall';
+import { BigNumber } from 'ethers';
+import { ItemType, MAX_INT } from '../constants';
+import { approvedItemAmount } from './approval';
+import { balanceOf } from './balance';
+import type { Item } from './types';
+import { isErc1155Item, isErc20Item, isErc721Item } from './item';
 
 export type BalancesAndApprovals = {
   token: string;
@@ -38,19 +37,13 @@ const findBalanceAndApproval = (
   identifierOrCriteria: string
 ) => {
   const balanceAndApproval = balancesAndApprovals.find(
-    ({
-      token: checkedToken,
-      identifierOrCriteria: checkedIdentifierOrCriteria,
-    }) =>
+    ({ token: checkedToken, identifierOrCriteria: checkedIdentifierOrCriteria }) =>
       token.toLowerCase() === checkedToken.toLowerCase() &&
-      checkedIdentifierOrCriteria.toLowerCase() ===
-        identifierOrCriteria.toLowerCase()
+      checkedIdentifierOrCriteria.toLowerCase() === identifierOrCriteria.toLowerCase()
   );
 
   if (!balanceAndApproval) {
-    throw new Error(
-      "Balances and approvals didn't contain all tokens and identifiers"
-    );
+    throw new Error("Balances and approvals didn't contain all tokens and identifiers");
   }
 
   return balanceAndApproval;
@@ -72,19 +65,9 @@ export const getBalancesAndApprovals = async ({
       let approvedAmountPromise = Promise.resolve(BigNumber.from(0));
 
       if (isErc721Item(item.itemType) || isErc1155Item(item.itemType)) {
-        approvedAmountPromise = approvedItemAmount(
-          owner,
-          item,
-          operator,
-          multicallProvider
-        );
+        approvedAmountPromise = approvedItemAmount(owner, item, operator, multicallProvider);
       } else if (isErc20Item(item.itemType)) {
-        approvedAmountPromise = approvedItemAmount(
-          owner,
-          item,
-          operator,
-          multicallProvider
-        );
+        approvedAmountPromise = approvedItemAmount(owner, item, operator, multicallProvider);
       }
       // If native token, we don't need to check for approvals
       else {

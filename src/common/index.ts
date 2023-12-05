@@ -8,5 +8,3 @@ import * as format from './format';
 export { format };
 
 export { TokenUtil } from './tokenUtil';
-
-export { getMarketSourceByName } from './order';
