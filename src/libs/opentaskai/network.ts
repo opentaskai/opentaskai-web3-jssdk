@@ -4,6 +4,7 @@ export type NetworkMeta = {
   id: number;
   rpcUrl: string;
   PaymentContract: string;
+  AIOriginals: string;
 };
 
 export const getNetworkMeta = (network: number): NetworkMeta => {
@@ -13,24 +14,28 @@ export const getNetworkMeta = (network: number): NetworkMeta => {
         id: network,
         rpcUrl: CHAIN_RPC[network],
         PaymentContract: '0x9Aa6Ff7524C8bb7E78e9853713657FD678C8F3F7',
+        AIOriginals: '0xcEd30c85DECdAAa8c56233101162a2eaA2694BB2',
       };
     case 56:
       return {
         id: network,
         rpcUrl: CHAIN_RPC[network],
         PaymentContract: '',
+        AIOriginals: '',
       };
     case 97:
       return {
         id: network,
         rpcUrl: CHAIN_RPC[network],
         PaymentContract: '0xF58cD5dEAA238210d2cc1328Dd8eB27F5B2a30b2',
+        AIOriginals: '',
       };
     default:
       return {
         id: 56,
         rpcUrl: CHAIN_RPC[network],
         PaymentContract: '',
+        AIOriginals: '',
       };
   }
 };

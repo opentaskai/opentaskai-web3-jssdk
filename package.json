@@ -1,6 +1,6 @@
 {
   "name": "opentaskai-web3-jssdk",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "keywords": [],
   "main": "dist/cjs/src/index.js",
@@ -12,7 +12,7 @@
   "files": [
     "dist"
   ],
-  "author": "tercel.yi <tercel.yi@gmail.com>",
+  "author": "OpenTaskAI <team@opentaskai.com>",
   "repository": {
     "type": "git",
     "url": "https://github.com/opentaskai/opentaskai-web3-jssdk"
