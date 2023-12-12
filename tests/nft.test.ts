@@ -1,7 +1,7 @@
 import { ethers, Wallet, BigNumber } from 'ethers';
 import { chain } from './common';
 import { ZERO_ADDRESS } from '../src/constants';
-import { NFT } from '../src/libs/opentaskai';
+import { NFT, getNFT, getNetworkMeta } from '../src/libs/opentaskai';
 
 describe('NFT', () => {
   let res: any;
@@ -14,7 +14,8 @@ describe('NFT', () => {
   afterAll(async () => {});
 
   describe('#nft', () => {
-    const nft = new NFT(chain);
+    const network = getNetworkMeta(chain.chainId);
+    const nft = getNFT(chain, network.AIOriginals);
     console.log('nft address:', nft.address);
 
     it('balance', async () => {

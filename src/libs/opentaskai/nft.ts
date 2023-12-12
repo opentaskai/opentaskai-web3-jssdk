@@ -48,3 +48,10 @@ export class NFT extends ERC721 {
     return { sn, sign };
   }
 }
+
+export function getNFT(chain: Chain, address: string): NFT {
+  if (!chain.contractmaps[address.toLowerCase()]) {
+    new NFT(chain, address);
+  }
+  return chain.contractmaps[address.toLowerCase()] as NFT;
+}
