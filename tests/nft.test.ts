@@ -24,9 +24,10 @@ describe('NFT', () => {
     });
 
     it('signMintData', async () => {
+      let expired = Math.floor(Date.now() / 1000) + 300;
       nft.setSigner(chain.signer as Wallet);
       const sn = 'f1ca05d4de504bc9900462d7bc358e9d';
-      res = await nft.signMintData(sn);
+      res = await nft.signMintData(sn, expired);
       console.log('res:', res);
     });
   });

@@ -15,6 +15,7 @@ describe('Payment', () => {
   afterAll(async () => {});
 
   describe('#Payment', () => {
+    let expired = Math.floor(Date.now() / 1000) + 300;
     const payment = new Payment(chain);
     console.log('payment address:', payment.address);
 
@@ -30,7 +31,7 @@ describe('Payment', () => {
       const available = bnWithDecimals(2, 6);
       const frozen = bnWithDecimals(1, 6);
       const sn = 'f1ca05d4de504bc9900462d7bc358e9d';
-      res = await payment.signDepositAndFreezeData(to, token, available, frozen, sn);
+      res = await payment.signDepositAndFreezeData(to, token, available, frozen, sn, expired);
       console.log('res:', res);
     });
   });

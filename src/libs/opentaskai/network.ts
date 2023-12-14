@@ -13,8 +13,8 @@ export const getNetworkMeta = (network: number): NetworkMeta => {
       return {
         id: network,
         rpcUrl: CHAIN_RPC[network],
-        PaymentContract: '0x9Aa6Ff7524C8bb7E78e9853713657FD678C8F3F7',
-        AIOriginals: '0xcEd30c85DECdAAa8c56233101162a2eaA2694BB2',
+        PaymentContract: '0x93Ca7fb4BA6d6Bb025c2C09af80291495a6Bf81F',
+        AIOriginals: '0x79504C748cfCFA64e0E12aA616e57ce535EA3707',
       };
     case 56:
       return {
@@ -27,8 +27,8 @@ export const getNetworkMeta = (network: number): NetworkMeta => {
       return {
         id: network,
         rpcUrl: CHAIN_RPC[network],
-        PaymentContract: '0xF58cD5dEAA238210d2cc1328Dd8eB27F5B2a30b2',
-        AIOriginals: '',
+        PaymentContract: '0xdb188157871232D3E791B766ecFB4855086097aE',
+        AIOriginals: '0xb47768e196aDC31157027006352172610ccA4732',
       };
     default:
       return {

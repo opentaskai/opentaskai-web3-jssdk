@@ -1,4 +1,4 @@
-import { ethers, BigNumber, BytesLike, Wallet } from 'ethers';
+import { ethers, BigNumber, BigNumberish, BytesLike, Wallet } from 'ethers';
 import { NFTABI } from './abi/NFT';
 import type { NFT as NFTContract } from './typechain/NFT';
 import type { TransactionMethods, ContractMethodReturnType } from '../../common/types';
@@ -24,11 +24,12 @@ export class NFT extends ERC721 {
 
   public mint(
     _sn: BytesLike,
+    _expired: BigNumberish,
     _signature: BytesLike
   ): TransactionMethods<ContractMethodReturnType<NFTContract, 'mint'>> {
     let value = BigNumber.from(0);
     const payableOverrides = { value };
-    return getTransactionMethods(this.contract, 'mint', [_sn, _signature, payableOverrides]);
+    return getTransactionMethods(this.contract, 'mint', [_sn, _expired, _signature, payableOverrides]);
   }
 
   public async getTokens(_user: string) {
@@ -39,11 +40,11 @@ export class NFT extends ERC721 {
     this.signer = _signer;
   }
 
-  public async signMintData(sn: string): Promise<any> {
+  public async signMintData(sn: string, expired: string | number | BigNumber): Promise<any> {
     if (!this.signer) throw new Error('no signer');
     sn = ethers.utils.hexZeroPad('0x' + sn, 32);
-    const types = ['bytes32', 'address'];
-    const values = [sn, this.contract.address];
+    const types = ['bytes32', 'uint256', 'uint256', 'address'];
+    const values = [sn, expired, this.chain.chainId, this.contract.address];
     const sign = await signData(this.signer, types, values, this.domain);
     return { sn, sign };
   }
