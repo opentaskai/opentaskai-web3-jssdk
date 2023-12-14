@@ -35,11 +35,12 @@ interface NFTInterface extends ethers.utils.Interface {
     'initialize(string,string)': FunctionFragment;
     'isApprovedForAll(address,address)': FunctionFragment;
     'maxTotalSupply()': FunctionFragment;
-    'mint(bytes32,bytes)': FunctionFragment;
-    'mintTo(address)': FunctionFragment;
+    'mint(bytes32,uint256,bytes)': FunctionFragment;
+    'mintTo(address,bytes32)': FunctionFragment;
     'name()': FunctionFragment;
     'owner()': FunctionFragment;
     'ownerOf(uint256)': FunctionFragment;
+    'records(bytes32)': FunctionFragment;
     'safeTransferFrom(address,address,uint256)': FunctionFragment;
     'setApprovalForAll(address,bool)': FunctionFragment;
     'setClaimLimit(uint256)': FunctionFragment;
@@ -73,11 +74,12 @@ interface NFTInterface extends ethers.utils.Interface {
   encodeFunctionData(functionFragment: 'initialize', values: [string, string]): string;
   encodeFunctionData(functionFragment: 'isApprovedForAll', values: [string, string]): string;
   encodeFunctionData(functionFragment: 'maxTotalSupply', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'mint', values: [BytesLike, BytesLike]): string;
-  encodeFunctionData(functionFragment: 'mintTo', values: [string]): string;
+  encodeFunctionData(functionFragment: 'mint', values: [BytesLike, BigNumberish, BytesLike]): string;
+  encodeFunctionData(functionFragment: 'mintTo', values: [string, BytesLike]): string;
   encodeFunctionData(functionFragment: 'name', values?: undefined): string;
   encodeFunctionData(functionFragment: 'owner', values?: undefined): string;
   encodeFunctionData(functionFragment: 'ownerOf', values: [BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'records', values: [BytesLike]): string;
   encodeFunctionData(functionFragment: 'safeTransferFrom', values: [string, string, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setApprovalForAll', values: [string, boolean]): string;
   encodeFunctionData(functionFragment: 'setClaimLimit', values: [BigNumberish]): string;
@@ -115,6 +117,7 @@ interface NFTInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: 'name', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'ownerOf', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'records', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'safeTransferFrom', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setApprovalForAll', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setClaimLimit', data: BytesLike): Result;
@@ -137,7 +140,7 @@ interface NFTInterface extends ethers.utils.Interface {
     'Approval(address,address,uint256)': EventFragment;
     'ApprovalForAll(address,address,bool)': EventFragment;
     'ConfigChanged(address,address,address)': EventFragment;
-    'MintTo(address,uint256)': EventFragment;
+    'MintLog(address,uint256,bytes32)': EventFragment;
     'OwnerChanged(address,address,address)': EventFragment;
     'Transfer(address,address,uint256)': EventFragment;
   };
@@ -145,7 +148,7 @@ interface NFTInterface extends ethers.utils.Interface {
   getEvent(nameOrSignatureOrTopic: 'Approval'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'ApprovalForAll'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'ConfigChanged'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'MintTo'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'MintLog'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'OwnerChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'Transfer'): EventFragment;
 }
@@ -274,20 +277,27 @@ export interface NFT extends Contract {
 
     mint(
       _sn: BytesLike,
+      _expired: BigNumberish,
       _signature: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    'mint(bytes32,bytes)'(
+    'mint(bytes32,uint256,bytes)'(
       _sn: BytesLike,
+      _expired: BigNumberish,
       _signature: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    mintTo(_to: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
-
-    'mintTo(address)'(
+    mintTo(
       _to: string,
+      _sn: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    'mintTo(address,bytes32)'(
+      _to: string,
+      _sn: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -302,6 +312,10 @@ export interface NFT extends Contract {
     ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
 
     'ownerOf(uint256)'(tokenId: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
+
+    records(arg0: BytesLike, overrides?: CallOverrides): Promise<[string]>;
+
+    'records(bytes32)'(arg0: BytesLike, overrides?: CallOverrides): Promise<[string]>;
 
     'safeTransferFrom(address,address,uint256)'(
       from: string,
@@ -523,20 +537,27 @@ export interface NFT extends Contract {
 
   mint(
     _sn: BytesLike,
+    _expired: BigNumberish,
     _signature: BytesLike,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  'mint(bytes32,bytes)'(
+  'mint(bytes32,uint256,bytes)'(
     _sn: BytesLike,
+    _expired: BigNumberish,
     _signature: BytesLike,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  mintTo(_to: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
-
-  'mintTo(address)'(
+  mintTo(
     _to: string,
+    _sn: BytesLike,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  'mintTo(address,bytes32)'(
+    _to: string,
+    _sn: BytesLike,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -551,6 +572,10 @@ export interface NFT extends Contract {
   ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
   'ownerOf(uint256)'(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
+
+  records(arg0: BytesLike, overrides?: CallOverrides): Promise<string>;
+
+  'records(bytes32)'(arg0: BytesLike, overrides?: CallOverrides): Promise<string>;
 
   'safeTransferFrom(address,address,uint256)'(
     from: string,
@@ -747,13 +772,18 @@ export interface NFT extends Contract {
 
     'maxTotalSupply()'(overrides?: CallOverrides): Promise<BigNumber>;
 
-    mint(_sn: BytesLike, _signature: BytesLike, overrides?: CallOverrides): Promise<void>;
+    mint(_sn: BytesLike, _expired: BigNumberish, _signature: BytesLike, overrides?: CallOverrides): Promise<void>;
 
-    'mint(bytes32,bytes)'(_sn: BytesLike, _signature: BytesLike, overrides?: CallOverrides): Promise<void>;
+    'mint(bytes32,uint256,bytes)'(
+      _sn: BytesLike,
+      _expired: BigNumberish,
+      _signature: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
-    mintTo(_to: string, overrides?: CallOverrides): Promise<void>;
+    mintTo(_to: string, _sn: BytesLike, overrides?: CallOverrides): Promise<void>;
 
-    'mintTo(address)'(_to: string, overrides?: CallOverrides): Promise<void>;
+    'mintTo(address,bytes32)'(_to: string, _sn: BytesLike, overrides?: CallOverrides): Promise<void>;
 
     name(overrides?: CallOverrides): Promise<string>;
 
@@ -766,6 +796,10 @@ export interface NFT extends Contract {
     ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
     'ownerOf(uint256)'(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
+
+    records(arg0: BytesLike, overrides?: CallOverrides): Promise<string>;
+
+    'records(bytes32)'(arg0: BytesLike, overrides?: CallOverrides): Promise<string>;
 
     'safeTransferFrom(address,address,uint256)'(
       from: string,
@@ -879,10 +913,11 @@ export interface NFT extends Contract {
       _new: string | null
     ): TypedEventFilter<[string, string, string], { _user: string; _old: string; _new: string }>;
 
-    MintTo(
+    MintLog(
       _user: string | null,
-      _tokenId: BigNumberish | null
-    ): TypedEventFilter<[string, BigNumber], { _user: string; _tokenId: BigNumber }>;
+      _tokenId: BigNumberish | null,
+      _sn: BytesLike | null
+    ): TypedEventFilter<[string, BigNumber, string], { _user: string; _tokenId: BigNumber; _sn: string }>;
 
     OwnerChanged(
       _user: string | null,
@@ -975,19 +1010,29 @@ export interface NFT extends Contract {
 
     mint(
       _sn: BytesLike,
+      _expired: BigNumberish,
       _signature: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    'mint(bytes32,bytes)'(
+    'mint(bytes32,uint256,bytes)'(
       _sn: BytesLike,
+      _expired: BigNumberish,
       _signature: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    mintTo(_to: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
+    mintTo(
+      _to: string,
+      _sn: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
-    'mintTo(address)'(_to: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
+    'mintTo(address,bytes32)'(
+      _to: string,
+      _sn: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
     name(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1000,6 +1045,10 @@ export interface NFT extends Contract {
     ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
     'ownerOf(uint256)'(tokenId: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+
+    records(arg0: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
+
+    'records(bytes32)'(arg0: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
 
     'safeTransferFrom(address,address,uint256)'(
       from: string,
@@ -1226,20 +1275,27 @@ export interface NFT extends Contract {
 
     mint(
       _sn: BytesLike,
+      _expired: BigNumberish,
       _signature: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    'mint(bytes32,bytes)'(
+    'mint(bytes32,uint256,bytes)'(
       _sn: BytesLike,
+      _expired: BigNumberish,
       _signature: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    mintTo(_to: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<PopulatedTransaction>;
-
-    'mintTo(address)'(
+    mintTo(
       _to: string,
+      _sn: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    'mintTo(address,bytes32)'(
+      _to: string,
+      _sn: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1254,6 +1310,10 @@ export interface NFT extends Contract {
     ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     'ownerOf(uint256)'(tokenId: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    records(arg0: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    'records(bytes32)'(arg0: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     'safeTransferFrom(address,address,uint256)'(
       from: string,

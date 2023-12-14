@@ -89,8 +89,14 @@ const NFTABI = [
         name: '_tokenId',
         type: 'uint256',
       },
+      {
+        indexed: true,
+        internalType: 'bytes32',
+        name: '_sn',
+        type: 'bytes32',
+      },
     ],
-    name: 'MintTo',
+    name: 'MintLog',
     type: 'event',
   },
   {
@@ -384,6 +390,11 @@ const NFTABI = [
         type: 'bytes32',
       },
       {
+        internalType: 'uint256',
+        name: '_expired',
+        type: 'uint256',
+      },
+      {
         internalType: 'bytes',
         name: '_signature',
         type: 'bytes',
@@ -400,6 +411,11 @@ const NFTABI = [
         internalType: 'address',
         name: '_to',
         type: 'address',
+      },
+      {
+        internalType: 'bytes32',
+        name: '_sn',
+        type: 'bytes32',
       },
     ],
     name: 'mintTo',
@@ -442,6 +458,25 @@ const NFTABI = [
       },
     ],
     name: 'ownerOf',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'bytes32',
+        name: '',
+        type: 'bytes32',
+      },
+    ],
+    name: 'records',
     outputs: [
       {
         internalType: 'address',

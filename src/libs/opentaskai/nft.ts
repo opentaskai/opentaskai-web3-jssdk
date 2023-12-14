@@ -46,7 +46,7 @@ export class NFT extends ERC721 {
     const types = ['bytes32', 'uint256', 'uint256', 'address'];
     const values = [sn, expired, this.chain.chainId, this.contract.address];
     const sign = await signData(this.signer, types, values, this.domain);
-    return { sn, sign };
+    return { sn, expired, sign };
   }
 }
 

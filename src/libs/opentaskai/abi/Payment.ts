@@ -123,7 +123,7 @@ const PaymentABI = [
       {
         indexed: false,
         internalType: 'uint256',
-        name: '_available',
+        name: '_amount',
         type: 'uint256',
       },
       {
@@ -458,6 +458,11 @@ const PaymentABI = [
         type: 'bytes32',
       },
       {
+        internalType: 'uint256',
+        name: '_expired',
+        type: 'uint256',
+      },
+      {
         internalType: 'bytes',
         name: '_signature',
         type: 'bytes',
@@ -543,7 +548,7 @@ const PaymentABI = [
       },
       {
         internalType: 'uint256',
-        name: '_available',
+        name: '_amount',
         type: 'uint256',
       },
       {
@@ -555,6 +560,11 @@ const PaymentABI = [
         internalType: 'bytes32',
         name: '_sn',
         type: 'bytes32',
+      },
+      {
+        internalType: 'uint256',
+        name: '_expired',
+        type: 'uint256',
       },
       {
         internalType: 'bytes',
@@ -628,6 +638,11 @@ const PaymentABI = [
         internalType: 'bytes32',
         name: '_sn',
         type: 'bytes32',
+      },
+      {
+        internalType: 'uint256',
+        name: '_expired',
+        type: 'uint256',
       },
       {
         internalType: 'bytes',
@@ -974,6 +989,11 @@ const PaymentABI = [
         type: 'bytes32',
       },
       {
+        internalType: 'uint256',
+        name: '_expired',
+        type: 'uint256',
+      },
+      {
         internalType: 'bytes',
         name: '_signature',
         type: 'bytes',
@@ -1006,6 +1026,11 @@ const PaymentABI = [
         internalType: 'bytes32',
         name: '_sn',
         type: 'bytes32',
+      },
+      {
+        internalType: 'uint256',
+        name: '_expired',
+        type: 'uint256',
       },
       {
         internalType: 'bytes',
@@ -1126,6 +1151,11 @@ const PaymentABI = [
         internalType: 'bytes32',
         name: '_sn',
         type: 'bytes32',
+      },
+      {
+        internalType: 'uint256',
+        name: '_expired',
+        type: 'uint256',
       },
       {
         internalType: 'bytes',

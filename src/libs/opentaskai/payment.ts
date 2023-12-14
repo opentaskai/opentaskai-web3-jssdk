@@ -191,7 +191,7 @@ export class Payment extends BaseContract {
     const types = ['address', 'address', 'uint256', 'uint256', 'bytes32', 'uint256', 'uint256', 'address'];
     const values = [to, token, available, frozen, sn, expired, this.chain.chainId, this.contract.address];
     const sign = await signData(this.signer, types, values, this.domain);
-    return { to, token, available, frozen, sn, sign };
+    return { to, token, available, frozen, sn, expired, sign };
   }
 
   public async signWithdrawWithDetail(
@@ -207,7 +207,7 @@ export class Payment extends BaseContract {
     const types = ['address', 'address', 'uint256', 'uint256', 'bytes32', 'uint256', 'uint256', 'address'];
     const values = [to, token, available, frozen, sn, expired, this.chain.chainId, this.contract.address];
     const sign = await signData(this.signer, types, values, this.domain);
-    return { to, token, available, frozen, sn, sign };
+    return { to, token, available, frozen, sn, expired, sign };
   }
 
   public async signFreezeData(
@@ -221,7 +221,7 @@ export class Payment extends BaseContract {
     const types = ['address', 'uint256', 'bytes32', 'uint256', 'uint256', 'address'];
     const values = [token, amount, sn, expired, this.chain.chainId, this.contract.address];
     const sign = await signData(this.signer, types, values, this.domain);
-    return { token, amount, sn, sign };
+    return { token, amount, sn, expired, sign };
   }
 
   public async signTransferData(
@@ -266,7 +266,7 @@ export class Payment extends BaseContract {
       this.contract.address,
     ];
     const sign = await signData(this.signer, types, values, this.domain);
-    return { token, from, to, available, frozen, amount, fee, sn, sign };
+    return { token, from, to, available, frozen, amount, fee, sn, expired, sign };
   }
 
   public async signCancelData(
@@ -307,6 +307,6 @@ export class Payment extends BaseContract {
       this.contract.address,
     ];
     const sign = await signData(this.signer, types, values, this.domain);
-    return { userA, userB, sn, sign };
+    return { userA, userB, sn, expired, sign };
   }
 }
