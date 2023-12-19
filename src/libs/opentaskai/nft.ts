@@ -16,7 +16,7 @@ export class NFT extends ERC721 {
   signer: Wallet | undefined;
   public constructor(chain: Chain, contractAddress?: string) {
     const networkMeta = getNetworkMeta(chain.chainId);
-    super(chain, contractAddress ?? networkMeta.AIOriginals, NFTABI);
+    super(chain, contractAddress ?? networkMeta.AIGenesis, NFTABI);
 
     this.contract = this.contract as NFTContract;
     this.networkMeta = networkMeta;

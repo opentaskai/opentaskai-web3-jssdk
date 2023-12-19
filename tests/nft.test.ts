@@ -15,7 +15,7 @@ describe('NFT', () => {
 
   describe('#nft', () => {
     const network = getNetworkMeta(chain.chainId);
-    const nft = getNFT(chain, network.AIOriginals);
+    const nft = getNFT(chain, network.AIGenesis);
     console.log('nft address:', nft.address);
 
     it('balance', async () => {
