@@ -37,11 +37,14 @@ export class NFT extends ERC721 {
   }
 
   public async records(_sn: string) {
-    return await this.contract.records(_sn);
+    const res = await this.contract.records(_sn);
+    return res.toString();
   }
 
   public async getTokens(_user: string) {
-    return await this.contract.getTokens(_user);
+    const res = await this.contract.getTokens(_user);
+    const data = res.map((d: any) => d.toString());
+    return data;
   }
 
   public setSigner(_signer: Wallet) {
