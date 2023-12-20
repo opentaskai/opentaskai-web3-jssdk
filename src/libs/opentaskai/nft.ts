@@ -32,6 +32,10 @@ export class NFT extends ERC721 {
     return getTransactionMethods(this.contract, 'mint', [_sn, _expired, _signature, payableOverrides]);
   }
 
+  public async exists(_tokenId: BigNumberish) {
+    return await this.contract.exists(_tokenId);
+  }
+
   public async getTokens(_user: string) {
     return await this.contract.getTokens(_user);
   }

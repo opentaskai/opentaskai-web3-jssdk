@@ -23,6 +23,11 @@ describe('NFT', () => {
       console.log('res:', res);
     });
 
+    it('exists', async () => {
+      res = await nft.exists(0);
+      console.log('res:', res);
+    });
+
     it('signMintData', async () => {
       let expired = Math.floor(Date.now() / 1000) + 300;
       nft.setSigner(chain.signer as Wallet);
