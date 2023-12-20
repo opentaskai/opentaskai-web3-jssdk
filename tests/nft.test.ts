@@ -25,7 +25,12 @@ describe('NFT', () => {
 
     it('exists', async () => {
       res = await nft.exists(0);
-      console.log('res:', res);
+      console.log('exists:', res);
+    });
+
+    it('records', async () => {
+      res = await nft.records('0x00000000000000000000000000000000f1ca05d4de504bc9900462d7bc358e9d');
+      console.log('records:', res);
     });
 
     it('signMintData', async () => {

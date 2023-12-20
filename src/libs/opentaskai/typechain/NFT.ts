@@ -24,6 +24,7 @@ interface NFTInterface extends ethers.utils.Interface {
     'admin()': FunctionFragment;
     'approve(address,uint256)': FunctionFragment;
     'balanceOf(address)': FunctionFragment;
+    'changeNameAndSymbol(string,string)': FunctionFragment;
     'changeOwner(address)': FunctionFragment;
     'claimCount(address)': FunctionFragment;
     'claimLimit()': FunctionFragment;
@@ -63,6 +64,7 @@ interface NFTInterface extends ethers.utils.Interface {
   encodeFunctionData(functionFragment: 'admin', values?: undefined): string;
   encodeFunctionData(functionFragment: 'approve', values: [string, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'balanceOf', values: [string]): string;
+  encodeFunctionData(functionFragment: 'changeNameAndSymbol', values: [string, string]): string;
   encodeFunctionData(functionFragment: 'changeOwner', values: [string]): string;
   encodeFunctionData(functionFragment: 'claimCount', values: [string]): string;
   encodeFunctionData(functionFragment: 'claimLimit', values?: undefined): string;
@@ -101,6 +103,7 @@ interface NFTInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: 'admin', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'approve', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'changeNameAndSymbol', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'changeOwner', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'claimCount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'claimLimit', data: BytesLike): Result;
@@ -217,6 +220,18 @@ export interface NFT extends Contract {
 
     'balanceOf(address)'(owner: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    changeNameAndSymbol(
+      _name: string,
+      _symbol: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    'changeNameAndSymbol(string,string)'(
+      _name: string,
+      _symbol: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     changeOwner(
       _user: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -313,9 +328,9 @@ export interface NFT extends Contract {
 
     'ownerOf(uint256)'(tokenId: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
 
-    records(arg0: BytesLike, overrides?: CallOverrides): Promise<[string]>;
+    records(arg0: BytesLike, overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    'records(bytes32)'(arg0: BytesLike, overrides?: CallOverrides): Promise<[string]>;
+    'records(bytes32)'(arg0: BytesLike, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     'safeTransferFrom(address,address,uint256)'(
       from: string,
@@ -480,6 +495,18 @@ export interface NFT extends Contract {
 
   'balanceOf(address)'(owner: string, overrides?: CallOverrides): Promise<BigNumber>;
 
+  changeNameAndSymbol(
+    _name: string,
+    _symbol: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  'changeNameAndSymbol(string,string)'(
+    _name: string,
+    _symbol: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   changeOwner(_user: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
 
   'changeOwner(address)'(
@@ -573,9 +600,9 @@ export interface NFT extends Contract {
 
   'ownerOf(uint256)'(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
-  records(arg0: BytesLike, overrides?: CallOverrides): Promise<string>;
+  records(arg0: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
 
-  'records(bytes32)'(arg0: BytesLike, overrides?: CallOverrides): Promise<string>;
+  'records(bytes32)'(arg0: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
 
   'safeTransferFrom(address,address,uint256)'(
     from: string,
@@ -728,6 +755,10 @@ export interface NFT extends Contract {
 
     'balanceOf(address)'(owner: string, overrides?: CallOverrides): Promise<BigNumber>;
 
+    changeNameAndSymbol(_name: string, _symbol: string, overrides?: CallOverrides): Promise<void>;
+
+    'changeNameAndSymbol(string,string)'(_name: string, _symbol: string, overrides?: CallOverrides): Promise<void>;
+
     changeOwner(_user: string, overrides?: CallOverrides): Promise<void>;
 
     'changeOwner(address)'(_user: string, overrides?: CallOverrides): Promise<void>;
@@ -797,9 +828,9 @@ export interface NFT extends Contract {
 
     'ownerOf(uint256)'(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
-    records(arg0: BytesLike, overrides?: CallOverrides): Promise<string>;
+    records(arg0: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
 
-    'records(bytes32)'(arg0: BytesLike, overrides?: CallOverrides): Promise<string>;
+    'records(bytes32)'(arg0: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
 
     'safeTransferFrom(address,address,uint256)'(
       from: string,
@@ -952,6 +983,18 @@ export interface NFT extends Contract {
     balanceOf(owner: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     'balanceOf(address)'(owner: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    changeNameAndSymbol(
+      _name: string,
+      _symbol: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    'changeNameAndSymbol(string,string)'(
+      _name: string,
+      _symbol: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
     changeOwner(_user: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
 
@@ -1210,6 +1253,18 @@ export interface NFT extends Contract {
     balanceOf(owner: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     'balanceOf(address)'(owner: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    changeNameAndSymbol(
+      _name: string,
+      _symbol: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    'changeNameAndSymbol(string,string)'(
+      _name: string,
+      _symbol: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
 
     changeOwner(
       _user: string,

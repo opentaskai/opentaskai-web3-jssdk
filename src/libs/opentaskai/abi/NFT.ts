@@ -202,6 +202,24 @@ const NFTABI = [
   {
     inputs: [
       {
+        internalType: 'string',
+        name: '_name',
+        type: 'string',
+      },
+      {
+        internalType: 'string',
+        name: '_symbol',
+        type: 'string',
+      },
+    ],
+    name: 'changeNameAndSymbol',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
         internalType: 'address',
         name: '_user',
         type: 'address',
@@ -479,9 +497,9 @@ const NFTABI = [
     name: 'records',
     outputs: [
       {
-        internalType: 'address',
+        internalType: 'uint256',
         name: '',
-        type: 'address',
+        type: 'uint256',
       },
     ],
     stateMutability: 'view',

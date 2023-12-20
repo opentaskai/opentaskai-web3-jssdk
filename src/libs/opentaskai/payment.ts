@@ -18,7 +18,7 @@ export class Payment extends BaseContract {
   signer: Wallet | undefined;
   public constructor(chain: Chain, contractAddress?: string) {
     const networkMeta = getNetworkMeta(chain.chainId);
-    super(chain, contractAddress ?? networkMeta.PaymentContract, PaymentABI);
+    super(chain, contractAddress ?? networkMeta.Payment, PaymentABI);
 
     this.contract = this.contract as PaymentContract;
     this.networkMeta = networkMeta;

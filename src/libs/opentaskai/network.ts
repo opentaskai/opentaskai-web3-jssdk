@@ -3,7 +3,7 @@ import { CHAIN_RPC } from '../../constants';
 export type NetworkMeta = {
   id: number;
   rpcUrl: string;
-  PaymentContract: string;
+  Payment: string;
   AIGenesis: string;
 };
 
@@ -13,28 +13,28 @@ export const getNetworkMeta = (network: number): NetworkMeta => {
       return {
         id: network,
         rpcUrl: CHAIN_RPC[network],
-        PaymentContract: '0x93Ca7fb4BA6d6Bb025c2C09af80291495a6Bf81F',
-        AIGenesis: '0x79504C748cfCFA64e0E12aA616e57ce535EA3707',
+        Payment: '0x93Ca7fb4BA6d6Bb025c2C09af80291495a6Bf81F',
+        AIGenesis: '0x8519BA6087cA60bdec4B3457EB579DAcAA6375e7',
       };
     case 56:
       return {
         id: network,
         rpcUrl: CHAIN_RPC[network],
-        PaymentContract: '',
+        Payment: '',
         AIGenesis: '',
       };
     case 97:
       return {
         id: network,
         rpcUrl: CHAIN_RPC[network],
-        PaymentContract: '0xdb188157871232D3E791B766ecFB4855086097aE',
-        AIGenesis: '0xb47768e196aDC31157027006352172610ccA4732',
+        Payment: '0xdb188157871232D3E791B766ecFB4855086097aE',
+        AIGenesis: '0x442133B6814F5E6c0ee5dc7DABB6db8DE00C3577',
       };
     default:
       return {
         id: 56,
         rpcUrl: CHAIN_RPC[network],
-        PaymentContract: '',
+        Payment: '',
         AIGenesis: '',
       };
   }
