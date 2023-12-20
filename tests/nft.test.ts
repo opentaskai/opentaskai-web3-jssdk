@@ -34,7 +34,8 @@ describe('NFT', () => {
     });
 
     it('getTokens', async () => {
-      res = await nft.getTokens('0xa027d231d6852f8986409dccc58908d83a48169f');
+      const user = await chain.getAccount();
+      res = await nft.getTokens(user);
       console.log('getTokens:', res);
     });
 
