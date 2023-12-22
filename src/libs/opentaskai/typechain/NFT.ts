@@ -41,6 +41,7 @@ interface NFTInterface extends ethers.utils.Interface {
     'name()': FunctionFragment;
     'owner()': FunctionFragment;
     'ownerOf(uint256)': FunctionFragment;
+    'record2s(uint256)': FunctionFragment;
     'records(bytes32)': FunctionFragment;
     'safeTransferFrom(address,address,uint256)': FunctionFragment;
     'setApprovalForAll(address,bool)': FunctionFragment;
@@ -81,6 +82,7 @@ interface NFTInterface extends ethers.utils.Interface {
   encodeFunctionData(functionFragment: 'name', values?: undefined): string;
   encodeFunctionData(functionFragment: 'owner', values?: undefined): string;
   encodeFunctionData(functionFragment: 'ownerOf', values: [BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'record2s', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'records', values: [BytesLike]): string;
   encodeFunctionData(functionFragment: 'safeTransferFrom', values: [string, string, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setApprovalForAll', values: [string, boolean]): string;
@@ -120,6 +122,7 @@ interface NFTInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: 'name', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'ownerOf', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'record2s', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'records', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'safeTransferFrom', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setApprovalForAll', data: BytesLike): Result;
@@ -327,6 +330,10 @@ export interface NFT extends Contract {
     ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
 
     'ownerOf(uint256)'(tokenId: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
+
+    record2s(arg0: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
+
+    'record2s(uint256)'(arg0: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
 
     records(arg0: BytesLike, overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -600,6 +607,10 @@ export interface NFT extends Contract {
 
   'ownerOf(uint256)'(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
+  record2s(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
+
+  'record2s(uint256)'(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
+
   records(arg0: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
 
   'records(bytes32)'(arg0: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
@@ -827,6 +838,10 @@ export interface NFT extends Contract {
     ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
     'ownerOf(uint256)'(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
+
+    record2s(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
+
+    'record2s(uint256)'(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
     records(arg0: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1088,6 +1103,10 @@ export interface NFT extends Contract {
     ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
     'ownerOf(uint256)'(tokenId: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+
+    record2s(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+
+    'record2s(uint256)'(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
     records(arg0: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1365,6 +1384,10 @@ export interface NFT extends Contract {
     ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     'ownerOf(uint256)'(tokenId: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    record2s(arg0: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    'record2s(uint256)'(arg0: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     records(arg0: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

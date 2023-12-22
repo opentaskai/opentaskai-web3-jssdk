@@ -41,6 +41,10 @@ export class NFT extends ERC721 {
     return res.toString();
   }
 
+  public async record2s(tokenId: BigNumberish) {
+    return await this.contract.record2s(tokenId);
+  }
+
   public async getTokens(_user: string) {
     const res = await this.contract.getTokens(_user);
     const data = res.map((d: any) => d.toString());
