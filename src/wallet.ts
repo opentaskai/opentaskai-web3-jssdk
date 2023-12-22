@@ -333,12 +333,15 @@ export class ChainWallet extends BrowserChain {
   }
 
   _handleNewChain(chainId: any) {
-    let cid = Number(chainId);
+    if (typeof chainId === 'object' && chainId?.chainId) {
+      chainId = chainId.chainId;
+    }
     if (!chainId) {
       console.log('disconnect before chain:', this.chainId);
       return;
     }
 
+    let cid = Number(chainId);
     console.log('ChainWallet _handleNewChain:', this.chainId, cid);
     if (this.chainId !== cid) {
       this.clean();
