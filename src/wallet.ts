@@ -97,6 +97,12 @@ export class ChainWallet extends BrowserChain {
         console.log('ChainWallet No Provider!');
         return Promise.reject('ChainWallet No Provider!');
       }
+    } else if (to === 'okx') {
+      this.connectOKX();
+      if (!this.chainInstalled) {
+        console.log('ChainWallet No Provider!');
+        return Promise.reject('ChainWallet No Provider!');
+      }
     }
 
     if (this.chainInstalled) {
@@ -184,6 +190,25 @@ export class ChainWallet extends BrowserChain {
         this._handleChainStatus(false);
       }
     } else {
+      this._chainConnected();
+    }
+  }
+
+  connectOKX() {
+    if (typeof window === 'undefined') return;
+    if (!(window as any).okexchain) {
+      console.log('not found OKX');
+      if (this.tryCount < 1) {
+        setTimeout(() => {
+          this.connectOKX();
+          this.tryCount++;
+        }, 2000);
+      } else {
+        console.log('not found OKX, timeout');
+        this._handleChainStatus(false);
+      }
+    } else {
+      this.ethereum = (window as any).okexchain;
       this._chainConnected();
     }
   }
