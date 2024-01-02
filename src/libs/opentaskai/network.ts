@@ -21,7 +21,7 @@ export const getNetworkMeta = (network: number): NetworkMeta => {
         id: network,
         rpcUrl: CHAIN_RPC[network],
         Payment: '',
-        AIGenesis: '',
+        AIGenesis: '0xD9C2Ff6DBD04A9Ed4d3EFdeD68Bd3766D16de26C',
       };
     case 97:
       return {
