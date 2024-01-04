@@ -1,6 +1,6 @@
 {
   "name": "opentaskai-web3-jssdk",
-  "version": "0.0.18",
+  "version": "0.0.20",
   "description": "",
   "keywords": [],
   "main": "dist/cjs/src/index.js",

@@ -89,6 +89,12 @@ export class ChainWallet extends BrowserChain {
         console.log('ChainWallet No Provider!');
         return Promise.reject('ChainWallet No Provider!');
       }
+    } else if (to === 'tp') {
+      this.connectTokenPocket();
+      if (!this.chainInstalled) {
+        console.log('ChainWallet No Provider!');
+        return Promise.reject('ChainWallet No Provider!');
+      }
     } else if (to === 'w') {
       return Promise.resolve(this.connectWalletConnect());
     } else if (to === 'o') {
@@ -194,6 +200,25 @@ export class ChainWallet extends BrowserChain {
     }
   }
 
+  connectTokenPocket() {
+    if (typeof window === 'undefined') return;
+    if (!(window as any).tokenpocket) {
+      console.log('not found TokenPocket');
+      if (this.tryCount < 1) {
+        setTimeout(() => {
+          console.log('try to connect TokenPocket');
+          this.connectTokenPocket();
+          this.tryCount++;
+        }, 2000);
+      } else {
+        console.log('not found TokenPocket, timeout');
+        this._handleChainStatus(false);
+      }
+    } else {
+      this._chainConnected((window as any).tokenpocket.ethereum);
+    }
+  }
+
   connectOKX() {
     if (typeof window === 'undefined') return;
     if (!(window as any).okexchain) {
@@ -227,7 +252,7 @@ export class ChainWallet extends BrowserChain {
         this._handleChainStatus(false);
       }
     } else {
-      this._chainConnected();
+      this._chainConnected((window as any).BinanceChain);
     }
   }
 
@@ -321,11 +346,15 @@ export class ChainWallet extends BrowserChain {
     return false;
   }
 
-  _chainConnected() {
+  _chainConnected(ethereum?: any) {
     if (typeof window === 'undefined') return;
     console.log('chain connected userAgent:', navigator.userAgent);
     this.chainInstalled = true;
-    this.ethereum = (window as any).ethereum;
+    if (ethereum) {
+      this.ethereum = ethereum;
+    } else {
+      this.ethereum = (window as any).ethereum;
+    }
     // window.ethereum.autoRefreshOnNetworkChange = false
     if (navigator.userAgent.indexOf('Mobile') == -1) {
       console.log('chain connected on event');
