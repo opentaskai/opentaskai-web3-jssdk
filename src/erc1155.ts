@@ -160,13 +160,6 @@ export class ERC1155 extends BaseContract {
   public async isApprovedForAll(owner: string, operator: string): Promise<boolean> {
     return await this.contract.isApprovedForAll(owner, operator);
   }
-
-  async getEvent(fromBlock: string | number, toBlock: string | number = 'latest') {
-    const filter: any = {
-      address: this.address,
-    };
-    return await this.contract.queryFilter(filter, fromBlock, toBlock);
-  }
 }
 
 export function getERC1155(chain: Chain, address: string): ERC1155 {

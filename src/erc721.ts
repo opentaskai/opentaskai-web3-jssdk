@@ -119,13 +119,6 @@ export class ERC721 extends BaseContract {
   public isApprovedForAllEncodeFunction(owner: string, operator: string) {
     return this.contract.interface.encodeFunctionData('isApprovedForAll', [owner, operator]);
   }
-
-  async getEvent(fromBlock: string | number, toBlock: string | number = 'latest') {
-    const filter: any = {
-      address: this.address,
-    };
-    return await this.contract.queryFilter(filter, fromBlock, toBlock);
-  }
 }
 
 export function getERC721(chain: Chain, address: string): ERC721 {

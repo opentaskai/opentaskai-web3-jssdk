@@ -118,13 +118,6 @@ export class WETH9 extends BaseContract {
     return this.contract.interface.encodeFunctionData('allowance', [owner, spender]);
   }
 
-  async getEvent(fromBlock: string | number, toBlock: string | number = 'latest') {
-    const filter: any = {
-      address: this.address,
-    };
-    return await this.contract.queryFilter(filter, fromBlock, toBlock);
-  }
-
   public callDeposit(value: string): TypedCallParameter {
     const transactiton = this.deposit(value);
     const data = transactiton.encodeFunction();

@@ -68,4 +68,11 @@ export class BaseContract {
   public _getSigner(addressOrIndex?: string | number): Signer {
     return this.chain.getSigner(addressOrIndex);
   }
+
+  async getEvent(fromBlock: string | number, toBlock: string | number = 'latest') {
+    const filter: any = {
+      address: this.address,
+    };
+    return await this.contract.queryFilter(filter, fromBlock, toBlock);
+  }
 }

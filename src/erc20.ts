@@ -125,13 +125,6 @@ export class ERC20 extends BaseContract {
   public allowanceEncodeFunction(owner: string, spender: string) {
     return this.contract.interface.encodeFunctionData('allowance', [owner, spender]);
   }
-
-  async getEvent(fromBlock: string | number, toBlock: string | number = 'latest') {
-    const filter: any = {
-      address: this.address,
-    };
-    return await this.contract.queryFilter(filter, fromBlock, toBlock);
-  }
 }
 
 export function getERC20(chain: Chain, address: string): ERC20 {
