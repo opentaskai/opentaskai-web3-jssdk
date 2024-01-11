@@ -24,14 +24,14 @@ describe('Payment', () => {
       console.log('res:', res);
     });
 
-    it('signDepositAndFreezeData', async () => {
+    it('signDeposit', async () => {
       payment.setSigner(chain.signer as Wallet);
-      const to = payment.address;
+      const to = 'f1ca05d4de504bc9900462d7bc358e91';
       const token = chain.getTokenAddr('USDT');
       const available = bnWithDecimals(2, 6);
       const frozen = bnWithDecimals(1, 6);
       const sn = 'f1ca05d4de504bc9900462d7bc358e9d';
-      res = await payment.signDepositAndFreezeData(to, token, available, frozen, sn, expired);
+      res = await payment.signDepositData(to, token, available, frozen, sn, expired);
       console.log('res:', res);
     });
   });

@@ -5,15 +5,34 @@ const PaymentABI = [
       {
         indexed: true,
         internalType: 'bytes32',
+        name: '_account',
+        type: 'bytes32',
+      },
+      {
+        indexed: true,
+        internalType: 'address',
+        name: '_operator',
+        type: 'address',
+      },
+    ],
+    name: 'BindLog',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'bytes32',
         name: '_sn',
         type: 'bytes32',
       },
       {
         components: [
           {
-            internalType: 'address',
-            name: 'user',
-            type: 'address',
+            internalType: 'bytes32',
+            name: 'account',
+            type: 'bytes32',
           },
           {
             internalType: 'address',
@@ -39,9 +58,9 @@ const PaymentABI = [
       {
         components: [
           {
-            internalType: 'address',
-            name: 'user',
-            type: 'address',
+            internalType: 'bytes32',
+            name: 'account',
+            type: 'bytes32',
           },
           {
             internalType: 'address',
@@ -63,6 +82,12 @@ const PaymentABI = [
         internalType: 'struct TradeData',
         name: '_userB',
         type: 'tuple',
+      },
+      {
+        indexed: false,
+        internalType: 'address',
+        name: '_operator',
+        type: 'address',
       },
     ],
     name: 'CancelLog',
@@ -110,15 +135,9 @@ const PaymentABI = [
       },
       {
         indexed: false,
-        internalType: 'address',
-        name: '_from',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'address',
+        internalType: 'bytes32',
         name: '_to',
-        type: 'address',
+        type: 'bytes32',
       },
       {
         indexed: false,
@@ -132,35 +151,10 @@ const PaymentABI = [
         name: '_frozen',
         type: 'uint256',
       },
-    ],
-    name: 'DepositDetailLog',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: '_user',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: '_token',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'uint256',
-        name: '_amount',
-        type: 'uint256',
-      },
       {
         indexed: false,
         internalType: 'address',
-        name: '_from',
+        name: '_operator',
         type: 'address',
       },
     ],
@@ -178,6 +172,12 @@ const PaymentABI = [
       },
       {
         indexed: true,
+        internalType: 'bytes32',
+        name: '_account',
+        type: 'bytes32',
+      },
+      {
+        indexed: true,
         internalType: 'address',
         name: '_token',
         type: 'address',
@@ -191,7 +191,7 @@ const PaymentABI = [
       {
         indexed: false,
         internalType: 'address',
-        name: '_user',
+        name: '_operator',
         type: 'address',
       },
     ],
@@ -229,7 +229,7 @@ const PaymentABI = [
       {
         indexed: true,
         internalType: 'bytes32',
-        name: '_sn',
+        name: '_to',
         type: 'bytes32',
       },
       {
@@ -239,10 +239,41 @@ const PaymentABI = [
         type: 'address',
       },
       {
+        indexed: true,
+        internalType: 'uint256',
+        name: '_amount',
+        type: 'uint256',
+      },
+      {
         indexed: false,
         internalType: 'address',
-        name: '_from',
+        name: '_operator',
         type: 'address',
+      },
+    ],
+    name: 'SimpleDepositLog',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: '_token',
+        type: 'address',
+      },
+      {
+        indexed: true,
+        internalType: 'uint256',
+        name: '_amount',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'bytes32',
+        name: '_from',
+        type: 'bytes32',
       },
       {
         indexed: false,
@@ -252,30 +283,99 @@ const PaymentABI = [
       },
       {
         indexed: false,
-        internalType: 'uint256',
-        name: '_available',
-        type: 'uint256',
+        internalType: 'address',
+        name: '_operator',
+        type: 'address',
+      },
+    ],
+    name: 'SimpleWithdrawLog',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'bytes32',
+        name: '_sn',
+        type: 'bytes32',
+      },
+      {
+        components: [
+          {
+            internalType: 'address',
+            name: 'token',
+            type: 'address',
+          },
+          {
+            internalType: 'bytes32',
+            name: 'from',
+            type: 'bytes32',
+          },
+          {
+            internalType: 'bytes32',
+            name: 'to',
+            type: 'bytes32',
+          },
+          {
+            internalType: 'uint256',
+            name: 'available',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'frozen',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'amount',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'fee',
+            type: 'uint256',
+          },
+        ],
+        indexed: false,
+        internalType: 'struct TransferData',
+        name: '_deal',
+        type: 'tuple',
       },
       {
         indexed: false,
-        internalType: 'uint256',
-        name: '_frozen',
-        type: 'uint256',
+        internalType: 'address',
+        name: '_out',
+        type: 'address',
       },
       {
         indexed: false,
-        internalType: 'uint256',
-        name: '_amount',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: '_fee',
-        type: 'uint256',
+        internalType: 'address',
+        name: '_operator',
+        type: 'address',
       },
     ],
     name: 'TransferLog',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'bytes32',
+        name: '_account',
+        type: 'bytes32',
+      },
+      {
+        indexed: true,
+        internalType: 'address',
+        name: '_operator',
+        type: 'address',
+      },
+    ],
+    name: 'UnbindLog',
     type: 'event',
   },
   {
@@ -289,6 +389,12 @@ const PaymentABI = [
       },
       {
         indexed: true,
+        internalType: 'bytes32',
+        name: '_account',
+        type: 'bytes32',
+      },
+      {
+        indexed: true,
         internalType: 'address',
         name: '_token',
         type: 'address',
@@ -302,7 +408,7 @@ const PaymentABI = [
       {
         indexed: false,
         internalType: 'address',
-        name: '_user',
+        name: '_operator',
         type: 'address',
       },
     ],
@@ -326,9 +432,9 @@ const PaymentABI = [
       },
       {
         indexed: false,
-        internalType: 'address',
+        internalType: 'bytes32',
         name: '_from',
-        type: 'address',
+        type: 'bytes32',
       },
       {
         indexed: false,
@@ -348,35 +454,10 @@ const PaymentABI = [
         name: '_frozen',
         type: 'uint256',
       },
-    ],
-    name: 'WithdrawDetailLog',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: '_user',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: '_token',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'uint256',
-        name: '_amount',
-        type: 'uint256',
-      },
       {
         indexed: false,
         internalType: 'address',
-        name: '_from',
+        name: '_operator',
         type: 'address',
       },
     ],
@@ -397,13 +478,54 @@ const PaymentABI = [
     type: 'function',
   },
   {
+    inputs: [],
+    name: 'autoBindEnabled',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'bytes32',
+        name: '_account',
+        type: 'bytes32',
+      },
+      {
+        internalType: 'bytes32',
+        name: '_sn',
+        type: 'bytes32',
+      },
+      {
+        internalType: 'uint256',
+        name: '_expired',
+        type: 'uint256',
+      },
+      {
+        internalType: 'bytes',
+        name: '_signature',
+        type: 'bytes',
+      },
+    ],
+    name: 'bindAccount',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
     inputs: [
       {
         components: [
           {
-            internalType: 'address',
-            name: 'user',
-            type: 'address',
+            internalType: 'bytes32',
+            name: 'account',
+            type: 'bytes32',
           },
           {
             internalType: 'address',
@@ -428,9 +550,9 @@ const PaymentABI = [
       {
         components: [
           {
-            internalType: 'address',
-            name: 'user',
-            type: 'address',
+            internalType: 'bytes32',
+            name: 'account',
+            type: 'bytes32',
           },
           {
             internalType: 'address',
@@ -508,38 +630,9 @@ const PaymentABI = [
   {
     inputs: [
       {
-        internalType: 'address',
+        internalType: 'bytes32',
         name: '_to',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_token',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '_amount',
-        type: 'uint256',
-      },
-    ],
-    name: 'deposit',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
-    stateMutability: 'payable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_to',
-        type: 'address',
+        type: 'bytes32',
       },
       {
         internalType: 'address',
@@ -572,7 +665,7 @@ const PaymentABI = [
         type: 'bytes',
       },
     ],
-    name: 'depositAndFreeze',
+    name: 'deposit',
     outputs: [
       {
         internalType: 'bool',
@@ -623,7 +716,49 @@ const PaymentABI = [
     type: 'function',
   },
   {
+    inputs: [],
+    name: 'feeToAccount',
+    outputs: [
+      {
+        internalType: 'bytes32',
+        name: '',
+        type: 'bytes32',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
     inputs: [
+      {
+        internalType: 'bytes32',
+        name: '_account',
+        type: 'bytes32',
+      },
+      {
+        internalType: 'address',
+        name: '_wallet',
+        type: 'address',
+      },
+    ],
+    name: 'foundAccount',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'bytes32',
+        name: '_account',
+        type: 'bytes32',
+      },
       {
         internalType: 'address',
         name: '_token',
@@ -683,9 +818,9 @@ const PaymentABI = [
   {
     inputs: [
       {
-        internalType: 'address[]',
-        name: '_users',
-        type: 'address[]',
+        internalType: 'bytes32[]',
+        name: '_accounts',
+        type: 'bytes32[]',
       },
       {
         internalType: 'address[]',
@@ -698,9 +833,9 @@ const PaymentABI = [
       {
         components: [
           {
-            internalType: 'address',
-            name: 'user',
-            type: 'address',
+            internalType: 'bytes32',
+            name: 'account',
+            type: 'bytes32',
           },
           {
             internalType: 'address',
@@ -748,9 +883,9 @@ const PaymentABI = [
   {
     inputs: [
       {
-        internalType: 'address',
-        name: '_user',
-        type: 'address',
+        internalType: 'bytes32',
+        name: '_account',
+        type: 'bytes32',
       },
       {
         internalType: 'address[]',
@@ -787,10 +922,42 @@ const PaymentABI = [
     type: 'function',
   },
   {
+    inputs: [
+      {
+        internalType: 'bytes32',
+        name: '_account',
+        type: 'bytes32',
+      },
+    ],
+    name: 'getWalletsOfAccount',
+    outputs: [
+      {
+        internalType: 'address[]',
+        name: '',
+        type: 'address[]',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
     inputs: [],
     name: 'initialize',
     outputs: [],
     stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'maxWalletCount',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
     type: 'function',
   },
   {
@@ -846,6 +1013,19 @@ const PaymentABI = [
         type: 'bool',
       },
     ],
+    name: 'setAutoBindEnabled',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'bool',
+        name: '_enabled',
+        type: 'bool',
+      },
+    ],
     name: 'setEnabled',
     outputs: [],
     stateMutability: 'nonpayable',
@@ -855,11 +1035,24 @@ const PaymentABI = [
     inputs: [
       {
         internalType: 'address',
-        name: '_user',
+        name: '_feeTo',
         type: 'address',
       },
     ],
     name: 'setFeeTo',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_value',
+        type: 'uint256',
+      },
+    ],
+    name: 'setMaxWalletCount',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -881,7 +1074,7 @@ const PaymentABI = [
     inputs: [
       {
         internalType: 'address',
-        name: '_user',
+        name: '_signer',
         type: 'address',
       },
     ],
@@ -937,9 +1130,61 @@ const PaymentABI = [
   {
     inputs: [
       {
+        internalType: 'bytes32',
+        name: '_to',
+        type: 'bytes32',
+      },
+      {
+        internalType: 'address',
+        name: '_token',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: '_amount',
+        type: 'uint256',
+      },
+    ],
+    name: 'simpleDeposit',
+    outputs: [
+      {
         internalType: 'bool',
-        name: '_isWithdraw',
+        name: '',
         type: 'bool',
+      },
+    ],
+    stateMutability: 'payable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_to',
+        type: 'address',
+      },
+      {
+        internalType: 'address',
+        name: '_token',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: '_amount',
+        type: 'uint256',
+      },
+    ],
+    name: 'simpleWithdraw',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_out',
+        type: 'address',
       },
       {
         components: [
@@ -949,14 +1194,14 @@ const PaymentABI = [
             type: 'address',
           },
           {
-            internalType: 'address',
+            internalType: 'bytes32',
             name: 'from',
-            type: 'address',
+            type: 'bytes32',
           },
           {
-            internalType: 'address',
+            internalType: 'bytes32',
             name: 'to',
-            type: 'address',
+            type: 'bytes32',
           },
           {
             internalType: 'uint256',
@@ -1011,7 +1256,19 @@ const PaymentABI = [
     type: 'function',
   },
   {
+    inputs: [],
+    name: 'unbindAccount',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
     inputs: [
+      {
+        internalType: 'bytes32',
+        name: '_account',
+        type: 'bytes32',
+      },
       {
         internalType: 'address',
         name: '_token',
@@ -1052,9 +1309,9 @@ const PaymentABI = [
   {
     inputs: [
       {
-        internalType: 'address',
+        internalType: 'bytes32',
         name: '',
-        type: 'address',
+        type: 'bytes32',
       },
       {
         internalType: 'address',
@@ -1106,23 +1363,43 @@ const PaymentABI = [
     inputs: [
       {
         internalType: 'address',
-        name: '_to',
+        name: '',
         type: 'address',
       },
+    ],
+    name: 'walletToAccount',
+    outputs: [
       {
-        internalType: 'address',
-        name: '_token',
-        type: 'address',
+        internalType: 'bytes32',
+        name: '',
+        type: 'bytes32',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'bytes32',
+        name: '',
+        type: 'bytes32',
       },
       {
         internalType: 'uint256',
-        name: '_amount',
+        name: '',
         type: 'uint256',
       },
     ],
-    name: 'withdraw',
-    outputs: [],
-    stateMutability: 'nonpayable',
+    name: 'walletsOfAccount',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
     type: 'function',
   },
   {
@@ -1163,7 +1440,7 @@ const PaymentABI = [
         type: 'bytes',
       },
     ],
-    name: 'withdrawWithDetail',
+    name: 'withdraw',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',

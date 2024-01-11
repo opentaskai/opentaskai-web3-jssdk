@@ -13,7 +13,7 @@ export const getNetworkMeta = (network: number): NetworkMeta => {
       return {
         id: network,
         rpcUrl: CHAIN_RPC[network],
-        Payment: '0x93Ca7fb4BA6d6Bb025c2C09af80291495a6Bf81F',
+        Payment: '0x539b12d3780C2A8527b6Bda0FE916A1c9698eB8B',
         AIGenesis: '0x026a12D91d0de4C45468E4cC36Ef91609b3B5a6F',
       };
     case 56:
@@ -27,7 +27,7 @@ export const getNetworkMeta = (network: number): NetworkMeta => {
       return {
         id: network,
         rpcUrl: CHAIN_RPC[network],
-        Payment: '0xdb188157871232D3E791B766ecFB4855086097aE',
+        Payment: '0x3858705aeCB29DcD597C40d17712f4E708396e84',
         AIGenesis: '0x3A2A916EbF8F84D3993B6D7d45b25C9acA8E2AA5',
       };
     default:

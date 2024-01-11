@@ -13,7 +13,7 @@ export type AssetAccount = {
 };
 
 export type DetailedAccount = {
-  user: string;
+  account: string;
   token: string;
   available: string;
   frozen: string;
@@ -30,7 +30,7 @@ export type TransferData = {
 };
 
 export type TradeData = {
-  user: string;
+  account: string;
   token: string;
   amount: BigNumberish;
   fee: BigNumberish;

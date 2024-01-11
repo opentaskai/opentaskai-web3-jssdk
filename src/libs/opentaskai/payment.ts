@@ -4,11 +4,12 @@ import type { Payment as PaymentContract } from './typechain/Payment';
 import type { TransactionMethods, ContractMethodReturnType } from '../../common/types';
 import { getTransactionMethods } from '../../common/transaction';
 import { signData } from '../../common/signature-helper';
+import { hexToBytes32, bytes32ToHex } from '../../common/format';
 import { TypedDataDomain } from '@ethersproject/abstract-signer';
 import { Chain } from '../../chain';
 import { BaseContract } from '../../contract';
 import { ZERO_ADDRESS } from '../../constants';
-import type { Account, AssetAccount, DetailedAccount, TransferData, TradeData } from './types';
+import type { TransferData, TradeData } from './types';
 
 import { getNetworkMeta, NetworkMeta } from './network';
 
@@ -24,25 +25,42 @@ export class Payment extends BaseContract {
     this.networkMeta = networkMeta;
   }
 
-  public depositAndFreeze(
+  public async bindAccount(
+    _account: string,
+    _sn: string,
+    _expired: BigNumberish,
+    _signature: BytesLike
+  ): Promise<TransactionMethods<ContractMethodReturnType<PaymentContract, 'bindAccount'>>> {
+    let value = BigNumber.from(0);
+    const payableOverrides = { value };
+    return getTransactionMethods(this.contract, 'bindAccount', [_account, _sn, _expired, _signature, payableOverrides]);
+  }
+
+  public async unbindAccount(): Promise<
+    TransactionMethods<ContractMethodReturnType<PaymentContract, 'unbindAccount'>>
+  > {
+    return getTransactionMethods(this.contract, 'unbindAccount', []);
+  }
+
+  public deposit(
     _to: string,
     _token: string,
-    _available: BigNumberish,
+    _amount: BigNumberish,
     _frozen: BigNumberish,
     _sn: BytesLike,
     _expired: BigNumberish,
     _signature: BytesLike
-  ): TransactionMethods<ContractMethodReturnType<PaymentContract, 'depositAndFreeze'>> {
+  ): TransactionMethods<ContractMethodReturnType<PaymentContract, 'deposit'>> {
     let value = BigNumber.from(0);
     if (_token === ZERO_ADDRESS) {
-      value = value.add(_available).add(_frozen);
+      value = BigNumber.from(_amount);
     }
 
     const payableOverrides = { value };
-    return getTransactionMethods(this.contract, 'depositAndFreeze', [
+    return getTransactionMethods(this.contract, 'deposit', [
       _to,
       _token,
-      _available,
+      _amount,
       _frozen,
       _sn,
       _expired,
@@ -51,7 +69,7 @@ export class Payment extends BaseContract {
     ]);
   }
 
-  public withdrawWithDetail(
+  public withdraw(
     _to: string,
     _token: string,
     _available: BigNumberish,
@@ -59,10 +77,10 @@ export class Payment extends BaseContract {
     _sn: BytesLike,
     _expired: BigNumberish,
     _signature: BytesLike
-  ): TransactionMethods<ContractMethodReturnType<PaymentContract, 'withdrawWithDetail'>> {
+  ): TransactionMethods<ContractMethodReturnType<PaymentContract, 'withdraw'>> {
     let value = BigNumber.from(0);
     const payableOverrides = { value };
-    return getTransactionMethods(this.contract, 'withdrawWithDetail', [
+    return getTransactionMethods(this.contract, 'withdraw', [
       _to,
       _token,
       _available,
@@ -75,6 +93,7 @@ export class Payment extends BaseContract {
   }
 
   public freeze(
+    _account: string,
     _token: string,
     _amount: BigNumberish,
     _sn: BytesLike,
@@ -84,6 +103,7 @@ export class Payment extends BaseContract {
     let value = BigNumber.from(0);
     const payableOverrides = { value };
     return getTransactionMethods(this.contract, 'freeze', [
+      _account,
       _token,
       _amount,
       _sn,
@@ -94,6 +114,7 @@ export class Payment extends BaseContract {
   }
 
   public unfreeze(
+    _account: string,
     _token: string,
     _amount: BigNumberish,
     _sn: BytesLike,
@@ -103,6 +124,7 @@ export class Payment extends BaseContract {
     let value = BigNumber.from(0);
     const payableOverrides = { value };
     return getTransactionMethods(this.contract, 'unfreeze', [
+      _account,
       _token,
       _amount,
       _sn,
@@ -113,7 +135,7 @@ export class Payment extends BaseContract {
   }
 
   public transfer(
-    _isWithdraw: boolean,
+    _out: string,
     _deal: TransferData,
     _sn: BytesLike,
     _expired: BigNumberish,
@@ -121,14 +143,7 @@ export class Payment extends BaseContract {
   ): TransactionMethods<ContractMethodReturnType<PaymentContract, 'transfer'>> {
     let value = BigNumber.from(0);
     const payableOverrides = { value };
-    return getTransactionMethods(this.contract, 'transfer', [
-      _isWithdraw,
-      _deal,
-      _sn,
-      _expired,
-      _signature,
-      payableOverrides,
-    ]);
+    return getTransactionMethods(this.contract, 'transfer', [_out, _deal, _sn, _expired, _signature, payableOverrides]);
   }
 
   public cancel(
@@ -155,30 +170,65 @@ export class Payment extends BaseContract {
   }
 
   public async getRecord(_sn: string) {
+    _sn = hexToBytes32(_sn);
     return await this.contract.records(_sn);
   }
 
   public async getRecords(_sns: string[]) {
-    return await this.contract.getRecords(_sns);
+    const sns = _sns.map((d) => hexToBytes32(d));
+    return await this.contract.getRecords(sns);
   }
 
-  public async getUserAccount(_user: string, _token: string) {
-    return await this.contract.userAccounts(_user, _token);
+  public async getUserAccount(_account: string, _token: string) {
+    _account = hexToBytes32(_account);
+    return await this.contract.userAccounts(_account, _token);
   }
 
-  public async getUserAssets(_user: string, _tokens: string[]) {
-    return await this.contract.getUserAssets(_user, _tokens);
+  public async getUserAssets(_account: string, _tokens: string[]) {
+    _account = hexToBytes32(_account);
+    return await this.contract.getUserAssets(_account, _tokens);
   }
 
-  public async getMultiUserAssets(_users: string[], _tokens: string[]) {
-    return await this.contract.getUserAssets(_users, _tokens);
+  public async getMultiUserAssets(_accounts: string[], _tokens: string[]) {
+    const accounts = _accounts.map((d) => hexToBytes32(d));
+    return await this.contract.getUserAssets(accounts, _tokens);
+  }
+
+  public async getWalletsOfAccount(_account: string) {
+    _account = hexToBytes32(_account);
+    return await this.contract.getWalletsOfAccount(_account);
+  }
+
+  public async foundAccount(_account: string, _wallet?: string) {
+    _account = hexToBytes32(_account);
+    if (!_wallet) _wallet = await this.chain.getAccount();
+    return await this.contract.foundAccount(_account, _wallet);
+  }
+
+  public async walletToAccount(_wallet?: string) {
+    if (!_wallet) _wallet = await this.chain.getAccount();
+    return await this.contract.walletToAccount(_wallet);
+  }
+
+  public async getFeeTo() {
+    return await this.contract.feeTo();
   }
 
   public setSigner(_signer: Wallet) {
     this.signer = _signer;
   }
 
-  public async signDepositAndFreezeData(
+  public async signBindAccountData(account: string, sn: string, expired: string | number | BigNumber): Promise<any> {
+    if (!this.signer) throw new Error('no signer');
+    account = hexToBytes32(account);
+    sn = hexToBytes32(sn);
+    const types = ['bytes32', 'bytes32', 'uint256', 'uint256', 'address'];
+    const values = [account, sn, expired, this.chain.chainId, this.contract.address];
+    const sign = await signData(this.signer, types, values, this.domain);
+    return { account, sn, expired, sign };
+  }
+
+  public async signDepositData(
     to: string,
     token: string,
     available: string | number | BigNumber,
@@ -187,14 +237,15 @@ export class Payment extends BaseContract {
     expired: string | number | BigNumber
   ): Promise<any> {
     if (!this.signer) throw new Error('no signer');
-    sn = ethers.utils.hexZeroPad('0x' + sn, 32);
-    const types = ['address', 'address', 'uint256', 'uint256', 'bytes32', 'uint256', 'uint256', 'address'];
+    to = hexToBytes32(to);
+    sn = hexToBytes32(sn);
+    const types = ['bytes32', 'address', 'uint256', 'uint256', 'bytes32', 'uint256', 'uint256', 'address'];
     const values = [to, token, available, frozen, sn, expired, this.chain.chainId, this.contract.address];
     const sign = await signData(this.signer, types, values, this.domain);
     return { to, token, available, frozen, sn, expired, sign };
   }
 
-  public async signWithdrawWithDetail(
+  public async signWithdraw(
     to: string,
     token: string,
     available: string | number | BigNumber,
@@ -203,7 +254,7 @@ export class Payment extends BaseContract {
     expired: string | number | BigNumber
   ): Promise<any> {
     if (!this.signer) throw new Error('no signer');
-    sn = ethers.utils.hexZeroPad('0x' + sn, 32);
+    sn = hexToBytes32(sn);
     const types = ['address', 'address', 'uint256', 'uint256', 'bytes32', 'uint256', 'uint256', 'address'];
     const values = [to, token, available, frozen, sn, expired, this.chain.chainId, this.contract.address];
     const sign = await signData(this.signer, types, values, this.domain);
@@ -211,20 +262,23 @@ export class Payment extends BaseContract {
   }
 
   public async signFreezeData(
+    account: string,
     token: string,
     amount: string | number | BigNumber,
     sn: string,
     expired: string | number | BigNumber
   ): Promise<any> {
     if (!this.signer) throw new Error('no signer');
-    sn = ethers.utils.hexZeroPad('0x' + sn, 32);
-    const types = ['address', 'uint256', 'bytes32', 'uint256', 'uint256', 'address'];
-    const values = [token, amount, sn, expired, this.chain.chainId, this.contract.address];
+    sn = hexToBytes32(sn);
+    account = hexToBytes32(account);
+    const types = ['bytes32', 'address', 'uint256', 'bytes32', 'uint256', 'uint256', 'address'];
+    const values = [account, token, amount, sn, expired, this.chain.chainId, this.contract.address];
     const sign = await signData(this.signer, types, values, this.domain);
-    return { token, amount, sn, expired, sign };
+    return { account, token, amount, sn, expired, sign };
   }
 
   public async signTransferData(
+    out: string,
     token: string,
     from: string,
     to: string,
@@ -237,12 +291,15 @@ export class Payment extends BaseContract {
     domain?: TypedDataDomain
   ): Promise<any> {
     if (!this.signer) throw new Error('no signer');
+    sn = hexToBytes32(sn);
+    from = hexToBytes32(from);
+    to = hexToBytes32(to);
 
-    sn = ethers.utils.hexZeroPad('0x' + sn, 32);
     const types = [
       'address',
       'address',
-      'address',
+      'bytes32',
+      'bytes32',
       'uint256',
       'uint256',
       'uint256',
@@ -253,6 +310,7 @@ export class Payment extends BaseContract {
       'address',
     ];
     const values = [
+      out,
       token,
       from,
       to,
@@ -266,7 +324,7 @@ export class Payment extends BaseContract {
       this.contract.address,
     ];
     const sign = await signData(this.signer, types, values, this.domain);
-    return { token, from, to, available, frozen, amount, fee, sn, expired, sign };
+    return { out, token, from, to, available, frozen, amount, fee, sn, expired, sign };
   }
 
   public async signCancelData(
@@ -276,15 +334,17 @@ export class Payment extends BaseContract {
     expired: string | number | BigNumber
   ): Promise<any> {
     if (!this.signer) throw new Error('no signer');
+    sn = hexToBytes32(sn);
+    userA.account = hexToBytes32(userA.account);
+    userB.account = hexToBytes32(userB.account);
 
-    sn = ethers.utils.hexZeroPad('0x' + sn, 32);
     const types = [
       'bytes32',
-      'address',
+      'bytes32',
       'address',
       'uint256',
       'uint256',
-      'address',
+      'bytes32',
       'address',
       'uint256',
       'uint256',
@@ -294,11 +354,11 @@ export class Payment extends BaseContract {
     ];
     const values = [
       sn,
-      userA.user,
+      userA.account,
       userA.token,
       userA.amount,
       userA.fee,
-      userB.user,
+      userB.account,
       userB.token,
       userB.amount,
       userB.fee,
