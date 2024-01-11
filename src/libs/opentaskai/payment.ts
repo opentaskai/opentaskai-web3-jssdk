@@ -231,7 +231,7 @@ export class Payment extends BaseContract {
   public async signDepositData(
     to: string,
     token: string,
-    available: string | number | BigNumber,
+    amount: string | number | BigNumber,
     frozen: string | number | BigNumber,
     sn: string,
     expired: string | number | BigNumber
@@ -240,9 +240,9 @@ export class Payment extends BaseContract {
     to = hexToBytes32(to);
     sn = hexToBytes32(sn);
     const types = ['bytes32', 'address', 'uint256', 'uint256', 'bytes32', 'uint256', 'uint256', 'address'];
-    const values = [to, token, available, frozen, sn, expired, this.chain.chainId, this.contract.address];
+    const values = [to, token, amount, frozen, sn, expired, this.chain.chainId, this.contract.address];
     const sign = await signData(this.signer, types, values, this.domain);
-    return { to, token, available, frozen, sn, expired, sign };
+    return { to, token, amount, frozen, sn, expired, sign };
   }
 
   public async signWithdraw(
