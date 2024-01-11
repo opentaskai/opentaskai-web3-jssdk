@@ -21,12 +21,12 @@ export type DetailedAccount = {
 
 export type TransferData = {
   token: string;
-  from: string;
-  to: string;
-  available: BigNumberish;
-  frozen: BigNumberish;
-  amount: BigNumberish;
-  fee: BigNumberish;
+  from: string; // source account
+  to: string; // destination account
+  available: BigNumberish; // from source account
+  frozen: BigNumberish; // from source account
+  amount: BigNumberish; //to destination account
+  fee: BigNumberish; // to feeTo account
 };
 
 export type TradeData = {

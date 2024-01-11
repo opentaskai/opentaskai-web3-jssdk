@@ -43,7 +43,7 @@ export class Payment extends BaseContract {
   }
 
   public deposit(
-    _to: string,
+    _to: string, // destination account
     _token: string,
     _amount: BigNumberish,
     _frozen: BigNumberish,
@@ -70,7 +70,7 @@ export class Payment extends BaseContract {
   }
 
   public withdraw(
-    _to: string,
+    _to: string, // destination wallet
     _token: string,
     _available: BigNumberish,
     _frozen: BigNumberish,
@@ -135,7 +135,7 @@ export class Payment extends BaseContract {
   }
 
   public transfer(
-    _out: string,
+    _out: string, // destination wallet, no withdrawals are allowed if the address is zero.
     _deal: TransferData,
     _sn: BytesLike,
     _expired: BigNumberish,
@@ -229,7 +229,7 @@ export class Payment extends BaseContract {
   }
 
   public async signDepositData(
-    to: string,
+    to: string, // destination account
     token: string,
     amount: string | number | BigNumber,
     frozen: string | number | BigNumber,
@@ -246,7 +246,7 @@ export class Payment extends BaseContract {
   }
 
   public async signWithdraw(
-    to: string,
+    to: string, // destination wallet
     token: string,
     available: string | number | BigNumber,
     frozen: string | number | BigNumber,
@@ -278,10 +278,10 @@ export class Payment extends BaseContract {
   }
 
   public async signTransferData(
-    out: string,
+    out: string, // destination wallet, no withdrawals are allowed if the address is zero.
     token: string,
-    from: string,
-    to: string,
+    from: string, // source account
+    to: string, // destination account
     available: string | number | BigNumber,
     frozen: string | number | BigNumber,
     amount: string | number | BigNumber,
