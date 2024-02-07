@@ -218,9 +218,9 @@ export class LocalChain extends Chain {
 export class BrowserChain extends Chain {}
 
 let Chains: Record<number, LocalChain> = {};
-export function getChain(chainId: number): LocalChain {
-  if (!Chains[chainId]) {
-    Chains[chainId] = new LocalChain(chainId);
+export function getChain(chainId: number, rpc: string = ''): LocalChain {
+  if (!Chains[chainId] || rpc) {
+    Chains[chainId] = new LocalChain(chainId, rpc);
   }
   return Chains[chainId];
 }
