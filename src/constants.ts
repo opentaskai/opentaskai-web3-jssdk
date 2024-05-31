@@ -7,7 +7,7 @@ const CHAIN_RPC: any = {
   1: 'https://rpc.ankr.com/eth',
   5: 'https://rpc.ankr.com/eth_goerli',
   56: 'https://bsc-dataseed.binance.org',
-  97: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
+  97: 'https://bsc-testnet.publicnode.com',
   137: 'https://polygon-rpc.com',
   421611: 'https://rinkeby.arbitrum.io/rpc',
   42161: 'https://arb1.arbitrum.io/rpc',
