@@ -9,12 +9,12 @@ export type NetworkMeta = {
 
 export const getNetworkMeta = (network: number): NetworkMeta => {
   switch (network) {
-    case 5:
+    case 11155111:
       return {
         id: network,
         rpcUrl: CHAIN_RPC[network],
-        Payment: '0x539b12d3780C2A8527b6Bda0FE916A1c9698eB8B',
-        AIGenesis: '0x026a12D91d0de4C45468E4cC36Ef91609b3B5a6F',
+        Payment: '0xF58cD5dEAA238210d2cc1328Dd8eB27F5B2a30b2',
+        AIGenesis: '0x3323a6EcAA42f3aF97a6656eC80c1610E357c2FE',
       };
     case 56:
       return {

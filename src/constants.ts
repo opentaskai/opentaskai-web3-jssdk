@@ -5,7 +5,7 @@ const CONF: any = _CONF ? (_CONF as any).default : {};
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 const CHAIN_RPC: any = {
   1: 'https://rpc.ankr.com/eth',
-  5: 'https://rpc.ankr.com/eth_goerli',
+  11155111: 'https://ethereum-sepolia-rpc.publicnode.com',
   56: 'https://bsc-dataseed.binance.org',
   97: 'https://bsc-testnet.publicnode.com',
   137: 'https://polygon-rpc.com',
@@ -20,9 +20,7 @@ if (CONF?.CHAIN_RPC) Object.assign(CHAIN_RPC, CONF.CHAIN_RPC);
 
 export const CHAIN_BROWSER: any = {
   1: 'https://etherscan.io',
-  4: 'https://rinkeby.etherscan.io',
-  5: 'https://goerli.etherscan.io',
-  42: 'https://kovan.etherscan.io',
+  11155111: 'https://sepolia.etherscan.io',
   56: 'https://bscscan.com',
   97: 'https://testnet.bscscan.com',
   128: 'https://hecoinfo.com',
@@ -35,9 +33,7 @@ export const CHAIN_BROWSER: any = {
 
 export const CHAIN_NAME: any = {
   1: 'Ethereum Chain Mainnet',
-  4: 'Ethereum Chain Rinkeby',
-  5: 'Ethereum Chain Goerli',
-  42: 'Ethereum Chain Kovan',
+  11155111: 'Ethereum Chain Sepolia',
   56: 'Binance Smart Chain Mainnet',
   97: 'Binance Smart Chain Testnet',
   128: 'HECO Chain Mainnet',
@@ -51,9 +47,7 @@ export const CHAIN_NAME: any = {
 export const CHAIN_SYMBOL: any = {
   WToken: {
     1: 'WETH',
-    4: 'WETH',
-    5: 'WETH',
-    42: 'WETH',
+    11155111: 'WETH',
     56: 'WBNB',
     97: 'WBNB',
     128: 'WHT',
@@ -65,9 +59,7 @@ export const CHAIN_SYMBOL: any = {
   },
   ZeroToken: {
     1: 'ETH',
-    4: 'ETH',
-    5: 'ETH',
-    42: 'ETH',
+    11155111: 'ETH',
     56: 'BNB',
     97: 'BNB',
     128: 'HT',
@@ -92,15 +84,10 @@ export const CHAIN_TOKENS: any = {
     USDC: '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d',
     BUSD: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
   },
-  4: {
-    WETH: '0xc778417E063141139Fce010982780140Aa0cD5Ab',
-    USDT: '0x357eB57DBF2110819A9574C86BD3e4bcf34261BC',
-    USDC: '0x6d5Ad445e956796F31c4562E7Cc011948ECa9055',
-  },
-  5: {
-    WETH: '0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6',
-    USDT: '0x52A7e9EFD5939bc910Bc220D9D144453bf6c543d',
-    USDC: '0x85c82A1EF3688A704bF20d700Aae4509dbE244b0',
+  11155111: {
+    WETH: '0x49777f12663f2040913414b895f2a7a599c56fd0',
+    USDT: '0xbA27D2ff0eD0e3914C129606DE2f8cD25c659b5d',
+    USDC: '0xeDFa3e28953bA25173baF11160D4aD435ec002b5',
   },
   97: {
     WETH: '0x7FcCaDD3e6A3F80e194CaDf13FeDF36B9BBbe98F',
@@ -130,8 +117,7 @@ export const CHAIN_TOKENS: any = {
 
 export const CHAIN_CONTRACTS: any = {
   1: {},
-  4: {},
-  5: {},
+  11155111: {},
   56: {},
   97: {},
 };
