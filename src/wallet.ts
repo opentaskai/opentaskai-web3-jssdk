@@ -131,6 +131,12 @@ export class ChainWallet extends BrowserChain {
       if (this.connector && this.connector.connected) {
         console.log('disconnect this.connector');
         this.connector.killSession();
+        await this.ethereum.request({
+          "method": "wallet_revokePermissions",
+          "params": [{
+            "eth_accounts": {}
+          }]
+        });
       }
       this.chainInstalled = false;
       this._handleNewAccounts([]);
