@@ -127,17 +127,20 @@ export class ChainWallet extends BrowserChain {
 
   async disconnect() {
     try {
-      // web3M.web3modal.clearCachedProvider();
       if (this.connector && this.connector.connected) {
-        console.log('disconnect this.connector');
         this.connector.killSession();
+      }
+      if (this.ethereum) {
         await this.ethereum.request({
-          "method": "wallet_revokePermissions",
-          "params": [{
-            "eth_accounts": {}
-          }]
+          method: 'wallet_revokePermissions',
+          params: [
+            {
+              eth_accounts: {},
+            },
+          ],
         });
       }
+
       this.chainInstalled = false;
       this._handleNewAccounts([]);
       return true;
