@@ -42,18 +42,6 @@ export class Payment extends BaseContract {
     return getTransactionMethods(this.contract, 'unbindAccount', []);
   }
 
-  public simpleDeposit(_to: string, _token: string, _amount: BigNumberish) {
-    _to = hexToBytes32(_to);
-    let value = BigNumber.from(0);
-    if (_token === ZERO_ADDRESS) {
-      value = BigNumber.from(_amount);
-    }
-
-    const payableOverrides = { value };
-    console.log('simpleDeposit params::::', _to, _token, _amount, payableOverrides);
-    return getTransactionMethods(this.contract, 'simpleDeposit', [_to, _token, _amount, payableOverrides]);
-  }
-
   public deposit(
     _to: string, // destination account
     _token: string,
