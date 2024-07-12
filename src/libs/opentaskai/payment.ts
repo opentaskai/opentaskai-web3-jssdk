@@ -277,6 +277,24 @@ export class Payment extends BaseContract {
     return { account, token, amount, sn, expired, sign };
   }
 
+  public async signUnFreezeData (
+    account: string,
+    token: string,
+    amount: (string | number | BigNumber),
+    fee: (string | number | BigNumber),
+    sn: string,
+    expired: (string | number | BigNumber),
+    domain?: TypedDataDomain
+  ): Promise<any> {
+    if (!this.signer) throw new Error('no signer');
+    sn = hexToBytes32(sn);
+    account = hexToBytes32(account);
+    const types = ['bytes32', 'address', 'uint256', 'uint256', 'bytes32', 'uint256', 'uint256', 'address'];
+    const values = [account, token, amount, fee, sn, expired, this.chain.chainId, this.contract.address];
+    const sign = await signData(this.signer, types, values, this.domain);
+    return {account, token, amount, fee, sn, expired, sign};
+    }
+
   public async signTransferData(
     out: string, // destination wallet, no withdrawals are allowed if the address is zero.
     token: string,
@@ -286,6 +304,7 @@ export class Payment extends BaseContract {
     frozen: string | number | BigNumber,
     amount: string | number | BigNumber,
     fee: string | number | BigNumber,
+    paid: (string | number | BigNumber),
     sn: string,
     expired: string | number | BigNumber,
     domain?: TypedDataDomain
@@ -304,6 +323,7 @@ export class Payment extends BaseContract {
       'uint256',
       'uint256',
       'uint256',
+      'uint256',
       'bytes32',
       'uint256',
       'uint256',
@@ -318,13 +338,14 @@ export class Payment extends BaseContract {
       frozen,
       amount,
       fee,
+      paid,
       sn,
       expired,
       this.chain.chainId,
       this.contract.address,
     ];
     const sign = await signData(this.signer, types, values, this.domain);
-    return { out, token, from, to, available, frozen, amount, fee, sn, expired, sign };
+    return { out, token, from, to, available, frozen, amount, fee, paid, sn, expired, sign };
   }
 
   public async signCancelData(
