@@ -27,6 +27,7 @@ export type TransferData = {
   frozen: BigNumberish; // from source account
   amount: BigNumberish; //to destination account
   fee: BigNumberish; // to feeTo account
+  paid: BigNumberish; // paid amount
 };
 
 export type TradeData = {

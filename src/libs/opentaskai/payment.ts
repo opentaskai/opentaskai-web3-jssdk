@@ -117,6 +117,7 @@ export class Payment extends BaseContract {
     _account: string,
     _token: string,
     _amount: BigNumberish,
+    _fee: BigNumberish,
     _sn: BytesLike,
     _expired: BigNumberish,
     _signature: BytesLike
@@ -127,6 +128,7 @@ export class Payment extends BaseContract {
       _account,
       _token,
       _amount,
+      _fee,
       _sn,
       _expired,
       _signature,
