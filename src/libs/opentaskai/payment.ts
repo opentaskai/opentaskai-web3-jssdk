@@ -42,6 +42,18 @@ export class Payment extends BaseContract {
     return getTransactionMethods(this.contract, 'unbindAccount', []);
   }
 
+  public async replaceAccount(
+    _account: string,
+    _wallet: string,
+    _sn: string,
+    _expired: BigNumberish,
+    _signature: BytesLike
+  ): Promise<TransactionMethods<ContractMethodReturnType<PaymentContract, 'replaceAccount'>>> {
+    let value = BigNumber.from(0);
+    const payableOverrides = { value };
+    return getTransactionMethods(this.contract, 'replaceAccount', [_account, _wallet, _sn, _expired, _signature, payableOverrides]);
+  }
+
   public deposit(
     _to: string, // destination account
     _token: string,
@@ -228,6 +240,22 @@ export class Payment extends BaseContract {
     const values = [account, sn, expired, this.chain.chainId, this.contract.address];
     const sign = await signData(this.signer, types, values, this.domain);
     return { account, sn, expired, sign };
+  }
+
+  public async signReplaceAccountData (
+      account: string,
+      wallet: string,
+      sn: string,
+      expired: (string | number | BigNumber),
+      domain?: TypedDataDomain
+  ): Promise<any> {
+      if (!this.signer) throw new Error('no signer');
+      account = hexToBytes32(account);
+      sn = hexToBytes32(sn);
+      const types = ['bytes32', 'address', 'bytes32', 'uint256', 'uint256', 'address'];
+      const values = [account, wallet, sn, expired, this.chain.chainId, this.contract.address];
+      const sign = await signData(this.signer, types, values, this.domain);;
+      return { account, wallet, sn, expired, sign };
   }
 
   public async signDepositData(

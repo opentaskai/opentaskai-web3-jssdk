@@ -6,7 +6,7 @@ export { ERC721, getERC721 } from './erc721';
 export { ERC1155, getERC1155 } from './erc1155';
 export { ERC165, getERC165 } from './erc165';
 export { WETH9 } from './weth9';
-export { Payment, NFT, getNFT } from './libs/opentaskai';
+export { Payment, NFT, getNFT, ERC20ClaimToken, getERC20ClaimToken } from './libs/opentaskai';
 
 import * as common from './common';
 import * as constants from './constants';

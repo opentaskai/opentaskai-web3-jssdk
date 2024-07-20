@@ -8,8 +8,8 @@ import { BaseContract } from './contract';
 
 export class ERC20 extends BaseContract {
   maxAllowanced: string = BigNumber.from(10).pow(64).toString();
-  public constructor(chain: Chain, contractAddress: string) {
-    super(chain, contractAddress, ERC20ABI);
+  public constructor(chain: Chain, contractAddress: string, abi: any=ERC20ABI) {
+    super(chain, contractAddress, abi);
 
     this.contract = this.contract as ERC20Contract;
   }

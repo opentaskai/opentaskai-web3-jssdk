@@ -14,63 +14,70 @@ import {
   Overrides,
   PayableOverrides,
   CallOverrides,
-} from 'ethers';
-import { BytesLike } from '@ethersproject/bytes';
-import { Listener, Provider } from '@ethersproject/providers';
-import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi';
-import { TypedEventFilter, TypedEvent, TypedListener } from './commons';
+} from "ethers";
+import { BytesLike } from "@ethersproject/bytes";
+import { Listener, Provider } from "@ethersproject/providers";
+import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
+import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
 
 interface PaymentInterface extends ethers.utils.Interface {
   functions: {
-    'admin()': FunctionFragment;
-    'autoBindEnabled()': FunctionFragment;
-    'bindAccount(bytes32,bytes32,uint256,bytes)': FunctionFragment;
-    'cancel(tuple,tuple,bytes32,uint256,bytes)': FunctionFragment;
-    'changeOwner(address)': FunctionFragment;
-    'config()': FunctionFragment;
-    'deposit(bytes32,address,uint256,uint256,bytes32,uint256,bytes)': FunctionFragment;
-    'dev()': FunctionFragment;
-    'enabled()': FunctionFragment;
-    'feeTo()': FunctionFragment;
-    'feeToAccount()': FunctionFragment;
-    'foundAccount(bytes32,address)': FunctionFragment;
-    'freeze(bytes32,address,uint256,bytes32,uint256,bytes)': FunctionFragment;
-    'getBalance(address)': FunctionFragment;
-    'getMultiUserAssets(bytes32[],address[])': FunctionFragment;
-    'getRecords(bytes32[])': FunctionFragment;
-    'getUserAssets(bytes32,address[])': FunctionFragment;
-    'getWalletsOfAccount(bytes32)': FunctionFragment;
-    'initialize()': FunctionFragment;
-    'maxWalletCount()': FunctionFragment;
-    'nosnEnabled()': FunctionFragment;
-    'owner()': FunctionFragment;
-    'records(bytes32)': FunctionFragment;
-    'setAutoBindEnabled(bool)': FunctionFragment;
-    'setEnabled(bool)': FunctionFragment;
-    'setFeeTo(address)': FunctionFragment;
-    'setMaxWalletCount(uint256)': FunctionFragment;
-    'setNoSnEnabled(bool)': FunctionFragment;
-    'setSigner(address)': FunctionFragment;
-    'setSignerContract(address,bytes32)': FunctionFragment;
-    'setupConfig(address)': FunctionFragment;
-    'signer()': FunctionFragment;
-    'simpleDeposit(bytes32,address,uint256)': FunctionFragment;
-    'simpleWithdraw(address,address,uint256)': FunctionFragment;
-    'transfer(address,tuple,bytes32,uint256,bytes)': FunctionFragment;
-    'unbindAccount()': FunctionFragment;
-    'unfreeze(bytes32,address,uint256,bytes32,uint256,bytes)': FunctionFragment;
-    'userAccounts(bytes32,address)': FunctionFragment;
-    'verifyMessage(bytes32,bytes)': FunctionFragment;
-    'walletToAccount(address)': FunctionFragment;
-    'walletsOfAccount(bytes32,uint256)': FunctionFragment;
-    'withdraw(address,address,uint256,uint256,bytes32,uint256,bytes)': FunctionFragment;
+    "admin()": FunctionFragment;
+    "autoBindEnabled()": FunctionFragment;
+    "bindAccount(bytes32,bytes32,uint256,bytes)": FunctionFragment;
+    "cancel(tuple,tuple,bytes32,uint256,bytes)": FunctionFragment;
+    "changeOwner(address)": FunctionFragment;
+    "config()": FunctionFragment;
+    "deposit(bytes32,address,uint256,uint256,bytes32,uint256,bytes)": FunctionFragment;
+    "dev()": FunctionFragment;
+    "enabled()": FunctionFragment;
+    "feeTo()": FunctionFragment;
+    "feeToAccount()": FunctionFragment;
+    "foundAccount(bytes32,address)": FunctionFragment;
+    "freeze(bytes32,address,uint256,bytes32,uint256,bytes)": FunctionFragment;
+    "getBalance(address)": FunctionFragment;
+    "getMultiUserAssets(bytes32[],address[])": FunctionFragment;
+    "getRecords(bytes32[])": FunctionFragment;
+    "getUserAssets(bytes32,address[])": FunctionFragment;
+    "getWalletsOfAccount(bytes32)": FunctionFragment;
+    "initialize()": FunctionFragment;
+    "maxWalletCount()": FunctionFragment;
+    "nosnEnabled()": FunctionFragment;
+    "owner()": FunctionFragment;
+    "records(bytes32)": FunctionFragment;
+    "replaceAccount(bytes32,address,bytes32,uint256,bytes)": FunctionFragment;
+    "setAutoBindEnabled(bool)": FunctionFragment;
+    "setEnabled(bool)": FunctionFragment;
+    "setFeeTo(address)": FunctionFragment;
+    "setMaxWalletCount(uint256)": FunctionFragment;
+    "setNoSnEnabled(bool)": FunctionFragment;
+    "setSigner(address)": FunctionFragment;
+    "setSignerContract(address,bytes32)": FunctionFragment;
+    "setupConfig(address)": FunctionFragment;
+    "signer()": FunctionFragment;
+    "simpleDeposit(bytes32,address,uint256)": FunctionFragment;
+    "simpleWithdraw(address,address,uint256)": FunctionFragment;
+    "transfer(address,tuple,bytes32,uint256,bytes)": FunctionFragment;
+    "unbindAccount()": FunctionFragment;
+    "unfreeze(bytes32,address,uint256,uint256,bytes32,uint256,bytes)": FunctionFragment;
+    "userAccounts(bytes32,address)": FunctionFragment;
+    "verifyMessage(bytes32,bytes)": FunctionFragment;
+    "walletToAccount(address)": FunctionFragment;
+    "walletsOfAccount(bytes32,uint256)": FunctionFragment;
+    "withdraw(address,address,uint256,uint256,bytes32,uint256,bytes)": FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: 'admin', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'autoBindEnabled', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'bindAccount', values: [BytesLike, BytesLike, BigNumberish, BytesLike]): string;
+  encodeFunctionData(functionFragment: "admin", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: 'cancel',
+    functionFragment: "autoBindEnabled",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "bindAccount",
+    values: [BytesLike, BytesLike, BigNumberish, BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "cancel",
     values: [
       {
         account: BytesLike;
@@ -89,44 +96,108 @@ interface PaymentInterface extends ethers.utils.Interface {
       BytesLike
     ]
   ): string;
-  encodeFunctionData(functionFragment: 'changeOwner', values: [string]): string;
-  encodeFunctionData(functionFragment: 'config', values?: undefined): string;
+  encodeFunctionData(functionFragment: "changeOwner", values: [string]): string;
+  encodeFunctionData(functionFragment: "config", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: 'deposit',
-    values: [BytesLike, string, BigNumberish, BigNumberish, BytesLike, BigNumberish, BytesLike]
+    functionFragment: "deposit",
+    values: [
+      BytesLike,
+      string,
+      BigNumberish,
+      BigNumberish,
+      BytesLike,
+      BigNumberish,
+      BytesLike
+    ]
   ): string;
-  encodeFunctionData(functionFragment: 'dev', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'enabled', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'feeTo', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'feeToAccount', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'foundAccount', values: [BytesLike, string]): string;
+  encodeFunctionData(functionFragment: "dev", values?: undefined): string;
+  encodeFunctionData(functionFragment: "enabled", values?: undefined): string;
+  encodeFunctionData(functionFragment: "feeTo", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: 'freeze',
-    values: [BytesLike, string, BigNumberish, BytesLike, BigNumberish, BytesLike]
+    functionFragment: "feeToAccount",
+    values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: 'getBalance', values: [string]): string;
-  encodeFunctionData(functionFragment: 'getMultiUserAssets', values: [BytesLike[], string[]]): string;
-  encodeFunctionData(functionFragment: 'getRecords', values: [BytesLike[]]): string;
-  encodeFunctionData(functionFragment: 'getUserAssets', values: [BytesLike, string[]]): string;
-  encodeFunctionData(functionFragment: 'getWalletsOfAccount', values: [BytesLike]): string;
-  encodeFunctionData(functionFragment: 'initialize', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'maxWalletCount', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'nosnEnabled', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'owner', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'records', values: [BytesLike]): string;
-  encodeFunctionData(functionFragment: 'setAutoBindEnabled', values: [boolean]): string;
-  encodeFunctionData(functionFragment: 'setEnabled', values: [boolean]): string;
-  encodeFunctionData(functionFragment: 'setFeeTo', values: [string]): string;
-  encodeFunctionData(functionFragment: 'setMaxWalletCount', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'setNoSnEnabled', values: [boolean]): string;
-  encodeFunctionData(functionFragment: 'setSigner', values: [string]): string;
-  encodeFunctionData(functionFragment: 'setSignerContract', values: [string, BytesLike]): string;
-  encodeFunctionData(functionFragment: 'setupConfig', values: [string]): string;
-  encodeFunctionData(functionFragment: 'signer', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'simpleDeposit', values: [BytesLike, string, BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'simpleWithdraw', values: [string, string, BigNumberish]): string;
   encodeFunctionData(
-    functionFragment: 'transfer',
+    functionFragment: "foundAccount",
+    values: [BytesLike, string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "freeze",
+    values: [
+      BytesLike,
+      string,
+      BigNumberish,
+      BytesLike,
+      BigNumberish,
+      BytesLike
+    ]
+  ): string;
+  encodeFunctionData(functionFragment: "getBalance", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "getMultiUserAssets",
+    values: [BytesLike[], string[]]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getRecords",
+    values: [BytesLike[]]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getUserAssets",
+    values: [BytesLike, string[]]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getWalletsOfAccount",
+    values: [BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "initialize",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "maxWalletCount",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "nosnEnabled",
+    values?: undefined
+  ): string;
+  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
+  encodeFunctionData(functionFragment: "records", values: [BytesLike]): string;
+  encodeFunctionData(
+    functionFragment: "replaceAccount",
+    values: [BytesLike, string, BytesLike, BigNumberish, BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setAutoBindEnabled",
+    values: [boolean]
+  ): string;
+  encodeFunctionData(functionFragment: "setEnabled", values: [boolean]): string;
+  encodeFunctionData(functionFragment: "setFeeTo", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "setMaxWalletCount",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setNoSnEnabled",
+    values: [boolean]
+  ): string;
+  encodeFunctionData(functionFragment: "setSigner", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "setSignerContract",
+    values: [string, BytesLike]
+  ): string;
+  encodeFunctionData(functionFragment: "setupConfig", values: [string]): string;
+  encodeFunctionData(functionFragment: "signer", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "simpleDeposit",
+    values: [BytesLike, string, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "simpleWithdraw",
+    values: [string, string, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "transfer",
     values: [
       string,
       {
@@ -137,96 +208,198 @@ interface PaymentInterface extends ethers.utils.Interface {
         frozen: BigNumberish;
         amount: BigNumberish;
         fee: BigNumberish;
+        paid: BigNumberish;
       },
       BytesLike,
       BigNumberish,
       BytesLike
     ]
   ): string;
-  encodeFunctionData(functionFragment: 'unbindAccount', values?: undefined): string;
   encodeFunctionData(
-    functionFragment: 'unfreeze',
-    values: [BytesLike, string, BigNumberish, BytesLike, BigNumberish, BytesLike]
+    functionFragment: "unbindAccount",
+    values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: 'userAccounts', values: [BytesLike, string]): string;
-  encodeFunctionData(functionFragment: 'verifyMessage', values: [BytesLike, BytesLike]): string;
-  encodeFunctionData(functionFragment: 'walletToAccount', values: [string]): string;
-  encodeFunctionData(functionFragment: 'walletsOfAccount', values: [BytesLike, BigNumberish]): string;
   encodeFunctionData(
-    functionFragment: 'withdraw',
-    values: [string, string, BigNumberish, BigNumberish, BytesLike, BigNumberish, BytesLike]
+    functionFragment: "unfreeze",
+    values: [
+      BytesLike,
+      string,
+      BigNumberish,
+      BigNumberish,
+      BytesLike,
+      BigNumberish,
+      BytesLike
+    ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "userAccounts",
+    values: [BytesLike, string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "verifyMessage",
+    values: [BytesLike, BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "walletToAccount",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "walletsOfAccount",
+    values: [BytesLike, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "withdraw",
+    values: [
+      string,
+      string,
+      BigNumberish,
+      BigNumberish,
+      BytesLike,
+      BigNumberish,
+      BytesLike
+    ]
   ): string;
 
-  decodeFunctionResult(functionFragment: 'admin', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'autoBindEnabled', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'bindAccount', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'cancel', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'changeOwner', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'config', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'deposit', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'dev', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'enabled', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'feeTo', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'feeToAccount', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'foundAccount', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'freeze', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getBalance', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getMultiUserAssets', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getRecords', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getUserAssets', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getWalletsOfAccount', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'initialize', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'maxWalletCount', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'nosnEnabled', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'records', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setAutoBindEnabled', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setEnabled', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setFeeTo', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setMaxWalletCount', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setNoSnEnabled', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setSigner', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setSignerContract', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setupConfig', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'signer', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'simpleDeposit', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'simpleWithdraw', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'transfer', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'unbindAccount', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'unfreeze', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'userAccounts', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'verifyMessage', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'walletToAccount', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'walletsOfAccount', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'withdraw', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "admin", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "autoBindEnabled",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "bindAccount",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "cancel", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "changeOwner",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "config", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "dev", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "enabled", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "feeTo", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "feeToAccount",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "foundAccount",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "freeze", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getBalance", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getMultiUserAssets",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "getRecords", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getUserAssets",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getWalletsOfAccount",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "maxWalletCount",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "nosnEnabled",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "records", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "replaceAccount",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "setAutoBindEnabled",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "setEnabled", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "setFeeTo", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "setMaxWalletCount",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "setNoSnEnabled",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "setSigner", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "setSignerContract",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "setupConfig",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "signer", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "simpleDeposit",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "simpleWithdraw",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "transfer", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "unbindAccount",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "unfreeze", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "userAccounts",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "verifyMessage",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "walletToAccount",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "walletsOfAccount",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
 
   events: {
-    'BindLog(bytes32,address)': EventFragment;
-    'CancelLog(bytes32,tuple,tuple,address)': EventFragment;
-    'ConfigChanged(address,address,address)': EventFragment;
-    'DepositLog(bytes32,address,bytes32,uint256,uint256,address)': EventFragment;
-    'FreezeLog(bytes32,bytes32,address,uint256,address)': EventFragment;
-    'OwnerChanged(address,address,address)': EventFragment;
-    'SimpleDepositLog(bytes32,address,uint256,address)': EventFragment;
-    'SimpleWithdrawLog(address,uint256,bytes32,address,address)': EventFragment;
-    'TransferLog(bytes32,tuple,address,address)': EventFragment;
-    'UnbindLog(bytes32,address)': EventFragment;
-    'UnfreezeLog(bytes32,bytes32,address,uint256,address)': EventFragment;
-    'WithdrawLog(bytes32,address,bytes32,address,uint256,uint256,address)': EventFragment;
+    "BindLog(bytes32,address,address)": EventFragment;
+    "CancelLog(bytes32,tuple,tuple,address)": EventFragment;
+    "ConfigChanged(address,address,address)": EventFragment;
+    "DepositLog(bytes32,address,bytes32,uint256,uint256,address)": EventFragment;
+    "FreezeLog(bytes32,bytes32,address,uint256,address)": EventFragment;
+    "OwnerChanged(address,address,address)": EventFragment;
+    "SimpleDepositLog(bytes32,address,uint256,address)": EventFragment;
+    "SimpleWithdrawLog(address,uint256,bytes32,address,address)": EventFragment;
+    "TransferLog(bytes32,tuple,address,address)": EventFragment;
+    "UnbindLog(bytes32,address,address)": EventFragment;
+    "UnfreezeLog(bytes32,bytes32,address,uint256,uint256,address)": EventFragment;
+    "WithdrawLog(bytes32,address,bytes32,address,uint256,uint256,address)": EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: 'BindLog'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'CancelLog'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'ConfigChanged'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'DepositLog'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'FreezeLog'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'OwnerChanged'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'SimpleDepositLog'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'SimpleWithdrawLog'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'TransferLog'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'UnbindLog'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'UnfreezeLog'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'WithdrawLog'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "BindLog"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "CancelLog"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "ConfigChanged"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "DepositLog"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "FreezeLog"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "OwnerChanged"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "SimpleDepositLog"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "SimpleWithdrawLog"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "TransferLog"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "UnbindLog"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "UnfreezeLog"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "WithdrawLog"): EventFragment;
 }
 
 export interface Payment extends Contract {
@@ -275,11 +448,11 @@ export interface Payment extends Contract {
   functions: {
     admin(overrides?: CallOverrides): Promise<[string]>;
 
-    'admin()'(overrides?: CallOverrides): Promise<[string]>;
+    "admin()"(overrides?: CallOverrides): Promise<[string]>;
 
     autoBindEnabled(overrides?: CallOverrides): Promise<[boolean]>;
 
-    'autoBindEnabled()'(overrides?: CallOverrides): Promise<[boolean]>;
+    "autoBindEnabled()"(overrides?: CallOverrides): Promise<[boolean]>;
 
     bindAccount(
       _account: BytesLike,
@@ -289,7 +462,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    'bindAccount(bytes32,bytes32,uint256,bytes)'(
+    "bindAccount(bytes32,bytes32,uint256,bytes)"(
       _account: BytesLike,
       _sn: BytesLike,
       _expired: BigNumberish,
@@ -316,7 +489,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    'cancel((bytes32,address,uint256,uint256),(bytes32,address,uint256,uint256),bytes32,uint256,bytes)'(
+    "cancel((bytes32,address,uint256,uint256),(bytes32,address,uint256,uint256),bytes32,uint256,bytes)"(
       _userA: {
         account: BytesLike;
         token: string;
@@ -340,14 +513,14 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    'changeOwner(address)'(
+    "changeOwner(address)"(
       _user: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     config(overrides?: CallOverrides): Promise<[string]>;
 
-    'config()'(overrides?: CallOverrides): Promise<[string]>;
+    "config()"(overrides?: CallOverrides): Promise<[string]>;
 
     deposit(
       _to: BytesLike,
@@ -360,7 +533,7 @@ export interface Payment extends Contract {
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    'deposit(bytes32,address,uint256,uint256,bytes32,uint256,bytes)'(
+    "deposit(bytes32,address,uint256,uint256,bytes32,uint256,bytes)"(
       _to: BytesLike,
       _token: string,
       _amount: BigNumberish,
@@ -373,23 +546,27 @@ export interface Payment extends Contract {
 
     dev(overrides?: CallOverrides): Promise<[string]>;
 
-    'dev()'(overrides?: CallOverrides): Promise<[string]>;
+    "dev()"(overrides?: CallOverrides): Promise<[string]>;
 
     enabled(overrides?: CallOverrides): Promise<[boolean]>;
 
-    'enabled()'(overrides?: CallOverrides): Promise<[boolean]>;
+    "enabled()"(overrides?: CallOverrides): Promise<[boolean]>;
 
     feeTo(overrides?: CallOverrides): Promise<[string]>;
 
-    'feeTo()'(overrides?: CallOverrides): Promise<[string]>;
+    "feeTo()"(overrides?: CallOverrides): Promise<[string]>;
 
     feeToAccount(overrides?: CallOverrides): Promise<[string]>;
 
-    'feeToAccount()'(overrides?: CallOverrides): Promise<[string]>;
+    "feeToAccount()"(overrides?: CallOverrides): Promise<[string]>;
 
-    foundAccount(_account: BytesLike, _wallet: string, overrides?: CallOverrides): Promise<[boolean]>;
+    foundAccount(
+      _account: BytesLike,
+      _wallet: string,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
 
-    'foundAccount(bytes32,address)'(
+    "foundAccount(bytes32,address)"(
       _account: BytesLike,
       _wallet: string,
       overrides?: CallOverrides
@@ -405,7 +582,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    'freeze(bytes32,address,uint256,bytes32,uint256,bytes)'(
+    "freeze(bytes32,address,uint256,bytes32,uint256,bytes)"(
       _account: BytesLike,
       _token: string,
       _amount: BigNumberish,
@@ -417,7 +594,10 @@ export interface Payment extends Contract {
 
     getBalance(_token: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    'getBalance(address)'(_token: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+    "getBalance(address)"(
+      _token: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
 
     getMultiUserAssets(
       _accounts: BytesLike[],
@@ -441,7 +621,7 @@ export interface Payment extends Contract {
       }
     >;
 
-    'getMultiUserAssets(bytes32[],address[])'(
+    "getMultiUserAssets(bytes32[],address[])"(
       _accounts: BytesLike[],
       _tokens: string[],
       overrides?: CallOverrides
@@ -463,9 +643,15 @@ export interface Payment extends Contract {
       }
     >;
 
-    getRecords(_sns: BytesLike[], overrides?: CallOverrides): Promise<[string[]] & { result: string[] }>;
+    getRecords(
+      _sns: BytesLike[],
+      overrides?: CallOverrides
+    ): Promise<[string[]] & { result: string[] }>;
 
-    'getRecords(bytes32[])'(_sns: BytesLike[], overrides?: CallOverrides): Promise<[string[]] & { result: string[] }>;
+    "getRecords(bytes32[])"(
+      _sns: BytesLike[],
+      overrides?: CallOverrides
+    ): Promise<[string[]] & { result: string[] }>;
 
     getUserAssets(
       _account: BytesLike,
@@ -487,7 +673,7 @@ export interface Payment extends Contract {
       }
     >;
 
-    'getUserAssets(bytes32,address[])'(
+    "getUserAssets(bytes32,address[])"(
       _account: BytesLike,
       _tokens: string[],
       overrides?: CallOverrides
@@ -507,36 +693,67 @@ export interface Payment extends Contract {
       }
     >;
 
-    getWalletsOfAccount(_account: BytesLike, overrides?: CallOverrides): Promise<[string[]]>;
+    getWalletsOfAccount(
+      _account: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[string[]]>;
 
-    'getWalletsOfAccount(bytes32)'(_account: BytesLike, overrides?: CallOverrides): Promise<[string[]]>;
+    "getWalletsOfAccount(bytes32)"(
+      _account: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[string[]]>;
 
-    initialize(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+    initialize(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
-    'initialize()'(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+    "initialize()"(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
     maxWalletCount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    'maxWalletCount()'(overrides?: CallOverrides): Promise<[BigNumber]>;
+    "maxWalletCount()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     nosnEnabled(overrides?: CallOverrides): Promise<[boolean]>;
 
-    'nosnEnabled()'(overrides?: CallOverrides): Promise<[boolean]>;
+    "nosnEnabled()"(overrides?: CallOverrides): Promise<[boolean]>;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
 
-    'owner()'(overrides?: CallOverrides): Promise<[string]>;
+    "owner()"(overrides?: CallOverrides): Promise<[string]>;
 
     records(arg0: BytesLike, overrides?: CallOverrides): Promise<[string]>;
 
-    'records(bytes32)'(arg0: BytesLike, overrides?: CallOverrides): Promise<[string]>;
+    "records(bytes32)"(
+      arg0: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
+    replaceAccount(
+      _account: BytesLike,
+      _wallet: string,
+      _sn: BytesLike,
+      _expired: BigNumberish,
+      _signature: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "replaceAccount(bytes32,address,bytes32,uint256,bytes)"(
+      _account: BytesLike,
+      _wallet: string,
+      _sn: BytesLike,
+      _expired: BigNumberish,
+      _signature: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
     setAutoBindEnabled(
       _enabled: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    'setAutoBindEnabled(bool)'(
+    "setAutoBindEnabled(bool)"(
       _enabled: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -546,14 +763,17 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    'setEnabled(bool)'(
+    "setEnabled(bool)"(
       _enabled: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    setFeeTo(_feeTo: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+    setFeeTo(
+      _feeTo: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
-    'setFeeTo(address)'(
+    "setFeeTo(address)"(
       _feeTo: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -563,7 +783,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    'setMaxWalletCount(uint256)'(
+    "setMaxWalletCount(uint256)"(
       _value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -573,7 +793,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    'setNoSnEnabled(bool)'(
+    "setNoSnEnabled(bool)"(
       _enabled: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -583,7 +803,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    'setSigner(address)'(
+    "setSigner(address)"(
       _signer: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -594,7 +814,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    'setSignerContract(address,bytes32)'(
+    "setSignerContract(address,bytes32)"(
       _signer: string,
       _hash: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -605,14 +825,14 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    'setupConfig(address)'(
+    "setupConfig(address)"(
       _config: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     signer(overrides?: CallOverrides): Promise<[string]>;
 
-    'signer()'(overrides?: CallOverrides): Promise<[string]>;
+    "signer()"(overrides?: CallOverrides): Promise<[string]>;
 
     simpleDeposit(
       _to: BytesLike,
@@ -621,7 +841,7 @@ export interface Payment extends Contract {
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    'simpleDeposit(bytes32,address,uint256)'(
+    "simpleDeposit(bytes32,address,uint256)"(
       _to: BytesLike,
       _token: string,
       _amount: BigNumberish,
@@ -635,7 +855,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    'simpleWithdraw(address,address,uint256)'(
+    "simpleWithdraw(address,address,uint256)"(
       _to: string,
       _token: string,
       _amount: BigNumberish,
@@ -652,6 +872,7 @@ export interface Payment extends Contract {
         frozen: BigNumberish;
         amount: BigNumberish;
         fee: BigNumberish;
+        paid: BigNumberish;
       },
       _sn: BytesLike,
       _expired: BigNumberish,
@@ -659,7 +880,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    'transfer(address,(address,bytes32,bytes32,uint256,uint256,uint256,uint256),bytes32,uint256,bytes)'(
+    "transfer(address,(address,bytes32,bytes32,uint256,uint256,uint256,uint256,uint256),bytes32,uint256,bytes)"(
       _out: string,
       _deal: {
         token: string;
@@ -669,6 +890,7 @@ export interface Payment extends Contract {
         frozen: BigNumberish;
         amount: BigNumberish;
         fee: BigNumberish;
+        paid: BigNumberish;
       },
       _sn: BytesLike,
       _expired: BigNumberish,
@@ -676,24 +898,30 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    unbindAccount(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+    unbindAccount(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
-    'unbindAccount()'(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+    "unbindAccount()"(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
     unfreeze(
       _account: BytesLike,
       _token: string,
       _amount: BigNumberish,
+      _fee: BigNumberish,
       _sn: BytesLike,
       _expired: BigNumberish,
       _signature: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    'unfreeze(bytes32,address,uint256,bytes32,uint256,bytes)'(
+    "unfreeze(bytes32,address,uint256,uint256,bytes32,uint256,bytes)"(
       _account: BytesLike,
       _token: string,
       _amount: BigNumberish,
+      _fee: BigNumberish,
       _sn: BytesLike,
       _expired: BigNumberish,
       _signature: BytesLike,
@@ -704,17 +932,25 @@ export interface Payment extends Contract {
       arg0: BytesLike,
       arg1: string,
       overrides?: CallOverrides
-    ): Promise<[BigNumber, BigNumber] & { available: BigNumber; frozen: BigNumber }>;
+    ): Promise<
+      [BigNumber, BigNumber] & { available: BigNumber; frozen: BigNumber }
+    >;
 
-    'userAccounts(bytes32,address)'(
+    "userAccounts(bytes32,address)"(
       arg0: BytesLike,
       arg1: string,
       overrides?: CallOverrides
-    ): Promise<[BigNumber, BigNumber] & { available: BigNumber; frozen: BigNumber }>;
+    ): Promise<
+      [BigNumber, BigNumber] & { available: BigNumber; frozen: BigNumber }
+    >;
 
-    verifyMessage(_messageHash: BytesLike, _signature: BytesLike, overrides?: CallOverrides): Promise<[boolean]>;
+    verifyMessage(
+      _messageHash: BytesLike,
+      _signature: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
 
-    'verifyMessage(bytes32,bytes)'(
+    "verifyMessage(bytes32,bytes)"(
       _messageHash: BytesLike,
       _signature: BytesLike,
       overrides?: CallOverrides
@@ -722,11 +958,18 @@ export interface Payment extends Contract {
 
     walletToAccount(arg0: string, overrides?: CallOverrides): Promise<[string]>;
 
-    'walletToAccount(address)'(arg0: string, overrides?: CallOverrides): Promise<[string]>;
+    "walletToAccount(address)"(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
 
-    walletsOfAccount(arg0: BytesLike, arg1: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
+    walletsOfAccount(
+      arg0: BytesLike,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
 
-    'walletsOfAccount(bytes32,uint256)'(
+    "walletsOfAccount(bytes32,uint256)"(
       arg0: BytesLike,
       arg1: BigNumberish,
       overrides?: CallOverrides
@@ -743,7 +986,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    'withdraw(address,address,uint256,uint256,bytes32,uint256,bytes)'(
+    "withdraw(address,address,uint256,uint256,bytes32,uint256,bytes)"(
       _to: string,
       _token: string,
       _available: BigNumberish,
@@ -757,11 +1000,11 @@ export interface Payment extends Contract {
 
   admin(overrides?: CallOverrides): Promise<string>;
 
-  'admin()'(overrides?: CallOverrides): Promise<string>;
+  "admin()"(overrides?: CallOverrides): Promise<string>;
 
   autoBindEnabled(overrides?: CallOverrides): Promise<boolean>;
 
-  'autoBindEnabled()'(overrides?: CallOverrides): Promise<boolean>;
+  "autoBindEnabled()"(overrides?: CallOverrides): Promise<boolean>;
 
   bindAccount(
     _account: BytesLike,
@@ -771,7 +1014,7 @@ export interface Payment extends Contract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  'bindAccount(bytes32,bytes32,uint256,bytes)'(
+  "bindAccount(bytes32,bytes32,uint256,bytes)"(
     _account: BytesLike,
     _sn: BytesLike,
     _expired: BigNumberish,
@@ -798,7 +1041,7 @@ export interface Payment extends Contract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  'cancel((bytes32,address,uint256,uint256),(bytes32,address,uint256,uint256),bytes32,uint256,bytes)'(
+  "cancel((bytes32,address,uint256,uint256),(bytes32,address,uint256,uint256),bytes32,uint256,bytes)"(
     _userA: {
       account: BytesLike;
       token: string;
@@ -817,16 +1060,19 @@ export interface Payment extends Contract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  changeOwner(_user: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+  changeOwner(
+    _user: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
-  'changeOwner(address)'(
+  "changeOwner(address)"(
     _user: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   config(overrides?: CallOverrides): Promise<string>;
 
-  'config()'(overrides?: CallOverrides): Promise<string>;
+  "config()"(overrides?: CallOverrides): Promise<string>;
 
   deposit(
     _to: BytesLike,
@@ -839,7 +1085,7 @@ export interface Payment extends Contract {
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  'deposit(bytes32,address,uint256,uint256,bytes32,uint256,bytes)'(
+  "deposit(bytes32,address,uint256,uint256,bytes32,uint256,bytes)"(
     _to: BytesLike,
     _token: string,
     _amount: BigNumberish,
@@ -852,23 +1098,31 @@ export interface Payment extends Contract {
 
   dev(overrides?: CallOverrides): Promise<string>;
 
-  'dev()'(overrides?: CallOverrides): Promise<string>;
+  "dev()"(overrides?: CallOverrides): Promise<string>;
 
   enabled(overrides?: CallOverrides): Promise<boolean>;
 
-  'enabled()'(overrides?: CallOverrides): Promise<boolean>;
+  "enabled()"(overrides?: CallOverrides): Promise<boolean>;
 
   feeTo(overrides?: CallOverrides): Promise<string>;
 
-  'feeTo()'(overrides?: CallOverrides): Promise<string>;
+  "feeTo()"(overrides?: CallOverrides): Promise<string>;
 
   feeToAccount(overrides?: CallOverrides): Promise<string>;
 
-  'feeToAccount()'(overrides?: CallOverrides): Promise<string>;
+  "feeToAccount()"(overrides?: CallOverrides): Promise<string>;
 
-  foundAccount(_account: BytesLike, _wallet: string, overrides?: CallOverrides): Promise<boolean>;
+  foundAccount(
+    _account: BytesLike,
+    _wallet: string,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
 
-  'foundAccount(bytes32,address)'(_account: BytesLike, _wallet: string, overrides?: CallOverrides): Promise<boolean>;
+  "foundAccount(bytes32,address)"(
+    _account: BytesLike,
+    _wallet: string,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
 
   freeze(
     _account: BytesLike,
@@ -880,7 +1134,7 @@ export interface Payment extends Contract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  'freeze(bytes32,address,uint256,bytes32,uint256,bytes)'(
+  "freeze(bytes32,address,uint256,bytes32,uint256,bytes)"(
     _account: BytesLike,
     _token: string,
     _amount: BigNumberish,
@@ -892,7 +1146,10 @@ export interface Payment extends Contract {
 
   getBalance(_token: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-  'getBalance(address)'(_token: string, overrides?: CallOverrides): Promise<BigNumber>;
+  "getBalance(address)"(
+    _token: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
   getMultiUserAssets(
     _accounts: BytesLike[],
@@ -907,7 +1164,7 @@ export interface Payment extends Contract {
     })[]
   >;
 
-  'getMultiUserAssets(bytes32[],address[])'(
+  "getMultiUserAssets(bytes32[],address[])"(
     _accounts: BytesLike[],
     _tokens: string[],
     overrides?: CallOverrides
@@ -922,7 +1179,10 @@ export interface Payment extends Contract {
 
   getRecords(_sns: BytesLike[], overrides?: CallOverrides): Promise<string[]>;
 
-  'getRecords(bytes32[])'(_sns: BytesLike[], overrides?: CallOverrides): Promise<string[]>;
+  "getRecords(bytes32[])"(
+    _sns: BytesLike[],
+    overrides?: CallOverrides
+  ): Promise<string[]>;
 
   getUserAssets(
     _account: BytesLike,
@@ -936,7 +1196,7 @@ export interface Payment extends Contract {
     })[]
   >;
 
-  'getUserAssets(bytes32,address[])'(
+  "getUserAssets(bytes32,address[])"(
     _account: BytesLike,
     _tokens: string[],
     overrides?: CallOverrides
@@ -948,36 +1208,67 @@ export interface Payment extends Contract {
     })[]
   >;
 
-  getWalletsOfAccount(_account: BytesLike, overrides?: CallOverrides): Promise<string[]>;
+  getWalletsOfAccount(
+    _account: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<string[]>;
 
-  'getWalletsOfAccount(bytes32)'(_account: BytesLike, overrides?: CallOverrides): Promise<string[]>;
+  "getWalletsOfAccount(bytes32)"(
+    _account: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<string[]>;
 
-  initialize(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+  initialize(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
-  'initialize()'(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+  "initialize()"(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   maxWalletCount(overrides?: CallOverrides): Promise<BigNumber>;
 
-  'maxWalletCount()'(overrides?: CallOverrides): Promise<BigNumber>;
+  "maxWalletCount()"(overrides?: CallOverrides): Promise<BigNumber>;
 
   nosnEnabled(overrides?: CallOverrides): Promise<boolean>;
 
-  'nosnEnabled()'(overrides?: CallOverrides): Promise<boolean>;
+  "nosnEnabled()"(overrides?: CallOverrides): Promise<boolean>;
 
   owner(overrides?: CallOverrides): Promise<string>;
 
-  'owner()'(overrides?: CallOverrides): Promise<string>;
+  "owner()"(overrides?: CallOverrides): Promise<string>;
 
   records(arg0: BytesLike, overrides?: CallOverrides): Promise<string>;
 
-  'records(bytes32)'(arg0: BytesLike, overrides?: CallOverrides): Promise<string>;
+  "records(bytes32)"(
+    arg0: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
+  replaceAccount(
+    _account: BytesLike,
+    _wallet: string,
+    _sn: BytesLike,
+    _expired: BigNumberish,
+    _signature: BytesLike,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "replaceAccount(bytes32,address,bytes32,uint256,bytes)"(
+    _account: BytesLike,
+    _wallet: string,
+    _sn: BytesLike,
+    _expired: BigNumberish,
+    _signature: BytesLike,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   setAutoBindEnabled(
     _enabled: boolean,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  'setAutoBindEnabled(bool)'(
+  "setAutoBindEnabled(bool)"(
     _enabled: boolean,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -987,14 +1278,17 @@ export interface Payment extends Contract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  'setEnabled(bool)'(
+  "setEnabled(bool)"(
     _enabled: boolean,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  setFeeTo(_feeTo: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+  setFeeTo(
+    _feeTo: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
-  'setFeeTo(address)'(
+  "setFeeTo(address)"(
     _feeTo: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -1004,7 +1298,7 @@ export interface Payment extends Contract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  'setMaxWalletCount(uint256)'(
+  "setMaxWalletCount(uint256)"(
     _value: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -1014,14 +1308,17 @@ export interface Payment extends Contract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  'setNoSnEnabled(bool)'(
+  "setNoSnEnabled(bool)"(
     _enabled: boolean,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  setSigner(_signer: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+  setSigner(
+    _signer: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
-  'setSigner(address)'(
+  "setSigner(address)"(
     _signer: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -1032,7 +1329,7 @@ export interface Payment extends Contract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  'setSignerContract(address,bytes32)'(
+  "setSignerContract(address,bytes32)"(
     _signer: string,
     _hash: BytesLike,
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -1043,7 +1340,7 @@ export interface Payment extends Contract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  'setupConfig(address)'(
+  "setupConfig(address)"(
     _config: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -1055,7 +1352,7 @@ export interface Payment extends Contract {
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  'simpleDeposit(bytes32,address,uint256)'(
+  "simpleDeposit(bytes32,address,uint256)"(
     _to: BytesLike,
     _token: string,
     _amount: BigNumberish,
@@ -1069,7 +1366,7 @@ export interface Payment extends Contract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  'simpleWithdraw(address,address,uint256)'(
+  "simpleWithdraw(address,address,uint256)"(
     _to: string,
     _token: string,
     _amount: BigNumberish,
@@ -1086,6 +1383,7 @@ export interface Payment extends Contract {
       frozen: BigNumberish;
       amount: BigNumberish;
       fee: BigNumberish;
+      paid: BigNumberish;
     },
     _sn: BytesLike,
     _expired: BigNumberish,
@@ -1093,7 +1391,7 @@ export interface Payment extends Contract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  'transfer(address,(address,bytes32,bytes32,uint256,uint256,uint256,uint256),bytes32,uint256,bytes)'(
+  "transfer(address,(address,bytes32,bytes32,uint256,uint256,uint256,uint256,uint256),bytes32,uint256,bytes)"(
     _out: string,
     _deal: {
       token: string;
@@ -1103,6 +1401,7 @@ export interface Payment extends Contract {
       frozen: BigNumberish;
       amount: BigNumberish;
       fee: BigNumberish;
+      paid: BigNumberish;
     },
     _sn: BytesLike,
     _expired: BigNumberish,
@@ -1110,24 +1409,30 @@ export interface Payment extends Contract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  unbindAccount(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+  unbindAccount(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
-  'unbindAccount()'(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+  "unbindAccount()"(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   unfreeze(
     _account: BytesLike,
     _token: string,
     _amount: BigNumberish,
+    _fee: BigNumberish,
     _sn: BytesLike,
     _expired: BigNumberish,
     _signature: BytesLike,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  'unfreeze(bytes32,address,uint256,bytes32,uint256,bytes)'(
+  "unfreeze(bytes32,address,uint256,uint256,bytes32,uint256,bytes)"(
     _account: BytesLike,
     _token: string,
     _amount: BigNumberish,
+    _fee: BigNumberish,
     _sn: BytesLike,
     _expired: BigNumberish,
     _signature: BytesLike,
@@ -1138,17 +1443,25 @@ export interface Payment extends Contract {
     arg0: BytesLike,
     arg1: string,
     overrides?: CallOverrides
-  ): Promise<[BigNumber, BigNumber] & { available: BigNumber; frozen: BigNumber }>;
+  ): Promise<
+    [BigNumber, BigNumber] & { available: BigNumber; frozen: BigNumber }
+  >;
 
-  'userAccounts(bytes32,address)'(
+  "userAccounts(bytes32,address)"(
     arg0: BytesLike,
     arg1: string,
     overrides?: CallOverrides
-  ): Promise<[BigNumber, BigNumber] & { available: BigNumber; frozen: BigNumber }>;
+  ): Promise<
+    [BigNumber, BigNumber] & { available: BigNumber; frozen: BigNumber }
+  >;
 
-  verifyMessage(_messageHash: BytesLike, _signature: BytesLike, overrides?: CallOverrides): Promise<boolean>;
+  verifyMessage(
+    _messageHash: BytesLike,
+    _signature: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
 
-  'verifyMessage(bytes32,bytes)'(
+  "verifyMessage(bytes32,bytes)"(
     _messageHash: BytesLike,
     _signature: BytesLike,
     overrides?: CallOverrides
@@ -1156,11 +1469,22 @@ export interface Payment extends Contract {
 
   walletToAccount(arg0: string, overrides?: CallOverrides): Promise<string>;
 
-  'walletToAccount(address)'(arg0: string, overrides?: CallOverrides): Promise<string>;
+  "walletToAccount(address)"(
+    arg0: string,
+    overrides?: CallOverrides
+  ): Promise<string>;
 
-  walletsOfAccount(arg0: BytesLike, arg1: BigNumberish, overrides?: CallOverrides): Promise<string>;
+  walletsOfAccount(
+    arg0: BytesLike,
+    arg1: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<string>;
 
-  'walletsOfAccount(bytes32,uint256)'(arg0: BytesLike, arg1: BigNumberish, overrides?: CallOverrides): Promise<string>;
+  "walletsOfAccount(bytes32,uint256)"(
+    arg0: BytesLike,
+    arg1: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<string>;
 
   withdraw(
     _to: string,
@@ -1173,7 +1497,7 @@ export interface Payment extends Contract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  'withdraw(address,address,uint256,uint256,bytes32,uint256,bytes)'(
+  "withdraw(address,address,uint256,uint256,bytes32,uint256,bytes)"(
     _to: string,
     _token: string,
     _available: BigNumberish,
@@ -1187,11 +1511,11 @@ export interface Payment extends Contract {
   callStatic: {
     admin(overrides?: CallOverrides): Promise<string>;
 
-    'admin()'(overrides?: CallOverrides): Promise<string>;
+    "admin()"(overrides?: CallOverrides): Promise<string>;
 
     autoBindEnabled(overrides?: CallOverrides): Promise<boolean>;
 
-    'autoBindEnabled()'(overrides?: CallOverrides): Promise<boolean>;
+    "autoBindEnabled()"(overrides?: CallOverrides): Promise<boolean>;
 
     bindAccount(
       _account: BytesLike,
@@ -1201,7 +1525,7 @@ export interface Payment extends Contract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    'bindAccount(bytes32,bytes32,uint256,bytes)'(
+    "bindAccount(bytes32,bytes32,uint256,bytes)"(
       _account: BytesLike,
       _sn: BytesLike,
       _expired: BigNumberish,
@@ -1228,7 +1552,7 @@ export interface Payment extends Contract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    'cancel((bytes32,address,uint256,uint256),(bytes32,address,uint256,uint256),bytes32,uint256,bytes)'(
+    "cancel((bytes32,address,uint256,uint256),(bytes32,address,uint256,uint256),bytes32,uint256,bytes)"(
       _userA: {
         account: BytesLike;
         token: string;
@@ -1249,11 +1573,14 @@ export interface Payment extends Contract {
 
     changeOwner(_user: string, overrides?: CallOverrides): Promise<void>;
 
-    'changeOwner(address)'(_user: string, overrides?: CallOverrides): Promise<void>;
+    "changeOwner(address)"(
+      _user: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     config(overrides?: CallOverrides): Promise<string>;
 
-    'config()'(overrides?: CallOverrides): Promise<string>;
+    "config()"(overrides?: CallOverrides): Promise<string>;
 
     deposit(
       _to: BytesLike,
@@ -1266,7 +1593,7 @@ export interface Payment extends Contract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    'deposit(bytes32,address,uint256,uint256,bytes32,uint256,bytes)'(
+    "deposit(bytes32,address,uint256,uint256,bytes32,uint256,bytes)"(
       _to: BytesLike,
       _token: string,
       _amount: BigNumberish,
@@ -1279,23 +1606,31 @@ export interface Payment extends Contract {
 
     dev(overrides?: CallOverrides): Promise<string>;
 
-    'dev()'(overrides?: CallOverrides): Promise<string>;
+    "dev()"(overrides?: CallOverrides): Promise<string>;
 
     enabled(overrides?: CallOverrides): Promise<boolean>;
 
-    'enabled()'(overrides?: CallOverrides): Promise<boolean>;
+    "enabled()"(overrides?: CallOverrides): Promise<boolean>;
 
     feeTo(overrides?: CallOverrides): Promise<string>;
 
-    'feeTo()'(overrides?: CallOverrides): Promise<string>;
+    "feeTo()"(overrides?: CallOverrides): Promise<string>;
 
     feeToAccount(overrides?: CallOverrides): Promise<string>;
 
-    'feeToAccount()'(overrides?: CallOverrides): Promise<string>;
+    "feeToAccount()"(overrides?: CallOverrides): Promise<string>;
 
-    foundAccount(_account: BytesLike, _wallet: string, overrides?: CallOverrides): Promise<boolean>;
+    foundAccount(
+      _account: BytesLike,
+      _wallet: string,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
 
-    'foundAccount(bytes32,address)'(_account: BytesLike, _wallet: string, overrides?: CallOverrides): Promise<boolean>;
+    "foundAccount(bytes32,address)"(
+      _account: BytesLike,
+      _wallet: string,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
 
     freeze(
       _account: BytesLike,
@@ -1307,7 +1642,7 @@ export interface Payment extends Contract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    'freeze(bytes32,address,uint256,bytes32,uint256,bytes)'(
+    "freeze(bytes32,address,uint256,bytes32,uint256,bytes)"(
       _account: BytesLike,
       _token: string,
       _amount: BigNumberish,
@@ -1319,7 +1654,10 @@ export interface Payment extends Contract {
 
     getBalance(_token: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    'getBalance(address)'(_token: string, overrides?: CallOverrides): Promise<BigNumber>;
+    "getBalance(address)"(
+      _token: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     getMultiUserAssets(
       _accounts: BytesLike[],
@@ -1334,7 +1672,7 @@ export interface Payment extends Contract {
       })[]
     >;
 
-    'getMultiUserAssets(bytes32[],address[])'(
+    "getMultiUserAssets(bytes32[],address[])"(
       _accounts: BytesLike[],
       _tokens: string[],
       overrides?: CallOverrides
@@ -1349,7 +1687,10 @@ export interface Payment extends Contract {
 
     getRecords(_sns: BytesLike[], overrides?: CallOverrides): Promise<string[]>;
 
-    'getRecords(bytes32[])'(_sns: BytesLike[], overrides?: CallOverrides): Promise<string[]>;
+    "getRecords(bytes32[])"(
+      _sns: BytesLike[],
+      overrides?: CallOverrides
+    ): Promise<string[]>;
 
     getUserAssets(
       _account: BytesLike,
@@ -1363,7 +1704,7 @@ export interface Payment extends Contract {
       })[]
     >;
 
-    'getUserAssets(bytes32,address[])'(
+    "getUserAssets(bytes32,address[])"(
       _account: BytesLike,
       _tokens: string[],
       overrides?: CallOverrides
@@ -1375,78 +1716,150 @@ export interface Payment extends Contract {
       })[]
     >;
 
-    getWalletsOfAccount(_account: BytesLike, overrides?: CallOverrides): Promise<string[]>;
+    getWalletsOfAccount(
+      _account: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<string[]>;
 
-    'getWalletsOfAccount(bytes32)'(_account: BytesLike, overrides?: CallOverrides): Promise<string[]>;
+    "getWalletsOfAccount(bytes32)"(
+      _account: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<string[]>;
 
     initialize(overrides?: CallOverrides): Promise<void>;
 
-    'initialize()'(overrides?: CallOverrides): Promise<void>;
+    "initialize()"(overrides?: CallOverrides): Promise<void>;
 
     maxWalletCount(overrides?: CallOverrides): Promise<BigNumber>;
 
-    'maxWalletCount()'(overrides?: CallOverrides): Promise<BigNumber>;
+    "maxWalletCount()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     nosnEnabled(overrides?: CallOverrides): Promise<boolean>;
 
-    'nosnEnabled()'(overrides?: CallOverrides): Promise<boolean>;
+    "nosnEnabled()"(overrides?: CallOverrides): Promise<boolean>;
 
     owner(overrides?: CallOverrides): Promise<string>;
 
-    'owner()'(overrides?: CallOverrides): Promise<string>;
+    "owner()"(overrides?: CallOverrides): Promise<string>;
 
     records(arg0: BytesLike, overrides?: CallOverrides): Promise<string>;
 
-    'records(bytes32)'(arg0: BytesLike, overrides?: CallOverrides): Promise<string>;
+    "records(bytes32)"(
+      arg0: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<string>;
 
-    setAutoBindEnabled(_enabled: boolean, overrides?: CallOverrides): Promise<void>;
+    replaceAccount(
+      _account: BytesLike,
+      _wallet: string,
+      _sn: BytesLike,
+      _expired: BigNumberish,
+      _signature: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
-    'setAutoBindEnabled(bool)'(_enabled: boolean, overrides?: CallOverrides): Promise<void>;
+    "replaceAccount(bytes32,address,bytes32,uint256,bytes)"(
+      _account: BytesLike,
+      _wallet: string,
+      _sn: BytesLike,
+      _expired: BigNumberish,
+      _signature: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    setAutoBindEnabled(
+      _enabled: boolean,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "setAutoBindEnabled(bool)"(
+      _enabled: boolean,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     setEnabled(_enabled: boolean, overrides?: CallOverrides): Promise<void>;
 
-    'setEnabled(bool)'(_enabled: boolean, overrides?: CallOverrides): Promise<void>;
+    "setEnabled(bool)"(
+      _enabled: boolean,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     setFeeTo(_feeTo: string, overrides?: CallOverrides): Promise<void>;
 
-    'setFeeTo(address)'(_feeTo: string, overrides?: CallOverrides): Promise<void>;
+    "setFeeTo(address)"(
+      _feeTo: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
-    setMaxWalletCount(_value: BigNumberish, overrides?: CallOverrides): Promise<void>;
+    setMaxWalletCount(
+      _value: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
-    'setMaxWalletCount(uint256)'(_value: BigNumberish, overrides?: CallOverrides): Promise<void>;
+    "setMaxWalletCount(uint256)"(
+      _value: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     setNoSnEnabled(_enabled: boolean, overrides?: CallOverrides): Promise<void>;
 
-    'setNoSnEnabled(bool)'(_enabled: boolean, overrides?: CallOverrides): Promise<void>;
+    "setNoSnEnabled(bool)"(
+      _enabled: boolean,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     setSigner(_signer: string, overrides?: CallOverrides): Promise<void>;
 
-    'setSigner(address)'(_signer: string, overrides?: CallOverrides): Promise<void>;
+    "setSigner(address)"(
+      _signer: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
-    setSignerContract(_signer: string, _hash: BytesLike, overrides?: CallOverrides): Promise<void>;
+    setSignerContract(
+      _signer: string,
+      _hash: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
-    'setSignerContract(address,bytes32)'(_signer: string, _hash: BytesLike, overrides?: CallOverrides): Promise<void>;
+    "setSignerContract(address,bytes32)"(
+      _signer: string,
+      _hash: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     setupConfig(_config: string, overrides?: CallOverrides): Promise<void>;
 
-    'setupConfig(address)'(_config: string, overrides?: CallOverrides): Promise<void>;
+    "setupConfig(address)"(
+      _config: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     signer(overrides?: CallOverrides): Promise<string>;
 
-    'signer()'(overrides?: CallOverrides): Promise<string>;
+    "signer()"(overrides?: CallOverrides): Promise<string>;
 
-    simpleDeposit(_to: BytesLike, _token: string, _amount: BigNumberish, overrides?: CallOverrides): Promise<boolean>;
-
-    'simpleDeposit(bytes32,address,uint256)'(
+    simpleDeposit(
       _to: BytesLike,
       _token: string,
       _amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    simpleWithdraw(_to: string, _token: string, _amount: BigNumberish, overrides?: CallOverrides): Promise<void>;
+    "simpleDeposit(bytes32,address,uint256)"(
+      _to: BytesLike,
+      _token: string,
+      _amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
 
-    'simpleWithdraw(address,address,uint256)'(
+    simpleWithdraw(
+      _to: string,
+      _token: string,
+      _amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "simpleWithdraw(address,address,uint256)"(
       _to: string,
       _token: string,
       _amount: BigNumberish,
@@ -1463,6 +1876,7 @@ export interface Payment extends Contract {
         frozen: BigNumberish;
         amount: BigNumberish;
         fee: BigNumberish;
+        paid: BigNumberish;
       },
       _sn: BytesLike,
       _expired: BigNumberish,
@@ -1470,7 +1884,7 @@ export interface Payment extends Contract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    'transfer(address,(address,bytes32,bytes32,uint256,uint256,uint256,uint256),bytes32,uint256,bytes)'(
+    "transfer(address,(address,bytes32,bytes32,uint256,uint256,uint256,uint256,uint256),bytes32,uint256,bytes)"(
       _out: string,
       _deal: {
         token: string;
@@ -1480,6 +1894,7 @@ export interface Payment extends Contract {
         frozen: BigNumberish;
         amount: BigNumberish;
         fee: BigNumberish;
+        paid: BigNumberish;
       },
       _sn: BytesLike,
       _expired: BigNumberish,
@@ -1489,22 +1904,24 @@ export interface Payment extends Contract {
 
     unbindAccount(overrides?: CallOverrides): Promise<void>;
 
-    'unbindAccount()'(overrides?: CallOverrides): Promise<void>;
+    "unbindAccount()"(overrides?: CallOverrides): Promise<void>;
 
     unfreeze(
       _account: BytesLike,
       _token: string,
       _amount: BigNumberish,
+      _fee: BigNumberish,
       _sn: BytesLike,
       _expired: BigNumberish,
       _signature: BytesLike,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    'unfreeze(bytes32,address,uint256,bytes32,uint256,bytes)'(
+    "unfreeze(bytes32,address,uint256,uint256,bytes32,uint256,bytes)"(
       _account: BytesLike,
       _token: string,
       _amount: BigNumberish,
+      _fee: BigNumberish,
       _sn: BytesLike,
       _expired: BigNumberish,
       _signature: BytesLike,
@@ -1515,17 +1932,25 @@ export interface Payment extends Contract {
       arg0: BytesLike,
       arg1: string,
       overrides?: CallOverrides
-    ): Promise<[BigNumber, BigNumber] & { available: BigNumber; frozen: BigNumber }>;
+    ): Promise<
+      [BigNumber, BigNumber] & { available: BigNumber; frozen: BigNumber }
+    >;
 
-    'userAccounts(bytes32,address)'(
+    "userAccounts(bytes32,address)"(
       arg0: BytesLike,
       arg1: string,
       overrides?: CallOverrides
-    ): Promise<[BigNumber, BigNumber] & { available: BigNumber; frozen: BigNumber }>;
+    ): Promise<
+      [BigNumber, BigNumber] & { available: BigNumber; frozen: BigNumber }
+    >;
 
-    verifyMessage(_messageHash: BytesLike, _signature: BytesLike, overrides?: CallOverrides): Promise<boolean>;
+    verifyMessage(
+      _messageHash: BytesLike,
+      _signature: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
 
-    'verifyMessage(bytes32,bytes)'(
+    "verifyMessage(bytes32,bytes)"(
       _messageHash: BytesLike,
       _signature: BytesLike,
       overrides?: CallOverrides
@@ -1533,11 +1958,18 @@ export interface Payment extends Contract {
 
     walletToAccount(arg0: string, overrides?: CallOverrides): Promise<string>;
 
-    'walletToAccount(address)'(arg0: string, overrides?: CallOverrides): Promise<string>;
+    "walletToAccount(address)"(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<string>;
 
-    walletsOfAccount(arg0: BytesLike, arg1: BigNumberish, overrides?: CallOverrides): Promise<string>;
+    walletsOfAccount(
+      arg0: BytesLike,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>;
 
-    'walletsOfAccount(bytes32,uint256)'(
+    "walletsOfAccount(bytes32,uint256)"(
       arg0: BytesLike,
       arg1: BigNumberish,
       overrides?: CallOverrides
@@ -1554,7 +1986,7 @@ export interface Payment extends Contract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    'withdraw(address,address,uint256,uint256,bytes32,uint256,bytes)'(
+    "withdraw(address,address,uint256,uint256,bytes32,uint256,bytes)"(
       _to: string,
       _token: string,
       _available: BigNumberish,
@@ -1569,8 +2001,12 @@ export interface Payment extends Contract {
   filters: {
     BindLog(
       _account: BytesLike | null,
+      _wallet: null,
       _operator: string | null
-    ): TypedEventFilter<[string, string], { _account: string; _operator: string }>;
+    ): TypedEventFilter<
+      [string, string, string],
+      { _account: string; _wallet: string; _operator: string }
+    >;
 
     CancelLog(
       _sn: BytesLike | null,
@@ -1616,7 +2052,10 @@ export interface Payment extends Contract {
       _user: string | null,
       _old: string | null,
       _new: string | null
-    ): TypedEventFilter<[string, string, string], { _user: string; _old: string; _new: string }>;
+    ): TypedEventFilter<
+      [string, string, string],
+      { _user: string; _old: string; _new: string }
+    >;
 
     DepositLog(
       _sn: BytesLike | null,
@@ -1658,7 +2097,10 @@ export interface Payment extends Contract {
       _user: string | null,
       _old: string | null,
       _new: string | null
-    ): TypedEventFilter<[string, string, string], { _user: string; _old: string; _new: string }>;
+    ): TypedEventFilter<
+      [string, string, string],
+      { _user: string; _old: string; _new: string }
+    >;
 
     SimpleDepositLog(
       _to: BytesLike | null,
@@ -1695,7 +2137,16 @@ export interface Payment extends Contract {
     ): TypedEventFilter<
       [
         string,
-        [string, string, string, BigNumber, BigNumber, BigNumber, BigNumber] & {
+        [
+          string,
+          string,
+          string,
+          BigNumber,
+          BigNumber,
+          BigNumber,
+          BigNumber,
+          BigNumber
+        ] & {
           token: string;
           from: string;
           to: string;
@@ -1703,13 +2154,23 @@ export interface Payment extends Contract {
           frozen: BigNumber;
           amount: BigNumber;
           fee: BigNumber;
+          paid: BigNumber;
         },
         string,
         string
       ],
       {
         _sn: string;
-        _deal: [string, string, string, BigNumber, BigNumber, BigNumber, BigNumber] & {
+        _deal: [
+          string,
+          string,
+          string,
+          BigNumber,
+          BigNumber,
+          BigNumber,
+          BigNumber,
+          BigNumber
+        ] & {
           token: string;
           from: string;
           to: string;
@@ -1717,6 +2178,7 @@ export interface Payment extends Contract {
           frozen: BigNumber;
           amount: BigNumber;
           fee: BigNumber;
+          paid: BigNumber;
         };
         _out: string;
         _operator: string;
@@ -1725,22 +2187,28 @@ export interface Payment extends Contract {
 
     UnbindLog(
       _account: BytesLike | null,
+      _wallet: null,
       _operator: string | null
-    ): TypedEventFilter<[string, string], { _account: string; _operator: string }>;
+    ): TypedEventFilter<
+      [string, string, string],
+      { _account: string; _wallet: string; _operator: string }
+    >;
 
     UnfreezeLog(
       _sn: BytesLike | null,
       _account: BytesLike | null,
       _token: string | null,
       _amount: null,
+      _fee: null,
       _operator: null
     ): TypedEventFilter<
-      [string, string, string, BigNumber, string],
+      [string, string, string, BigNumber, BigNumber, string],
       {
         _sn: string;
         _account: string;
         _token: string;
         _amount: BigNumber;
+        _fee: BigNumber;
         _operator: string;
       }
     >;
@@ -1770,11 +2238,11 @@ export interface Payment extends Contract {
   estimateGas: {
     admin(overrides?: CallOverrides): Promise<BigNumber>;
 
-    'admin()'(overrides?: CallOverrides): Promise<BigNumber>;
+    "admin()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     autoBindEnabled(overrides?: CallOverrides): Promise<BigNumber>;
 
-    'autoBindEnabled()'(overrides?: CallOverrides): Promise<BigNumber>;
+    "autoBindEnabled()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     bindAccount(
       _account: BytesLike,
@@ -1784,7 +2252,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    'bindAccount(bytes32,bytes32,uint256,bytes)'(
+    "bindAccount(bytes32,bytes32,uint256,bytes)"(
       _account: BytesLike,
       _sn: BytesLike,
       _expired: BigNumberish,
@@ -1811,7 +2279,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    'cancel((bytes32,address,uint256,uint256),(bytes32,address,uint256,uint256),bytes32,uint256,bytes)'(
+    "cancel((bytes32,address,uint256,uint256),(bytes32,address,uint256,uint256),bytes32,uint256,bytes)"(
       _userA: {
         account: BytesLike;
         token: string;
@@ -1830,16 +2298,19 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    changeOwner(_user: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
+    changeOwner(
+      _user: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
-    'changeOwner(address)'(
+    "changeOwner(address)"(
       _user: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     config(overrides?: CallOverrides): Promise<BigNumber>;
 
-    'config()'(overrides?: CallOverrides): Promise<BigNumber>;
+    "config()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     deposit(
       _to: BytesLike,
@@ -1852,7 +2323,7 @@ export interface Payment extends Contract {
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    'deposit(bytes32,address,uint256,uint256,bytes32,uint256,bytes)'(
+    "deposit(bytes32,address,uint256,uint256,bytes32,uint256,bytes)"(
       _to: BytesLike,
       _token: string,
       _amount: BigNumberish,
@@ -1865,23 +2336,27 @@ export interface Payment extends Contract {
 
     dev(overrides?: CallOverrides): Promise<BigNumber>;
 
-    'dev()'(overrides?: CallOverrides): Promise<BigNumber>;
+    "dev()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     enabled(overrides?: CallOverrides): Promise<BigNumber>;
 
-    'enabled()'(overrides?: CallOverrides): Promise<BigNumber>;
+    "enabled()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     feeTo(overrides?: CallOverrides): Promise<BigNumber>;
 
-    'feeTo()'(overrides?: CallOverrides): Promise<BigNumber>;
+    "feeTo()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     feeToAccount(overrides?: CallOverrides): Promise<BigNumber>;
 
-    'feeToAccount()'(overrides?: CallOverrides): Promise<BigNumber>;
+    "feeToAccount()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    foundAccount(_account: BytesLike, _wallet: string, overrides?: CallOverrides): Promise<BigNumber>;
+    foundAccount(
+      _account: BytesLike,
+      _wallet: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    'foundAccount(bytes32,address)'(
+    "foundAccount(bytes32,address)"(
       _account: BytesLike,
       _wallet: string,
       overrides?: CallOverrides
@@ -1897,7 +2372,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    'freeze(bytes32,address,uint256,bytes32,uint256,bytes)'(
+    "freeze(bytes32,address,uint256,bytes32,uint256,bytes)"(
       _account: BytesLike,
       _token: string,
       _amount: BigNumberish,
@@ -1909,72 +2384,126 @@ export interface Payment extends Contract {
 
     getBalance(_token: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    'getBalance(address)'(_token: string, overrides?: CallOverrides): Promise<BigNumber>;
+    "getBalance(address)"(
+      _token: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    getMultiUserAssets(_accounts: BytesLike[], _tokens: string[], overrides?: CallOverrides): Promise<BigNumber>;
-
-    'getMultiUserAssets(bytes32[],address[])'(
+    getMultiUserAssets(
       _accounts: BytesLike[],
       _tokens: string[],
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    getRecords(_sns: BytesLike[], overrides?: CallOverrides): Promise<BigNumber>;
+    "getMultiUserAssets(bytes32[],address[])"(
+      _accounts: BytesLike[],
+      _tokens: string[],
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    'getRecords(bytes32[])'(_sns: BytesLike[], overrides?: CallOverrides): Promise<BigNumber>;
+    getRecords(
+      _sns: BytesLike[],
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    getUserAssets(_account: BytesLike, _tokens: string[], overrides?: CallOverrides): Promise<BigNumber>;
+    "getRecords(bytes32[])"(
+      _sns: BytesLike[],
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    'getUserAssets(bytes32,address[])'(
+    getUserAssets(
       _account: BytesLike,
       _tokens: string[],
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    getWalletsOfAccount(_account: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
+    "getUserAssets(bytes32,address[])"(
+      _account: BytesLike,
+      _tokens: string[],
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    'getWalletsOfAccount(bytes32)'(_account: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
+    getWalletsOfAccount(
+      _account: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    initialize(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
+    "getWalletsOfAccount(bytes32)"(
+      _account: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    'initialize()'(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
+    initialize(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "initialize()"(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
     maxWalletCount(overrides?: CallOverrides): Promise<BigNumber>;
 
-    'maxWalletCount()'(overrides?: CallOverrides): Promise<BigNumber>;
+    "maxWalletCount()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     nosnEnabled(overrides?: CallOverrides): Promise<BigNumber>;
 
-    'nosnEnabled()'(overrides?: CallOverrides): Promise<BigNumber>;
+    "nosnEnabled()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
-    'owner()'(overrides?: CallOverrides): Promise<BigNumber>;
+    "owner()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     records(arg0: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
 
-    'records(bytes32)'(arg0: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
+    "records(bytes32)"(
+      arg0: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    replaceAccount(
+      _account: BytesLike,
+      _wallet: string,
+      _sn: BytesLike,
+      _expired: BigNumberish,
+      _signature: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "replaceAccount(bytes32,address,bytes32,uint256,bytes)"(
+      _account: BytesLike,
+      _wallet: string,
+      _sn: BytesLike,
+      _expired: BigNumberish,
+      _signature: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
     setAutoBindEnabled(
       _enabled: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    'setAutoBindEnabled(bool)'(
+    "setAutoBindEnabled(bool)"(
       _enabled: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    setEnabled(_enabled: boolean, overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
-
-    'setEnabled(bool)'(
+    setEnabled(
       _enabled: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    setFeeTo(_feeTo: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
+    "setEnabled(bool)"(
+      _enabled: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
-    'setFeeTo(address)'(
+    setFeeTo(
+      _feeTo: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "setFeeTo(address)"(
       _feeTo: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -1984,21 +2513,27 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    'setMaxWalletCount(uint256)'(
+    "setMaxWalletCount(uint256)"(
       _value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    setNoSnEnabled(_enabled: boolean, overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
-
-    'setNoSnEnabled(bool)'(
+    setNoSnEnabled(
       _enabled: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    setSigner(_signer: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
+    "setNoSnEnabled(bool)"(
+      _enabled: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
-    'setSigner(address)'(
+    setSigner(
+      _signer: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "setSigner(address)"(
       _signer: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -2009,22 +2544,25 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    'setSignerContract(address,bytes32)'(
+    "setSignerContract(address,bytes32)"(
       _signer: string,
       _hash: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    setupConfig(_config: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
+    setupConfig(
+      _config: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
-    'setupConfig(address)'(
+    "setupConfig(address)"(
       _config: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     signer(overrides?: CallOverrides): Promise<BigNumber>;
 
-    'signer()'(overrides?: CallOverrides): Promise<BigNumber>;
+    "signer()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     simpleDeposit(
       _to: BytesLike,
@@ -2033,7 +2571,7 @@ export interface Payment extends Contract {
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    'simpleDeposit(bytes32,address,uint256)'(
+    "simpleDeposit(bytes32,address,uint256)"(
       _to: BytesLike,
       _token: string,
       _amount: BigNumberish,
@@ -2047,7 +2585,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    'simpleWithdraw(address,address,uint256)'(
+    "simpleWithdraw(address,address,uint256)"(
       _to: string,
       _token: string,
       _amount: BigNumberish,
@@ -2064,6 +2602,7 @@ export interface Payment extends Contract {
         frozen: BigNumberish;
         amount: BigNumberish;
         fee: BigNumberish;
+        paid: BigNumberish;
       },
       _sn: BytesLike,
       _expired: BigNumberish,
@@ -2071,7 +2610,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    'transfer(address,(address,bytes32,bytes32,uint256,uint256,uint256,uint256),bytes32,uint256,bytes)'(
+    "transfer(address,(address,bytes32,bytes32,uint256,uint256,uint256,uint256,uint256),bytes32,uint256,bytes)"(
       _out: string,
       _deal: {
         token: string;
@@ -2081,6 +2620,7 @@ export interface Payment extends Contract {
         frozen: BigNumberish;
         amount: BigNumberish;
         fee: BigNumberish;
+        paid: BigNumberish;
       },
       _sn: BytesLike,
       _expired: BigNumberish,
@@ -2088,49 +2628,77 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    unbindAccount(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
+    unbindAccount(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
-    'unbindAccount()'(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
+    "unbindAccount()"(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
     unfreeze(
       _account: BytesLike,
       _token: string,
       _amount: BigNumberish,
+      _fee: BigNumberish,
       _sn: BytesLike,
       _expired: BigNumberish,
       _signature: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    'unfreeze(bytes32,address,uint256,bytes32,uint256,bytes)'(
+    "unfreeze(bytes32,address,uint256,uint256,bytes32,uint256,bytes)"(
       _account: BytesLike,
       _token: string,
       _amount: BigNumberish,
+      _fee: BigNumberish,
       _sn: BytesLike,
       _expired: BigNumberish,
       _signature: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    userAccounts(arg0: BytesLike, arg1: string, overrides?: CallOverrides): Promise<BigNumber>;
+    userAccounts(
+      arg0: BytesLike,
+      arg1: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    'userAccounts(bytes32,address)'(arg0: BytesLike, arg1: string, overrides?: CallOverrides): Promise<BigNumber>;
+    "userAccounts(bytes32,address)"(
+      arg0: BytesLike,
+      arg1: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    verifyMessage(_messageHash: BytesLike, _signature: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
-
-    'verifyMessage(bytes32,bytes)'(
+    verifyMessage(
       _messageHash: BytesLike,
       _signature: BytesLike,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    walletToAccount(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+    "verifyMessage(bytes32,bytes)"(
+      _messageHash: BytesLike,
+      _signature: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    'walletToAccount(address)'(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+    walletToAccount(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    walletsOfAccount(arg0: BytesLike, arg1: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+    "walletToAccount(address)"(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    'walletsOfAccount(bytes32,uint256)'(
+    walletsOfAccount(
+      arg0: BytesLike,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "walletsOfAccount(bytes32,uint256)"(
       arg0: BytesLike,
       arg1: BigNumberish,
       overrides?: CallOverrides
@@ -2147,7 +2715,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    'withdraw(address,address,uint256,uint256,bytes32,uint256,bytes)'(
+    "withdraw(address,address,uint256,uint256,bytes32,uint256,bytes)"(
       _to: string,
       _token: string,
       _available: BigNumberish,
@@ -2162,11 +2730,13 @@ export interface Payment extends Contract {
   populateTransaction: {
     admin(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    'admin()'(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "admin()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     autoBindEnabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    'autoBindEnabled()'(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "autoBindEnabled()"(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
     bindAccount(
       _account: BytesLike,
@@ -2176,7 +2746,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    'bindAccount(bytes32,bytes32,uint256,bytes)'(
+    "bindAccount(bytes32,bytes32,uint256,bytes)"(
       _account: BytesLike,
       _sn: BytesLike,
       _expired: BigNumberish,
@@ -2203,7 +2773,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    'cancel((bytes32,address,uint256,uint256),(bytes32,address,uint256,uint256),bytes32,uint256,bytes)'(
+    "cancel((bytes32,address,uint256,uint256),(bytes32,address,uint256,uint256),bytes32,uint256,bytes)"(
       _userA: {
         account: BytesLike;
         token: string;
@@ -2227,14 +2797,14 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    'changeOwner(address)'(
+    "changeOwner(address)"(
       _user: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     config(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    'config()'(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "config()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     deposit(
       _to: BytesLike,
@@ -2247,7 +2817,7 @@ export interface Payment extends Contract {
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    'deposit(bytes32,address,uint256,uint256,bytes32,uint256,bytes)'(
+    "deposit(bytes32,address,uint256,uint256,bytes32,uint256,bytes)"(
       _to: BytesLike,
       _token: string,
       _amount: BigNumberish,
@@ -2260,23 +2830,27 @@ export interface Payment extends Contract {
 
     dev(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    'dev()'(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "dev()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     enabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    'enabled()'(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "enabled()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     feeTo(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    'feeTo()'(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "feeTo()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     feeToAccount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    'feeToAccount()'(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "feeToAccount()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    foundAccount(_account: BytesLike, _wallet: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    foundAccount(
+      _account: BytesLike,
+      _wallet: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
-    'foundAccount(bytes32,address)'(
+    "foundAccount(bytes32,address)"(
       _account: BytesLike,
       _wallet: string,
       overrides?: CallOverrides
@@ -2292,7 +2866,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    'freeze(bytes32,address,uint256,bytes32,uint256,bytes)'(
+    "freeze(bytes32,address,uint256,bytes32,uint256,bytes)"(
       _account: BytesLike,
       _token: string,
       _amount: BigNumberish,
@@ -2302,9 +2876,15 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    getBalance(_token: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    getBalance(
+      _token: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
-    'getBalance(address)'(_token: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "getBalance(address)"(
+      _token: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
     getMultiUserAssets(
       _accounts: BytesLike[],
@@ -2312,54 +2892,100 @@ export interface Payment extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    'getMultiUserAssets(bytes32[],address[])'(
+    "getMultiUserAssets(bytes32[],address[])"(
       _accounts: BytesLike[],
       _tokens: string[],
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    getRecords(_sns: BytesLike[], overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    getRecords(
+      _sns: BytesLike[],
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
-    'getRecords(bytes32[])'(_sns: BytesLike[], overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "getRecords(bytes32[])"(
+      _sns: BytesLike[],
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
-    getUserAssets(_account: BytesLike, _tokens: string[], overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    'getUserAssets(bytes32,address[])'(
+    getUserAssets(
       _account: BytesLike,
       _tokens: string[],
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    getWalletsOfAccount(_account: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "getUserAssets(bytes32,address[])"(
+      _account: BytesLike,
+      _tokens: string[],
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
-    'getWalletsOfAccount(bytes32)'(_account: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    getWalletsOfAccount(
+      _account: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
-    initialize(overrides?: Overrides & { from?: string | Promise<string> }): Promise<PopulatedTransaction>;
+    "getWalletsOfAccount(bytes32)"(
+      _account: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
-    'initialize()'(overrides?: Overrides & { from?: string | Promise<string> }): Promise<PopulatedTransaction>;
+    initialize(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "initialize()"(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
 
     maxWalletCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    'maxWalletCount()'(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "maxWalletCount()"(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
     nosnEnabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    'nosnEnabled()'(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "nosnEnabled()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    'owner()'(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "owner()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    records(arg0: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    records(
+      arg0: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
-    'records(bytes32)'(arg0: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "records(bytes32)"(
+      arg0: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    replaceAccount(
+      _account: BytesLike,
+      _wallet: string,
+      _sn: BytesLike,
+      _expired: BigNumberish,
+      _signature: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "replaceAccount(bytes32,address,bytes32,uint256,bytes)"(
+      _account: BytesLike,
+      _wallet: string,
+      _sn: BytesLike,
+      _expired: BigNumberish,
+      _signature: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
 
     setAutoBindEnabled(
       _enabled: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    'setAutoBindEnabled(bool)'(
+    "setAutoBindEnabled(bool)"(
       _enabled: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
@@ -2369,7 +2995,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    'setEnabled(bool)'(
+    "setEnabled(bool)"(
       _enabled: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
@@ -2379,7 +3005,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    'setFeeTo(address)'(
+    "setFeeTo(address)"(
       _feeTo: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
@@ -2389,7 +3015,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    'setMaxWalletCount(uint256)'(
+    "setMaxWalletCount(uint256)"(
       _value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
@@ -2399,7 +3025,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    'setNoSnEnabled(bool)'(
+    "setNoSnEnabled(bool)"(
       _enabled: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
@@ -2409,7 +3035,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    'setSigner(address)'(
+    "setSigner(address)"(
       _signer: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
@@ -2420,7 +3046,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    'setSignerContract(address,bytes32)'(
+    "setSignerContract(address,bytes32)"(
       _signer: string,
       _hash: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -2431,14 +3057,14 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    'setupConfig(address)'(
+    "setupConfig(address)"(
       _config: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     signer(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    'signer()'(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "signer()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     simpleDeposit(
       _to: BytesLike,
@@ -2447,7 +3073,7 @@ export interface Payment extends Contract {
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    'simpleDeposit(bytes32,address,uint256)'(
+    "simpleDeposit(bytes32,address,uint256)"(
       _to: BytesLike,
       _token: string,
       _amount: BigNumberish,
@@ -2461,7 +3087,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    'simpleWithdraw(address,address,uint256)'(
+    "simpleWithdraw(address,address,uint256)"(
       _to: string,
       _token: string,
       _amount: BigNumberish,
@@ -2478,6 +3104,7 @@ export interface Payment extends Contract {
         frozen: BigNumberish;
         amount: BigNumberish;
         fee: BigNumberish;
+        paid: BigNumberish;
       },
       _sn: BytesLike,
       _expired: BigNumberish,
@@ -2485,7 +3112,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    'transfer(address,(address,bytes32,bytes32,uint256,uint256,uint256,uint256),bytes32,uint256,bytes)'(
+    "transfer(address,(address,bytes32,bytes32,uint256,uint256,uint256,uint256,uint256),bytes32,uint256,bytes)"(
       _out: string,
       _deal: {
         token: string;
@@ -2495,6 +3122,7 @@ export interface Payment extends Contract {
         frozen: BigNumberish;
         amount: BigNumberish;
         fee: BigNumberish;
+        paid: BigNumberish;
       },
       _sn: BytesLike,
       _expired: BigNumberish,
@@ -2502,33 +3130,43 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    unbindAccount(overrides?: Overrides & { from?: string | Promise<string> }): Promise<PopulatedTransaction>;
+    unbindAccount(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
 
-    'unbindAccount()'(overrides?: Overrides & { from?: string | Promise<string> }): Promise<PopulatedTransaction>;
+    "unbindAccount()"(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
 
     unfreeze(
       _account: BytesLike,
       _token: string,
       _amount: BigNumberish,
+      _fee: BigNumberish,
       _sn: BytesLike,
       _expired: BigNumberish,
       _signature: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    'unfreeze(bytes32,address,uint256,bytes32,uint256,bytes)'(
+    "unfreeze(bytes32,address,uint256,uint256,bytes32,uint256,bytes)"(
       _account: BytesLike,
       _token: string,
       _amount: BigNumberish,
+      _fee: BigNumberish,
       _sn: BytesLike,
       _expired: BigNumberish,
       _signature: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    userAccounts(arg0: BytesLike, arg1: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    userAccounts(
+      arg0: BytesLike,
+      arg1: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
-    'userAccounts(bytes32,address)'(
+    "userAccounts(bytes32,address)"(
       arg0: BytesLike,
       arg1: string,
       overrides?: CallOverrides
@@ -2540,19 +3178,29 @@ export interface Payment extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    'verifyMessage(bytes32,bytes)'(
+    "verifyMessage(bytes32,bytes)"(
       _messageHash: BytesLike,
       _signature: BytesLike,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    walletToAccount(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    walletToAccount(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
-    'walletToAccount(address)'(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "walletToAccount(address)"(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
-    walletsOfAccount(arg0: BytesLike, arg1: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    walletsOfAccount(
+      arg0: BytesLike,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
-    'walletsOfAccount(bytes32,uint256)'(
+    "walletsOfAccount(bytes32,uint256)"(
       arg0: BytesLike,
       arg1: BigNumberish,
       overrides?: CallOverrides
@@ -2569,7 +3217,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    'withdraw(address,address,uint256,uint256,bytes32,uint256,bytes)'(
+    "withdraw(address,address,uint256,uint256,bytes32,uint256,bytes)"(
       _to: string,
       _token: string,
       _available: BigNumberish,
