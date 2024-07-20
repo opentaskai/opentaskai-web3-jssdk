@@ -247,7 +247,6 @@ export class Payment extends BaseContract {
       wallet: string,
       sn: string,
       expired: (string | number | BigNumber),
-      domain?: TypedDataDomain
   ): Promise<any> {
       if (!this.signer) throw new Error('no signer');
       account = hexToBytes32(account);
