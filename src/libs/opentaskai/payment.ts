@@ -334,6 +334,7 @@ export class Payment extends BaseContract {
     amount: string | number | BigNumber,
     fee: string | number | BigNumber,
     paid: (string | number | BigNumber),
+    excessFee: (string | number | BigNumber),
     sn: string,
     expired: string | number | BigNumber,
     domain?: TypedDataDomain
@@ -348,6 +349,7 @@ export class Payment extends BaseContract {
       'address',
       'bytes32',
       'bytes32',
+      'uint256',
       'uint256',
       'uint256',
       'uint256',
@@ -368,13 +370,14 @@ export class Payment extends BaseContract {
       amount,
       fee,
       paid,
+      excessFee,
       sn,
       expired,
       this.chain.chainId,
       this.contract.address,
     ];
     const sign = await signData(this.signer, types, values, this.domain);
-    return { out, token, from, to, available, frozen, amount, fee, paid, sn, expired, sign };
+    return { out, token, from, to, available, frozen, amount, fee, paid, excessFee, sn, expired, sign };
   }
 
   public async signCancelData(

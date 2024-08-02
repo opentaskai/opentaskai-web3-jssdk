@@ -209,6 +209,7 @@ interface PaymentInterface extends ethers.utils.Interface {
         amount: BigNumberish;
         fee: BigNumberish;
         paid: BigNumberish;
+        excessFee: BigNumberish;
       },
       BytesLike,
       BigNumberish,
@@ -873,6 +874,7 @@ export interface Payment extends Contract {
         amount: BigNumberish;
         fee: BigNumberish;
         paid: BigNumberish;
+        excessFee: BigNumberish;
       },
       _sn: BytesLike,
       _expired: BigNumberish,
@@ -880,7 +882,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    "transfer(address,(address,bytes32,bytes32,uint256,uint256,uint256,uint256,uint256),bytes32,uint256,bytes)"(
+    "transfer(address,(address,bytes32,bytes32,uint256,uint256,uint256,uint256,uint256,uint256),bytes32,uint256,bytes)"(
       _out: string,
       _deal: {
         token: string;
@@ -891,6 +893,7 @@ export interface Payment extends Contract {
         amount: BigNumberish;
         fee: BigNumberish;
         paid: BigNumberish;
+        excessFee: BigNumberish;
       },
       _sn: BytesLike,
       _expired: BigNumberish,
@@ -1384,6 +1387,7 @@ export interface Payment extends Contract {
       amount: BigNumberish;
       fee: BigNumberish;
       paid: BigNumberish;
+      excessFee: BigNumberish;
     },
     _sn: BytesLike,
     _expired: BigNumberish,
@@ -1391,7 +1395,7 @@ export interface Payment extends Contract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  "transfer(address,(address,bytes32,bytes32,uint256,uint256,uint256,uint256,uint256),bytes32,uint256,bytes)"(
+  "transfer(address,(address,bytes32,bytes32,uint256,uint256,uint256,uint256,uint256,uint256),bytes32,uint256,bytes)"(
     _out: string,
     _deal: {
       token: string;
@@ -1402,6 +1406,7 @@ export interface Payment extends Contract {
       amount: BigNumberish;
       fee: BigNumberish;
       paid: BigNumberish;
+      excessFee: BigNumberish;
     },
     _sn: BytesLike,
     _expired: BigNumberish,
@@ -1877,6 +1882,7 @@ export interface Payment extends Contract {
         amount: BigNumberish;
         fee: BigNumberish;
         paid: BigNumberish;
+        excessFee: BigNumberish;
       },
       _sn: BytesLike,
       _expired: BigNumberish,
@@ -1884,7 +1890,7 @@ export interface Payment extends Contract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    "transfer(address,(address,bytes32,bytes32,uint256,uint256,uint256,uint256,uint256),bytes32,uint256,bytes)"(
+    "transfer(address,(address,bytes32,bytes32,uint256,uint256,uint256,uint256,uint256,uint256),bytes32,uint256,bytes)"(
       _out: string,
       _deal: {
         token: string;
@@ -1895,6 +1901,7 @@ export interface Payment extends Contract {
         amount: BigNumberish;
         fee: BigNumberish;
         paid: BigNumberish;
+        excessFee: BigNumberish;
       },
       _sn: BytesLike,
       _expired: BigNumberish,
@@ -2145,6 +2152,7 @@ export interface Payment extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
+          BigNumber,
           BigNumber
         ] & {
           token: string;
@@ -2155,6 +2163,7 @@ export interface Payment extends Contract {
           amount: BigNumber;
           fee: BigNumber;
           paid: BigNumber;
+          excessFee: BigNumber;
         },
         string,
         string
@@ -2169,6 +2178,7 @@ export interface Payment extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
+          BigNumber,
           BigNumber
         ] & {
           token: string;
@@ -2179,6 +2189,7 @@ export interface Payment extends Contract {
           amount: BigNumber;
           fee: BigNumber;
           paid: BigNumber;
+          excessFee: BigNumber;
         };
         _out: string;
         _operator: string;
@@ -2603,6 +2614,7 @@ export interface Payment extends Contract {
         amount: BigNumberish;
         fee: BigNumberish;
         paid: BigNumberish;
+        excessFee: BigNumberish;
       },
       _sn: BytesLike,
       _expired: BigNumberish,
@@ -2610,7 +2622,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    "transfer(address,(address,bytes32,bytes32,uint256,uint256,uint256,uint256,uint256),bytes32,uint256,bytes)"(
+    "transfer(address,(address,bytes32,bytes32,uint256,uint256,uint256,uint256,uint256,uint256),bytes32,uint256,bytes)"(
       _out: string,
       _deal: {
         token: string;
@@ -2621,6 +2633,7 @@ export interface Payment extends Contract {
         amount: BigNumberish;
         fee: BigNumberish;
         paid: BigNumberish;
+        excessFee: BigNumberish;
       },
       _sn: BytesLike,
       _expired: BigNumberish,
@@ -3105,6 +3118,7 @@ export interface Payment extends Contract {
         amount: BigNumberish;
         fee: BigNumberish;
         paid: BigNumberish;
+        excessFee: BigNumberish;
       },
       _sn: BytesLike,
       _expired: BigNumberish,
@@ -3112,7 +3126,7 @@ export interface Payment extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    "transfer(address,(address,bytes32,bytes32,uint256,uint256,uint256,uint256,uint256),bytes32,uint256,bytes)"(
+    "transfer(address,(address,bytes32,bytes32,uint256,uint256,uint256,uint256,uint256,uint256),bytes32,uint256,bytes)"(
       _out: string,
       _deal: {
         token: string;
@@ -3123,6 +3137,7 @@ export interface Payment extends Contract {
         amount: BigNumberish;
         fee: BigNumberish;
         paid: BigNumberish;
+        excessFee: BigNumberish;
       },
       _sn: BytesLike,
       _expired: BigNumberish,
