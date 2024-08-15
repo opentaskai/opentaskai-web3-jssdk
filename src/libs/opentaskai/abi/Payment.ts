@@ -1481,6 +1481,11 @@ const PaymentABI = [
     {
       "inputs": [
         {
+          "internalType": "bytes32",
+          "name": "_from",
+          "type": "bytes32"
+        },
+        {
           "internalType": "address",
           "name": "_to",
           "type": "address"
