@@ -287,6 +287,7 @@ export class Payment extends BaseContract {
   ): Promise<any> {
     if (!this.signer) throw new Error('no signer');
     sn = hexToBytes32(sn);
+    from = hexToBytes32(from);
     const types = ['bytes32', 'address', 'address', 'uint256', 'uint256', 'bytes32', 'uint256', 'uint256', 'address'];
     const values = [from, to, token, available, frozen, sn, expired, this.chain.chainId, this.contract.address];
     const sign = await signData(this.signer, types, values, this.domain);
