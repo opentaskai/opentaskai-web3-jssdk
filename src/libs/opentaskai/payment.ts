@@ -82,6 +82,7 @@ export class Payment extends BaseContract {
   }
 
   public withdraw(
+    _from: string, // sender's account number
     _to: string, // destination wallet
     _token: string,
     _available: BigNumberish,
@@ -93,6 +94,7 @@ export class Payment extends BaseContract {
     let value = BigNumber.from(0);
     const payableOverrides = { value };
     return getTransactionMethods(this.contract, 'withdraw', [
+      _from,
       _to,
       _token,
       _available,
@@ -275,6 +277,7 @@ export class Payment extends BaseContract {
   }
 
   public async signWithdraw(
+    from: string, // sender's account number
     to: string, // destination wallet
     token: string,
     available: string | number | BigNumber,
@@ -284,10 +287,10 @@ export class Payment extends BaseContract {
   ): Promise<any> {
     if (!this.signer) throw new Error('no signer');
     sn = hexToBytes32(sn);
-    const types = ['address', 'address', 'uint256', 'uint256', 'bytes32', 'uint256', 'uint256', 'address'];
-    const values = [to, token, available, frozen, sn, expired, this.chain.chainId, this.contract.address];
+    const types = ['bytes32', 'address', 'address', 'uint256', 'uint256', 'bytes32', 'uint256', 'uint256', 'address'];
+    const values = [from, to, token, available, frozen, sn, expired, this.chain.chainId, this.contract.address];
     const sign = await signData(this.signer, types, values, this.domain);
-    return { to, token, available, frozen, sn, expired, sign };
+    return { from, to, token, available, frozen, sn, expired, sign };
   }
 
   public async signFreezeData(
