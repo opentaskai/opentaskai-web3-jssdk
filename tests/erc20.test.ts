@@ -21,6 +21,8 @@ describe('erc20', () => {
     const wallet2 = new Wallet(TEST_CONFIG.pklist[1]);
     console.log('wallet:', wallet.address);
     console.log('wallet2:', wallet2.address);
+    console.log('weth:', weth);
+    console.log('usdt:', usdt);
     chain.connect(wallet);
 
     const token = getERC20(chain, usdt);
@@ -39,23 +41,23 @@ describe('erc20', () => {
       console.log('res:', res);
     });
 
-    // it('approve', async () => {
-    //   chain.connect(wallet);
-    //   const amount = bnWithDecimals(100000, 18);
-    //   res = token.approve(weth, amount);
-    //   res = await res.encodeFunction();
-    //   console.log('approve encodeFunction', res);
-    //   console.log('amount', amount.toString());
-    //   const transaction = token.approve(weth, amount);
-    //   const gas = await transaction.estimateGas();
-    //   const buildTransaction = await transaction.buildTransaction();
-    //   const calldata = transaction.encodeFunction();
-    //   console.log('transaction', transaction, calldata, buildTransaction, BigNumber.from(gas).toString());
-    //   // res = await transaction.transact();
-    //   // console.log(res.hash);
-    //   // res = await res.wait();
-    //   // console.log(res);
-    // });
+    it('approve', async () => {
+      chain.connect(wallet);
+      const amount = bnWithDecimals(100000, 18);
+      res = token.approve(weth, amount);
+      res = await res.encodeFunction();
+      console.log('approve encodeFunction', res);
+      console.log('amount', amount.toString());
+      const transaction = token.approve(weth, amount);
+      const gas = await transaction.estimateGas();
+      const buildTransaction = await transaction.buildTransaction();
+      const calldata = transaction.encodeFunction();
+      console.log('transaction', transaction, calldata, buildTransaction, BigNumber.from(gas).toString());
+      res = await transaction.transact();
+      console.log(res.hash);
+      res = await res.wait();
+      console.log(res);
+    });
 
     // it('send sign tx', async () => {
     //   chain.connect(wallet);
