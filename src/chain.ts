@@ -200,7 +200,7 @@ export class LocalChain extends Chain {
     super();
     if (!rpc) rpc = CHAIN_RPC[chainId];
     console.log('chain rpc', rpc);
-    const provider = new ethers.providers.JsonRpcProvider(CHAIN_RPC[chainId]);
+    const provider = new ethers.providers.JsonRpcProvider(rpc);
 
     this.setProvider(provider);
     this.chainId = chainId;

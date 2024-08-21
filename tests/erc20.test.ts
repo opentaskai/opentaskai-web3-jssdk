@@ -54,9 +54,9 @@ describe('erc20', () => {
       const calldata = transaction.encodeFunction();
       console.log('transaction', transaction, calldata, buildTransaction, BigNumber.from(gas).toString());
       res = await transaction.transact();
-      console.log(res.hash);
+      console.log('hash:', res.hash);
       res = await res.wait();
-      console.log(res);
+      console.log('receipt',res);
     });
 
     // it('send sign tx', async () => {
