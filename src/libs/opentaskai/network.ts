@@ -2,7 +2,6 @@ import { CHAIN_RPC } from '../../constants';
 
 export type NetworkMeta = {
   id: number;
-  rpcUrl: string;
   Payment: string;
   AIGenesis: string;
 };
@@ -12,28 +11,24 @@ export const getNetworkMeta = (network: number): NetworkMeta => {
     case 11155111:
       return {
         id: network,
-        rpcUrl: CHAIN_RPC[network],
         Payment: '0xF58cD5dEAA238210d2cc1328Dd8eB27F5B2a30b2',
         AIGenesis: '0x3323a6EcAA42f3aF97a6656eC80c1610E357c2FE',
       };
     case 56:
       return {
         id: network,
-        rpcUrl: CHAIN_RPC[network],
         Payment: '',
         AIGenesis: '0xD9C2Ff6DBD04A9Ed4d3EFdeD68Bd3766D16de26C',
       };
     case 97:
       return {
         id: network,
-        rpcUrl: CHAIN_RPC[network],
         Payment: '0x8971fb14a37B9E9A940bE4789f1bb00c9804cd0F',
         AIGenesis: '0x3A2A916EbF8F84D3993B6D7d45b25C9acA8E2AA5',
       };
     default:
       return {
         id: 56,
-        rpcUrl: CHAIN_RPC[network],
         Payment: '',
         AIGenesis: '',
       };
