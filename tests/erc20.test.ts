@@ -50,10 +50,15 @@ describe('erc20', () => {
       console.log('amount', amount.toString());
       const transaction = token.approve(weth, amount);
       const gas = await transaction.estimateGas();
+      const gasLimit = gas.add(10000);
+      console.log('gas limit:', gas, gasLimit);
+      const price = await chain.getGasPrice();
+      const gasPrice = BigNumber.from(price).mul(120).div(100);
+      console.log('gas price:', price, gasPrice);
       const buildTransaction = await transaction.buildTransaction();
       const calldata = transaction.encodeFunction();
       console.log('transaction', transaction, calldata, buildTransaction, BigNumber.from(gas).toString());
-      res = await transaction.transact();
+      res = await transaction.transact({gasLimit, gasPrice});
       console.log('hash:', res.hash);
       res = await res.wait();
       console.log('receipt',res);
