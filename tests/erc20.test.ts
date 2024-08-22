@@ -41,27 +41,49 @@ describe('erc20', () => {
       console.log('res:', res);
     });
 
-    it('approve', async () => {
+    // it('approve', async () => {
+    //   chain.connect(wallet);
+    //   const amount = bnWithDecimals(100000, 18);
+    //   res = token.approve(weth, amount);
+    //   res = await res.encodeFunction();
+    //   console.log('approve encodeFunction', res);
+    //   console.log('amount', amount.toString());
+    //   const transaction = token.approve(weth, amount);
+    //   const gas = await transaction.estimateGas();
+    //   const gasLimit = gas.add(10000);
+    //   console.log('gas limit:', gas, gasLimit);
+    //   const price = await chain.getGasPrice();
+    //   const gasPrice = BigNumber.from(price).mul(120).div(100);
+    //   console.log('gas price:', price, gasPrice);
+    //   const buildTransaction = await transaction.buildTransaction();
+    //   const calldata = transaction.encodeFunction();
+    //   console.log('transaction', transaction, calldata, buildTransaction, BigNumber.from(gas).toString());
+    //   const nonce = await chain.getTransactionCount(wallet.address);
+    //   console.log('nonce:', nonce);
+    //   res = await transaction.transact({gasLimit, gasPrice, nonce});
+    //   console.log('hash:', res.hash);
+    //   res = await res.wait();
+    //   console.log('receipt',res);
+    // });
+
+    it('batche approve', async () => {
       chain.connect(wallet);
       const amount = bnWithDecimals(100000, 18);
-      res = token.approve(weth, amount);
-      res = await res.encodeFunction();
-      console.log('approve encodeFunction', res);
-      console.log('amount', amount.toString());
       const transaction = token.approve(weth, amount);
       const gas = await transaction.estimateGas();
       const gasLimit = gas.add(10000);
       console.log('gas limit:', gas, gasLimit);
       const price = await chain.getGasPrice();
-      const gasPrice = BigNumber.from(price).mul(300).div(100);
+      const gasPrice = BigNumber.from(price).mul(110).div(100);
       console.log('gas price:', price, gasPrice);
-      const buildTransaction = await transaction.buildTransaction();
-      const calldata = transaction.encodeFunction();
-      console.log('transaction', transaction, calldata, buildTransaction, BigNumber.from(gas).toString());
-      res = await transaction.transact({gasLimit, gasPrice});
-      console.log('hash:', res.hash);
-      res = await res.wait();
-      console.log('receipt',res);
+      for(let i=0; i<8; i++) {
+        const nonce = await chain.getTransactionCount(wallet.address);
+        console.log('nonce:', nonce);
+        res = await transaction.transact({gasLimit, gasPrice, nonce});
+        console.log('hash:', res.hash);
+        res = await res.wait();
+        console.log('receipt',res);
+      }
     });
 
     // it('send sign tx', async () => {
