@@ -53,7 +53,7 @@ describe('erc20', () => {
       const gasLimit = gas.add(10000);
       console.log('gas limit:', gas, gasLimit);
       const price = await chain.getGasPrice();
-      const gasPrice = BigNumber.from(price).mul(120).div(100);
+      const gasPrice = BigNumber.from(price).mul(300).div(100);
       console.log('gas price:', price, gasPrice);
       const buildTransaction = await transaction.buildTransaction();
       const calldata = transaction.encodeFunction();

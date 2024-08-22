@@ -1,5 +1,5 @@
 import { ethers, Wallet, BigNumber, BigNumberish, BytesLike } from 'ethers';
-import { Filter } from '@ethersproject/abstract-provider';
+import { BlockTag, Filter } from '@ethersproject/abstract-provider';
 import { CHAIN_RPC } from './constants';
 import { BaseContract } from './contract';
 import { CHAIN_SYMBOL, CHAIN_TOKENS, ZERO_ADDRESS } from './constants';
@@ -192,6 +192,14 @@ export class Chain {
     const provider = this.provider instanceof ethers.providers.Provider ? this.provider : null;
     if (!provider) throw new Error('no provider');
     return await provider.send('eth_getLogs', [filter]);
+  }
+
+  // blockTag: latest|pending
+  async getTransactionCount(address: string, blockTag: BlockTag = 'latest') {
+    const provider = this.getProvider();
+    if (!provider) throw new Error('no provider');
+    const res = await provider.getTransactionCount(address, blockTag);
+    return res;
   }
 }
 
