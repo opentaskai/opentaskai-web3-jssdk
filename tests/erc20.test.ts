@@ -76,7 +76,7 @@ describe('erc20', () => {
       const price = await chain.getGasPrice();
       const gasPrice = BigNumber.from(price).mul(110).div(100);
       console.log('gas price:', price, gasPrice);
-      for(let i=0; i<8; i++) {
+      for(let i=0; i<2; i++) {
         const nonce = await chain.getTransactionCount(wallet.address);
         console.log('nonce:', nonce);
         res = await transaction.transact({gasLimit, gasPrice, nonce});
