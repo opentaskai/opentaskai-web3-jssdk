@@ -26,11 +26,17 @@ export const getNetworkMeta = (network: number): NetworkMeta => {
         Payment: '0x8971fb14a37B9E9A940bE4789f1bb00c9804cd0F',
         AIGenesis: '0x3A2A916EbF8F84D3993B6D7d45b25C9acA8E2AA5',
       };
+    case 656476:
+      return {
+        id: network,
+        Payment: '',
+        AIGenesis: '',
+      };
     default:
       return {
         id: 56,
-        Payment: '',
-        AIGenesis: '',
+        Payment: '0x3212257cAc8cf8eC690e232868f90681F2CDf7a3',
+        AIGenesis: '0xF58cD5dEAA238210d2cc1328Dd8eB27F5B2a30b2',
       };
   }
 };
