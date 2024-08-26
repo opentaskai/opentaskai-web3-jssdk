@@ -29,14 +29,14 @@ export const getNetworkMeta = (network: number): NetworkMeta => {
     case 656476:
       return {
         id: network,
-        Payment: '',
-        AIGenesis: '',
+        Payment : "0x3212257cAc8cf8eC690e232868f90681F2CDf7a3",
+        AIGenesis : "0xF58cD5dEAA238210d2cc1328Dd8eB27F5B2a30b2",
       };
     default:
       return {
         id: 56,
-        Payment: '0x3212257cAc8cf8eC690e232868f90681F2CDf7a3',
-        AIGenesis: '0xF58cD5dEAA238210d2cc1328Dd8eB27F5B2a30b2',
+        Payment: '',
+        AIGenesis: '0xD9C2Ff6DBD04A9Ed4d3EFdeD68Bd3766D16de26C',
       };
   }
 };
