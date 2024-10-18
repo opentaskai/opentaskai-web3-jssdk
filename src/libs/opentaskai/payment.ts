@@ -234,7 +234,7 @@ export class Payment extends BaseContract {
     this.signer = _signer;
   }
 
-  public async signBindAccountData(account: string, sn: string, expired: string | number | BigNumber): Promise<any> {
+  public async signBindAccountData(account: string, sn: string, expired: string | number | BigNumber, payer?: string): Promise<any> {
     if (!this.signer) throw new Error('no signer');
     account = hexToBytes32(account);
     sn = hexToBytes32(sn);
@@ -249,6 +249,7 @@ export class Payment extends BaseContract {
       wallet: string,
       sn: string,
       expired: (string | number | BigNumber),
+      payer?: string
   ): Promise<any> {
       if (!this.signer) throw new Error('no signer');
       account = hexToBytes32(account);
@@ -265,7 +266,8 @@ export class Payment extends BaseContract {
     amount: string | number | BigNumber,
     frozen: string | number | BigNumber,
     sn: string,
-    expired: string | number | BigNumber
+    expired: string | number | BigNumber,
+    payer?: string
   ): Promise<any> {
     if (!this.signer) throw new Error('no signer');
     to = hexToBytes32(to);
@@ -283,7 +285,8 @@ export class Payment extends BaseContract {
     available: string | number | BigNumber,
     frozen: string | number | BigNumber,
     sn: string,
-    expired: string | number | BigNumber
+    expired: string | number | BigNumber,
+    payer?: string
   ): Promise<any> {
     if (!this.signer) throw new Error('no signer');
     sn = hexToBytes32(sn);
@@ -299,7 +302,8 @@ export class Payment extends BaseContract {
     token: string,
     amount: string | number | BigNumber,
     sn: string,
-    expired: string | number | BigNumber
+    expired: string | number | BigNumber,
+    payer?: string
   ): Promise<any> {
     if (!this.signer) throw new Error('no signer');
     sn = hexToBytes32(sn);
@@ -317,7 +321,7 @@ export class Payment extends BaseContract {
     fee: (string | number | BigNumber),
     sn: string,
     expired: (string | number | BigNumber),
-    domain?: TypedDataDomain
+    payer?: string
   ): Promise<any> {
     if (!this.signer) throw new Error('no signer');
     sn = hexToBytes32(sn);
@@ -341,7 +345,7 @@ export class Payment extends BaseContract {
     excessFee: (string | number | BigNumber),
     sn: string,
     expired: string | number | BigNumber,
-    domain?: TypedDataDomain
+    payer?: string
   ): Promise<any> {
     if (!this.signer) throw new Error('no signer');
     sn = hexToBytes32(sn);
@@ -388,7 +392,8 @@ export class Payment extends BaseContract {
     userA: TradeData,
     userB: TradeData,
     sn: string,
-    expired: string | number | BigNumber
+    expired: string | number | BigNumber,
+    payer?: string
   ): Promise<any> {
     if (!this.signer) throw new Error('no signer');
     sn = hexToBytes32(sn);
