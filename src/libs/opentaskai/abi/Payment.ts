@@ -521,6 +521,61 @@ const PaymentABI = [
     {
       "inputs": [
         {
+          "components": [
+            {
+              "internalType": "bytes32",
+              "name": "from",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "token",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "available",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "frozen",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "sn",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "expired",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes",
+              "name": "signature",
+              "type": "bytes"
+            }
+          ],
+          "internalType": "struct WithdrawParams[]",
+          "name": "_params",
+          "type": "tuple[]"
+        }
+      ],
+      "name": "batchWithdraw",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
           "internalType": "bytes32",
           "name": "_account",
           "type": "bytes32"
@@ -640,6 +695,30 @@ const PaymentABI = [
       "name": "changeOwner",
       "outputs": [],
       "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "_account",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "_wallet",
+          "type": "address"
+        }
+      ],
+      "name": "checkAccountBound",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
       "type": "function"
     },
     {
@@ -1481,44 +1560,51 @@ const PaymentABI = [
     {
       "inputs": [
         {
-          "internalType": "bytes32",
-          "name": "_from",
-          "type": "bytes32"
-        },
-        {
-          "internalType": "address",
-          "name": "_to",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "_token",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_available",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_frozen",
-          "type": "uint256"
-        },
-        {
-          "internalType": "bytes32",
-          "name": "_sn",
-          "type": "bytes32"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_expired",
-          "type": "uint256"
-        },
-        {
-          "internalType": "bytes",
-          "name": "_signature",
-          "type": "bytes"
+          "components": [
+            {
+              "internalType": "bytes32",
+              "name": "from",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "token",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "available",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "frozen",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "sn",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "expired",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes",
+              "name": "signature",
+              "type": "bytes"
+            }
+          ],
+          "internalType": "struct WithdrawParams",
+          "name": "_params",
+          "type": "tuple"
         }
       ],
       "name": "withdraw",

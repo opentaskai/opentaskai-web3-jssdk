@@ -14,6 +14,7 @@ const CHAIN_RPC: any = {
   128: 'https://http-mainnet.hecochain.com',
   256: 'https://http-testnet.hecochain.com',
   80001: 'https://matic-mumbai.chainstacklabs.com',
+  41923: 'https://rpc.edu-chain.raas.gelato.cloud',
   656476: 'https://open-campus-codex-sepolia.drpc.org',
 };
 
@@ -30,6 +31,7 @@ export const CHAIN_BROWSER: any = {
   80001: 'https://mumbai.polygonscan.com',
   421611: 'https://rinkeby-explorer.arbitrum.io',
   42161: 'https://arbiscan.io',
+  41923: 'https://educhain.blockscout.com',
   656476: 'https://opencampus-codex.blockscout.com',
 };
 
@@ -44,6 +46,7 @@ export const CHAIN_NAME: any = {
   80001: 'Matic Chain Testnet',
   421611: 'Arbitrum Chain Testnet',
   42161: 'Arbitrum Chain Mainnet',
+  41923: 'EDU Chain',
   656476: 'Open Campus Sepolia',
 };
 
@@ -72,6 +75,7 @@ export const CHAIN_SYMBOL: any = {
     80001: 'MATIC',
     421611: 'ETH',
     42161: 'ETH',
+    41923: 'EDU',
     656476: 'EDU',
   },
 };
@@ -118,10 +122,15 @@ export const CHAIN_TOKENS: any = {
     USDC: '0xA0511959FC004BBCC62b193126393ddED1564AaA',
     DAI: '0x8B96AF41622236251Ba7eB514e8519f3509928E6',
   },
-  656476: {
+  41923: {
     WEDU: '0x345E902846aC3805719483d80D664ABa0B6aF40C',
     USDT: '0xeDFa3e28953bA25173baF11160D4aD435ec002b5',
     USDC: '0x3Ce79Af8a259DE19a85807378c13d34Ec8cC8895',
+  },
+  656476: {
+    WEDU: '0xa572BF655F61930B6f0d4546A67cD1376220081a',
+    USDT: '0x7277Cc818e3F3FfBb169c6Da9CC77Fc2d2a34895',
+    USDC: '0x836d275563bAb5E93Fd6Ca62a95dB7065Da94342',
   },
 };
 

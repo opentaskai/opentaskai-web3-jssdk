@@ -93,17 +93,25 @@ export class Payment extends BaseContract {
   ): TransactionMethods<ContractMethodReturnType<PaymentContract, 'withdraw'>> {
     let value = BigNumber.from(0);
     const payableOverrides = { value };
-    return getTransactionMethods(this.contract, 'withdraw', [
-      _from,
-      _to,
-      _token,
-      _available,
-      _frozen,
-      _sn,
-      _expired,
-      _signature,
-      payableOverrides,
-    ]);
+    const params = {
+      from: _from,
+      to: _to,
+      token: _token,
+      available: _available,
+      frozen: _frozen,
+      sn: _sn,
+      expired: _expired,
+      signature: _signature,
+    };
+    return getTransactionMethods(this.contract, 'withdraw', [params, payableOverrides]);
+  }
+
+  public batchWithdraw(
+    params: any[]
+  ): TransactionMethods<ContractMethodReturnType<PaymentContract, 'batchWithdraw'>> {
+    let value = BigNumber.from(0);
+    const payableOverrides = { value };
+    return getTransactionMethods(this.contract, 'batchWithdraw', [params, payableOverrides]);
   }
 
   public freeze(
@@ -234,12 +242,12 @@ export class Payment extends BaseContract {
     this.signer = _signer;
   }
 
-  public async signBindAccountData(account: string, sn: string, expired: string | number | BigNumber, payer?: string): Promise<any> {
+  public async signBindAccountData(account: string, sn: string, expired: string | number | BigNumber, payer: string): Promise<any> {
     if (!this.signer) throw new Error('no signer');
     account = hexToBytes32(account);
     sn = hexToBytes32(sn);
-    const types = ['bytes32', 'bytes32', 'uint256', 'uint256', 'address'];
-    const values = [account, sn, expired, this.chain.chainId, this.contract.address];
+    const types = ['address', 'bytes32', 'bytes32', 'uint256', 'uint256', 'address'];
+    const values = [payer, account, sn, expired, this.chain.chainId+1, this.contract.address];
     const sign = await signData(this.signer, types, values, this.domain);
     return { account, sn, expired, sign };
   }
@@ -249,13 +257,13 @@ export class Payment extends BaseContract {
       wallet: string,
       sn: string,
       expired: (string | number | BigNumber),
-      payer?: string
+      payer: string
   ): Promise<any> {
       if (!this.signer) throw new Error('no signer');
       account = hexToBytes32(account);
       sn = hexToBytes32(sn);
-      const types = ['bytes32', 'address', 'bytes32', 'uint256', 'uint256', 'address'];
-      const values = [account, wallet, sn, expired, this.chain.chainId, this.contract.address];
+      const types = ['address', 'bytes32', 'address', 'bytes32', 'uint256', 'uint256', 'address'];
+      const values = [payer,account, wallet, sn, expired, this.chain.chainId+2, this.contract.address];
       const sign = await signData(this.signer, types, values, this.domain);;
       return { account, wallet, sn, expired, sign };
   }
@@ -267,13 +275,13 @@ export class Payment extends BaseContract {
     frozen: string | number | BigNumber,
     sn: string,
     expired: string | number | BigNumber,
-    payer?: string
+    payer: string
   ): Promise<any> {
     if (!this.signer) throw new Error('no signer');
     to = hexToBytes32(to);
     sn = hexToBytes32(sn);
-    const types = ['bytes32', 'address', 'uint256', 'uint256', 'bytes32', 'uint256', 'uint256', 'address'];
-    const values = [to, token, amount, frozen, sn, expired, this.chain.chainId, this.contract.address];
+    const types = ['address', 'bytes32', 'address', 'uint256', 'uint256', 'bytes32', 'uint256', 'uint256', 'address'];
+    const values = [payer,to, token, amount, frozen, sn, expired, this.chain.chainId+3, this.contract.address];
     const sign = await signData(this.signer, types, values, this.domain);
     return { to, token, amount, frozen, sn, expired, sign };
   }
@@ -292,7 +300,7 @@ export class Payment extends BaseContract {
     sn = hexToBytes32(sn);
     from = hexToBytes32(from);
     const types = ['bytes32', 'address', 'address', 'uint256', 'uint256', 'bytes32', 'uint256', 'uint256', 'address'];
-    const values = [from, to, token, available, frozen, sn, expired, this.chain.chainId, this.contract.address];
+    const values = [from, to, token, available, frozen, sn, expired, this.chain.chainId+4, this.contract.address];
     const sign = await signData(this.signer, types, values, this.domain);
     return { from, to, token, available, frozen, sn, expired, sign };
   }
@@ -309,7 +317,7 @@ export class Payment extends BaseContract {
     sn = hexToBytes32(sn);
     account = hexToBytes32(account);
     const types = ['bytes32', 'address', 'uint256', 'bytes32', 'uint256', 'uint256', 'address'];
-    const values = [account, token, amount, sn, expired, this.chain.chainId, this.contract.address];
+    const values = [account, token, amount, sn, expired, this.chain.chainId+5, this.contract.address];
     const sign = await signData(this.signer, types, values, this.domain);
     return { account, token, amount, sn, expired, sign };
   }
@@ -327,7 +335,7 @@ export class Payment extends BaseContract {
     sn = hexToBytes32(sn);
     account = hexToBytes32(account);
     const types = ['bytes32', 'address', 'uint256', 'uint256', 'bytes32', 'uint256', 'uint256', 'address'];
-    const values = [account, token, amount, fee, sn, expired, this.chain.chainId, this.contract.address];
+    const values = [account, token, amount, fee, sn, expired, this.chain.chainId+6, this.contract.address];
     const sign = await signData(this.signer, types, values, this.domain);
     return {account, token, amount, fee, sn, expired, sign};
     }
@@ -381,7 +389,7 @@ export class Payment extends BaseContract {
       excessFee,
       sn,
       expired,
-      this.chain.chainId,
+      this.chain.chainId+7,
       this.contract.address,
     ];
     const sign = await signData(this.signer, types, values, this.domain);
@@ -425,7 +433,7 @@ export class Payment extends BaseContract {
       userB.amount,
       userB.fee,
       expired,
-      this.chain.chainId,
+      this.chain.chainId+8,
       this.contract.address,
     ];
     const sign = await signData(this.signer, types, values, this.domain);

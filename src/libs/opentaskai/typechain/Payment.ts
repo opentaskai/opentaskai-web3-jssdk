@@ -24,9 +24,11 @@ interface PaymentInterface extends ethers.utils.Interface {
   functions: {
     "admin()": FunctionFragment;
     "autoBindEnabled()": FunctionFragment;
+    "batchWithdraw(tuple[])": FunctionFragment;
     "bindAccount(bytes32,bytes32,uint256,bytes)": FunctionFragment;
     "cancel(tuple,tuple,bytes32,uint256,bytes)": FunctionFragment;
     "changeOwner(address)": FunctionFragment;
+    "checkAccountBound(bytes32,address)": FunctionFragment;
     "config()": FunctionFragment;
     "deposit(bytes32,address,uint256,uint256,bytes32,uint256,bytes)": FunctionFragment;
     "dev()": FunctionFragment;
@@ -64,13 +66,28 @@ interface PaymentInterface extends ethers.utils.Interface {
     "verifyMessage(bytes32,bytes)": FunctionFragment;
     "walletToAccount(address)": FunctionFragment;
     "walletsOfAccount(bytes32,uint256)": FunctionFragment;
-    "withdraw(bytes32,address,address,uint256,uint256,bytes32,uint256,bytes)": FunctionFragment;
+    "withdraw(tuple)": FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: "admin", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "autoBindEnabled",
     values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "batchWithdraw",
+    values: [
+      {
+        from: BytesLike;
+        to: string;
+        token: string;
+        available: BigNumberish;
+        frozen: BigNumberish;
+        sn: BytesLike;
+        expired: BigNumberish;
+        signature: BytesLike;
+      }[]
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "bindAccount",
@@ -97,6 +114,10 @@ interface PaymentInterface extends ethers.utils.Interface {
     ]
   ): string;
   encodeFunctionData(functionFragment: "changeOwner", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "checkAccountBound",
+    values: [BytesLike, string]
+  ): string;
   encodeFunctionData(functionFragment: "config", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "deposit",
@@ -251,14 +272,16 @@ interface PaymentInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "withdraw",
     values: [
-      BytesLike,
-      string,
-      string,
-      BigNumberish,
-      BigNumberish,
-      BytesLike,
-      BigNumberish,
-      BytesLike
+      {
+        from: BytesLike;
+        to: string;
+        token: string;
+        available: BigNumberish;
+        frozen: BigNumberish;
+        sn: BytesLike;
+        expired: BigNumberish;
+        signature: BytesLike;
+      }
     ]
   ): string;
 
@@ -268,12 +291,20 @@ interface PaymentInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "batchWithdraw",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "bindAccount",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "cancel", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "changeOwner",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "checkAccountBound",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "config", data: BytesLike): Result;
@@ -456,6 +487,34 @@ export interface Payment extends Contract {
 
     "autoBindEnabled()"(overrides?: CallOverrides): Promise<[boolean]>;
 
+    batchWithdraw(
+      _params: {
+        from: BytesLike;
+        to: string;
+        token: string;
+        available: BigNumberish;
+        frozen: BigNumberish;
+        sn: BytesLike;
+        expired: BigNumberish;
+        signature: BytesLike;
+      }[],
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "batchWithdraw(tuple[])"(
+      _params: {
+        from: BytesLike;
+        to: string;
+        token: string;
+        available: BigNumberish;
+        frozen: BigNumberish;
+        sn: BytesLike;
+        expired: BigNumberish;
+        signature: BytesLike;
+      }[],
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     bindAccount(
       _account: BytesLike,
       _sn: BytesLike,
@@ -519,6 +578,18 @@ export interface Payment extends Contract {
       _user: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    checkAccountBound(
+      _account: BytesLike,
+      _wallet: string,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
+    "checkAccountBound(bytes32,address)"(
+      _account: BytesLike,
+      _wallet: string,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
 
     config(overrides?: CallOverrides): Promise<[string]>;
 
@@ -980,26 +1051,30 @@ export interface Payment extends Contract {
     ): Promise<[string]>;
 
     withdraw(
-      _from: BytesLike,
-      _to: string,
-      _token: string,
-      _available: BigNumberish,
-      _frozen: BigNumberish,
-      _sn: BytesLike,
-      _expired: BigNumberish,
-      _signature: BytesLike,
+      _params: {
+        from: BytesLike;
+        to: string;
+        token: string;
+        available: BigNumberish;
+        frozen: BigNumberish;
+        sn: BytesLike;
+        expired: BigNumberish;
+        signature: BytesLike;
+      },
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    "withdraw(bytes32,address,address,uint256,uint256,bytes32,uint256,bytes)"(
-      _from: BytesLike,
-      _to: string,
-      _token: string,
-      _available: BigNumberish,
-      _frozen: BigNumberish,
-      _sn: BytesLike,
-      _expired: BigNumberish,
-      _signature: BytesLike,
+    "withdraw((bytes32,address,address,uint256,uint256,bytes32,uint256,bytes))"(
+      _params: {
+        from: BytesLike;
+        to: string;
+        token: string;
+        available: BigNumberish;
+        frozen: BigNumberish;
+        sn: BytesLike;
+        expired: BigNumberish;
+        signature: BytesLike;
+      },
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
@@ -1011,6 +1086,34 @@ export interface Payment extends Contract {
   autoBindEnabled(overrides?: CallOverrides): Promise<boolean>;
 
   "autoBindEnabled()"(overrides?: CallOverrides): Promise<boolean>;
+
+  batchWithdraw(
+    _params: {
+      from: BytesLike;
+      to: string;
+      token: string;
+      available: BigNumberish;
+      frozen: BigNumberish;
+      sn: BytesLike;
+      expired: BigNumberish;
+      signature: BytesLike;
+    }[],
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "batchWithdraw(tuple[])"(
+    _params: {
+      from: BytesLike;
+      to: string;
+      token: string;
+      available: BigNumberish;
+      frozen: BigNumberish;
+      sn: BytesLike;
+      expired: BigNumberish;
+      signature: BytesLike;
+    }[],
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   bindAccount(
     _account: BytesLike,
@@ -1075,6 +1178,18 @@ export interface Payment extends Contract {
     _user: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
+
+  checkAccountBound(
+    _account: BytesLike,
+    _wallet: string,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
+  "checkAccountBound(bytes32,address)"(
+    _account: BytesLike,
+    _wallet: string,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
 
   config(overrides?: CallOverrides): Promise<string>;
 
@@ -1495,26 +1610,30 @@ export interface Payment extends Contract {
   ): Promise<string>;
 
   withdraw(
-    _from: BytesLike,
-    _to: string,
-    _token: string,
-    _available: BigNumberish,
-    _frozen: BigNumberish,
-    _sn: BytesLike,
-    _expired: BigNumberish,
-    _signature: BytesLike,
+    _params: {
+      from: BytesLike;
+      to: string;
+      token: string;
+      available: BigNumberish;
+      frozen: BigNumberish;
+      sn: BytesLike;
+      expired: BigNumberish;
+      signature: BytesLike;
+    },
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  "withdraw(bytes32,address,address,uint256,uint256,bytes32,uint256,bytes)"(
-    _from: BytesLike,
-    _to: string,
-    _token: string,
-    _available: BigNumberish,
-    _frozen: BigNumberish,
-    _sn: BytesLike,
-    _expired: BigNumberish,
-    _signature: BytesLike,
+  "withdraw((bytes32,address,address,uint256,uint256,bytes32,uint256,bytes))"(
+    _params: {
+      from: BytesLike;
+      to: string;
+      token: string;
+      available: BigNumberish;
+      frozen: BigNumberish;
+      sn: BytesLike;
+      expired: BigNumberish;
+      signature: BytesLike;
+    },
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -1526,6 +1645,34 @@ export interface Payment extends Contract {
     autoBindEnabled(overrides?: CallOverrides): Promise<boolean>;
 
     "autoBindEnabled()"(overrides?: CallOverrides): Promise<boolean>;
+
+    batchWithdraw(
+      _params: {
+        from: BytesLike;
+        to: string;
+        token: string;
+        available: BigNumberish;
+        frozen: BigNumberish;
+        sn: BytesLike;
+        expired: BigNumberish;
+        signature: BytesLike;
+      }[],
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "batchWithdraw(tuple[])"(
+      _params: {
+        from: BytesLike;
+        to: string;
+        token: string;
+        available: BigNumberish;
+        frozen: BigNumberish;
+        sn: BytesLike;
+        expired: BigNumberish;
+        signature: BytesLike;
+      }[],
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     bindAccount(
       _account: BytesLike,
@@ -1587,6 +1734,18 @@ export interface Payment extends Contract {
       _user: string,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    checkAccountBound(
+      _account: BytesLike,
+      _wallet: string,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
+    "checkAccountBound(bytes32,address)"(
+      _account: BytesLike,
+      _wallet: string,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
 
     config(overrides?: CallOverrides): Promise<string>;
 
@@ -1988,26 +2147,30 @@ export interface Payment extends Contract {
     ): Promise<string>;
 
     withdraw(
-      _from: BytesLike,
-      _to: string,
-      _token: string,
-      _available: BigNumberish,
-      _frozen: BigNumberish,
-      _sn: BytesLike,
-      _expired: BigNumberish,
-      _signature: BytesLike,
+      _params: {
+        from: BytesLike;
+        to: string;
+        token: string;
+        available: BigNumberish;
+        frozen: BigNumberish;
+        sn: BytesLike;
+        expired: BigNumberish;
+        signature: BytesLike;
+      },
       overrides?: CallOverrides
     ): Promise<void>;
 
-    "withdraw(bytes32,address,address,uint256,uint256,bytes32,uint256,bytes)"(
-      _from: BytesLike,
-      _to: string,
-      _token: string,
-      _available: BigNumberish,
-      _frozen: BigNumberish,
-      _sn: BytesLike,
-      _expired: BigNumberish,
-      _signature: BytesLike,
+    "withdraw((bytes32,address,address,uint256,uint256,bytes32,uint256,bytes))"(
+      _params: {
+        from: BytesLike;
+        to: string;
+        token: string;
+        available: BigNumberish;
+        frozen: BigNumberish;
+        sn: BytesLike;
+        expired: BigNumberish;
+        signature: BytesLike;
+      },
       overrides?: CallOverrides
     ): Promise<void>;
   };
@@ -2262,6 +2425,34 @@ export interface Payment extends Contract {
 
     "autoBindEnabled()"(overrides?: CallOverrides): Promise<BigNumber>;
 
+    batchWithdraw(
+      _params: {
+        from: BytesLike;
+        to: string;
+        token: string;
+        available: BigNumberish;
+        frozen: BigNumberish;
+        sn: BytesLike;
+        expired: BigNumberish;
+        signature: BytesLike;
+      }[],
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "batchWithdraw(tuple[])"(
+      _params: {
+        from: BytesLike;
+        to: string;
+        token: string;
+        available: BigNumberish;
+        frozen: BigNumberish;
+        sn: BytesLike;
+        expired: BigNumberish;
+        signature: BytesLike;
+      }[],
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     bindAccount(
       _account: BytesLike,
       _sn: BytesLike,
@@ -2324,6 +2515,18 @@ export interface Payment extends Contract {
     "changeOwner(address)"(
       _user: string,
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    checkAccountBound(
+      _account: BytesLike,
+      _wallet: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "checkAccountBound(bytes32,address)"(
+      _account: BytesLike,
+      _wallet: string,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     config(overrides?: CallOverrides): Promise<BigNumber>;
@@ -2725,26 +2928,30 @@ export interface Payment extends Contract {
     ): Promise<BigNumber>;
 
     withdraw(
-      _from: BytesLike,
-      _to: string,
-      _token: string,
-      _available: BigNumberish,
-      _frozen: BigNumberish,
-      _sn: BytesLike,
-      _expired: BigNumberish,
-      _signature: BytesLike,
+      _params: {
+        from: BytesLike;
+        to: string;
+        token: string;
+        available: BigNumberish;
+        frozen: BigNumberish;
+        sn: BytesLike;
+        expired: BigNumberish;
+        signature: BytesLike;
+      },
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    "withdraw(bytes32,address,address,uint256,uint256,bytes32,uint256,bytes)"(
-      _from: BytesLike,
-      _to: string,
-      _token: string,
-      _available: BigNumberish,
-      _frozen: BigNumberish,
-      _sn: BytesLike,
-      _expired: BigNumberish,
-      _signature: BytesLike,
+    "withdraw((bytes32,address,address,uint256,uint256,bytes32,uint256,bytes))"(
+      _params: {
+        from: BytesLike;
+        to: string;
+        token: string;
+        available: BigNumberish;
+        frozen: BigNumberish;
+        sn: BytesLike;
+        expired: BigNumberish;
+        signature: BytesLike;
+      },
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
@@ -2758,6 +2965,34 @@ export interface Payment extends Contract {
 
     "autoBindEnabled()"(
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    batchWithdraw(
+      _params: {
+        from: BytesLike;
+        to: string;
+        token: string;
+        available: BigNumberish;
+        frozen: BigNumberish;
+        sn: BytesLike;
+        expired: BigNumberish;
+        signature: BytesLike;
+      }[],
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "batchWithdraw(tuple[])"(
+      _params: {
+        from: BytesLike;
+        to: string;
+        token: string;
+        available: BigNumberish;
+        frozen: BigNumberish;
+        sn: BytesLike;
+        expired: BigNumberish;
+        signature: BytesLike;
+      }[],
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     bindAccount(
@@ -2822,6 +3057,18 @@ export interface Payment extends Contract {
     "changeOwner(address)"(
       _user: string,
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    checkAccountBound(
+      _account: BytesLike,
+      _wallet: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "checkAccountBound(bytes32,address)"(
+      _account: BytesLike,
+      _wallet: string,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     config(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -3231,26 +3478,30 @@ export interface Payment extends Contract {
     ): Promise<PopulatedTransaction>;
 
     withdraw(
-      _from: BytesLike,
-      _to: string,
-      _token: string,
-      _available: BigNumberish,
-      _frozen: BigNumberish,
-      _sn: BytesLike,
-      _expired: BigNumberish,
-      _signature: BytesLike,
+      _params: {
+        from: BytesLike;
+        to: string;
+        token: string;
+        available: BigNumberish;
+        frozen: BigNumberish;
+        sn: BytesLike;
+        expired: BigNumberish;
+        signature: BytesLike;
+      },
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    "withdraw(bytes32,address,address,uint256,uint256,bytes32,uint256,bytes)"(
-      _from: BytesLike,
-      _to: string,
-      _token: string,
-      _available: BigNumberish,
-      _frozen: BigNumberish,
-      _sn: BytesLike,
-      _expired: BigNumberish,
-      _signature: BytesLike,
+    "withdraw((bytes32,address,address,uint256,uint256,bytes32,uint256,bytes))"(
+      _params: {
+        from: BytesLike;
+        to: string;
+        token: string;
+        available: BigNumberish;
+        frozen: BigNumberish;
+        sn: BytesLike;
+        expired: BigNumberish;
+        signature: BytesLike;
+      },
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };
