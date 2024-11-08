@@ -249,7 +249,7 @@ export class Payment extends BaseContract {
     const types = ['address', 'bytes32', 'bytes32', 'uint256', 'uint256', 'address'];
     const values = [payer, account, sn, expired, this.chain.chainId+1, this.contract.address];
     const sign = await signData(this.signer, types, values, this.domain);
-    return { account, sn, expired, sign };
+    return { payer, account, sn, expired, sign };
   }
 
   public async signReplaceAccountData (
@@ -263,9 +263,9 @@ export class Payment extends BaseContract {
       account = hexToBytes32(account);
       sn = hexToBytes32(sn);
       const types = ['address', 'bytes32', 'address', 'bytes32', 'uint256', 'uint256', 'address'];
-      const values = [payer,account, wallet, sn, expired, this.chain.chainId+2, this.contract.address];
+      const values = [payer, account, wallet, sn, expired, this.chain.chainId+2, this.contract.address];
       const sign = await signData(this.signer, types, values, this.domain);;
-      return { account, wallet, sn, expired, sign };
+      return { payer, account, wallet, sn, expired, sign };
   }
 
   public async signDepositData(
@@ -281,9 +281,9 @@ export class Payment extends BaseContract {
     to = hexToBytes32(to);
     sn = hexToBytes32(sn);
     const types = ['address', 'bytes32', 'address', 'uint256', 'uint256', 'bytes32', 'uint256', 'uint256', 'address'];
-    const values = [payer,to, token, amount, frozen, sn, expired, this.chain.chainId+3, this.contract.address];
+    const values = [payer, to, token, amount, frozen, sn, expired, this.chain.chainId+3, this.contract.address];
     const sign = await signData(this.signer, types, values, this.domain);
-    return { to, token, amount, frozen, sn, expired, sign };
+    return {payer, to, token, amount, frozen, sn, expired, sign };
   }
 
   public async signWithdraw(
