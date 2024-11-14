@@ -90,6 +90,34 @@ const RewardClaimABI = [
     {
       "inputs": [
         {
+          "internalType": "uint256[]",
+          "name": "_periodNumbers",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "_groupIds",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "address[]",
+          "name": "_tokens",
+          "type": "address[]"
+        },
+        {
+          "internalType": "bytes32[]",
+          "name": "_merkleRoots",
+          "type": "bytes32[]"
+        }
+      ],
+      "name": "batchSetPeriod",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
           "internalType": "address",
           "name": "_user",
           "type": "address"

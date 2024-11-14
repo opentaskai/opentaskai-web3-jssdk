@@ -22,6 +22,7 @@ import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
 interface RewardClaimInterface extends ethers.utils.Interface {
   functions: {
     "admin()": FunctionFragment;
+    "batchSetPeriod(uint256[],uint256[],address[],bytes32[])": FunctionFragment;
     "changeOwner(address)": FunctionFragment;
     "checkPeriodMerkleRoot(uint256,uint256)": FunctionFragment;
     "claimReward(uint256,uint256,uint256,bytes32[])": FunctionFragment;
@@ -40,6 +41,10 @@ interface RewardClaimInterface extends ethers.utils.Interface {
   };
 
   encodeFunctionData(functionFragment: "admin", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "batchSetPeriod",
+    values: [BigNumberish[], BigNumberish[], string[], BytesLike[]]
+  ): string;
   encodeFunctionData(functionFragment: "changeOwner", values: [string]): string;
   encodeFunctionData(
     functionFragment: "checkPeriodMerkleRoot",
@@ -78,6 +83,10 @@ interface RewardClaimInterface extends ethers.utils.Interface {
   ): string;
 
   decodeFunctionResult(functionFragment: "admin", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "batchSetPeriod",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "changeOwner",
     data: BytesLike
@@ -167,6 +176,22 @@ export interface RewardClaim extends Contract {
     admin(overrides?: CallOverrides): Promise<[string]>;
 
     "admin()"(overrides?: CallOverrides): Promise<[string]>;
+
+    batchSetPeriod(
+      _periodNumbers: BigNumberish[],
+      _groupIds: BigNumberish[],
+      _tokens: string[],
+      _merkleRoots: BytesLike[],
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "batchSetPeriod(uint256[],uint256[],address[],bytes32[])"(
+      _periodNumbers: BigNumberish[],
+      _groupIds: BigNumberish[],
+      _tokens: string[],
+      _merkleRoots: BytesLike[],
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
     changeOwner(
       _user: string,
@@ -330,6 +355,22 @@ export interface RewardClaim extends Contract {
 
   "admin()"(overrides?: CallOverrides): Promise<string>;
 
+  batchSetPeriod(
+    _periodNumbers: BigNumberish[],
+    _groupIds: BigNumberish[],
+    _tokens: string[],
+    _merkleRoots: BytesLike[],
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "batchSetPeriod(uint256[],uint256[],address[],bytes32[])"(
+    _periodNumbers: BigNumberish[],
+    _groupIds: BigNumberish[],
+    _tokens: string[],
+    _merkleRoots: BytesLike[],
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   changeOwner(
     _user: string,
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -487,6 +528,22 @@ export interface RewardClaim extends Contract {
     admin(overrides?: CallOverrides): Promise<string>;
 
     "admin()"(overrides?: CallOverrides): Promise<string>;
+
+    batchSetPeriod(
+      _periodNumbers: BigNumberish[],
+      _groupIds: BigNumberish[],
+      _tokens: string[],
+      _merkleRoots: BytesLike[],
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "batchSetPeriod(uint256[],uint256[],address[],bytes32[])"(
+      _periodNumbers: BigNumberish[],
+      _groupIds: BigNumberish[],
+      _tokens: string[],
+      _merkleRoots: BytesLike[],
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     changeOwner(_user: string, overrides?: CallOverrides): Promise<void>;
 
@@ -663,6 +720,22 @@ export interface RewardClaim extends Contract {
 
     "admin()"(overrides?: CallOverrides): Promise<BigNumber>;
 
+    batchSetPeriod(
+      _periodNumbers: BigNumberish[],
+      _groupIds: BigNumberish[],
+      _tokens: string[],
+      _merkleRoots: BytesLike[],
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "batchSetPeriod(uint256[],uint256[],address[],bytes32[])"(
+      _periodNumbers: BigNumberish[],
+      _groupIds: BigNumberish[],
+      _tokens: string[],
+      _merkleRoots: BytesLike[],
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     changeOwner(
       _user: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -809,6 +882,22 @@ export interface RewardClaim extends Contract {
     admin(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "admin()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    batchSetPeriod(
+      _periodNumbers: BigNumberish[],
+      _groupIds: BigNumberish[],
+      _tokens: string[],
+      _merkleRoots: BytesLike[],
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "batchSetPeriod(uint256[],uint256[],address[],bytes32[])"(
+      _periodNumbers: BigNumberish[],
+      _groupIds: BigNumberish[],
+      _tokens: string[],
+      _merkleRoots: BytesLike[],
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
 
     changeOwner(
       _user: string,
